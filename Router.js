@@ -19,8 +19,8 @@ const { NU_Red, NU_Blue, NU_White, NU_Grey, NU_Black, NU_Border_Grey, NU_Card_Bo
 
 // conditionally render this page in sceens with a redux store that has defaults
 const tabIcon = ({ focused, title }) => {
-  return (<Text style={{color: focused ? 'red' :'black'}}>{title}</Text>)
-  // return (<Icon name="rocket" size={20} color={NU_Red} />);
+  // return (<Text style={{color: focused ? 'red' :'black'}}>{title}</Text>)
+  return (<Icon name="rocket" size={20} color={NU_Red} />);
 }
 
 const RouterComponent = () => (

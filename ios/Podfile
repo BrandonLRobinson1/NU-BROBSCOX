@@ -29,6 +29,8 @@ target 'NU' do
   #pod 'GLog', :podspec => "#{rn_path}/third-party-podspecs/GLog.podspec"
   pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   # react-native-maps dependencies
   pod 'react-native-maps', path: rn_maps_path
   pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support GoogleMaps on iOS
