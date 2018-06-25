@@ -1,125 +1,43 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { Button, CardSection, Card } from '../../common';
-// import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
-import MapContainer from './MapContainer';
-import { colors } from '../../Colors';
+import React from 'react';
+import { View, Text } from 'react-native';
+import MapView from 'react-native-maps';
 
-class MapTab extends Component {
-  constructor(){
-    super();
-    this.state = {
-      errorMessage: ' ',
-      loading: false
+export default class MapTab extends React.Component {
+    state = {
+        latitude: 20.9948891,
+        longitude: 105.799677,
+        latitudeDelta: 0.002,
+        longitudeDelta: 0.002
     }
-    this.onButtonPress = this.onButtonPress.bind(this);
-  }
-
-  onButtonPress() {
-
-  }
-
-  render() {
-    const {  circleContainer } = styles;
-    const region = {
-      latitude: 3.146642,
-      longitude: 101.695845,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
+    
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.text}>Welcome to react-native-maps</Text>
+                <MapView style={styles.map} initialRegion={this.state}>
+                    <MapView.Marker coordinate={this.state} />
+                </MapView>
+            </View>
+        );
     }
-    return (
-      <View>
-        <MapContainer
-          region={region}
-        />
-      </View>
-    )
-  }
 }
 
-export default MapTab
-
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
-
-const styles = StyleSheet.create({
-  circleContainer: {
-    height: '13%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: NU_Grey
-  }
-});
-
-
-// import React, { Component } from 'react';
-// import { View, Text, StyleSheet, Dimensions } from 'react-native';
-// import { connect } from 'react-redux';
-// import { Actions } from 'react-native-router-flux';
-// import { Button, CardSection, Card } from '../../common';
-// // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
-// import { colors } from '../../Colors';
-
-// class MapView extends Component {
-//   constructor(){
-//     super();
-//     this.state = {
-//       errorMessage: ' ',
-//       loading: false
-//     }
-//     this.onButtonPress = this.onButtonPress.bind(this);
-//   }
-
-//   onButtonPress() {
-
-//   }
-
-//   render() {
-//     const {  circleContainer } = styles
-//     return (
-//       <Card>
-
-//         <View style={circleContainer}>
-//           <Text>MapView text</Text>
-//         </View>
-
-//         <CardSection>
-//           <Button
-//             buttonText="map"
-//             onPress={() => Actions.Tab()}
-//           />
-//         </CardSection>
-
-//       </Card>
-//     )
-//   }
-// }
-
-// export default connect(
-//   state => ({
-//     // firstName: state.signUp.SignUp.firstName,
-//     // lastName: state.signUp.SignUp.lastName,
-//     // zipCode: state.signUp.SignUp.zipCode
-//   }),
-//   {
-//     // updateFirstName,
-//     // updateLastName,
-//     // updateZipCode
-//   }
-// )(MapView);
-
-// const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
-
-// const styles = StyleSheet.create({
-//   circleContainer: {
-//     height: '13%',
-//     display: 'flex',
-//     flexDirection: 'row',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     borderBottomWidth: 1,
-//     borderBottomColor: NU_Grey
-//   }
-// });
+const styles = {
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff'
+    },
+    text: {
+        fontSize: 30,
+        fontWeight: '700',
+        color: '#59656C',
+        marginBottom: 10,
+    },
+    map: {
+        width: 300,
+        height: 300,
+        flex: 1
+    }
+};
