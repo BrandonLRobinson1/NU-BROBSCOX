@@ -1,3 +1,6 @@
+***DO NOT HAVE THIS PROJECT NESTED IN ANY FOLDER THAT HAS A SPACE IN THE NAME!!
+
+
 react-native run-ios --simulator="iPhone 5s"
 
 open BROBSCOXNU.xcworkspace --> !from ios folder! in terminal
