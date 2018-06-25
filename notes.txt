@@ -1,0 +1,124 @@
+react-native run-ios --simulator="iPhone 5s"
+
+open BROBSCOXNU.xcworkspace --> !from ios folder! in terminal
+
+DONT NEED TO LINK ANYMORE
+
+pod init and pod install in the ios folder <-- *did this already
+
+https://medium.com/@shamin616/how-to-setup-google-maps-with-react-native-maps-in-react-native-in-ios-c5dd95f00a2c
+
+This might be related to https://github.com/facebook/react-native/issues/4968
+ 1. Clear watchman watches: `watchman watch-del-all`.
+  2. Delete the `node_modules` folder: `rm -rf node_modules && npm install`.
+  3. Reset Metro Bundler cache: `rm -rf /tmp/metro-bundler-cache-*` or `npm start -- --reset-cache`.
+  4. Remove haste cache: `rm -rf /tmp/haste-map-react-native-packager-*`.
+    at ModuleResolver.resolveDependency (/Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/node-haste/DependencyGraph/ModuleResolution.js:161:1460)
+    at ResolutionRequest.resolveDependency (/Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/node-haste/DependencyGraph/ResolutionRequest.js:91:16)
+    at DependencyGraph.resolveDependency (/Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/node-haste/DependencyGraph.js:272:4579)
+    at dependencies.map.relativePath (/Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/DeltaBundler/traverseDependencies.js:376:19)
+    at Array.map (native)
+    at resolveDependencies (/Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/DeltaBundler/traverseDependencies.js:374:16)
+    at /Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/DeltaBundler/traverseDependencies.js:212:33
+    at Generator.next (<anonymous>)
+    at step (/Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/DeltaBundler/traverseDependencies.js:297:313)
+    at /Users/brob/Desktop/Working on/BROBSCOXNU/node_modules/metro/src/DeltaBundler/traverseDependencies.js:297:473
+
+
+To be honest when things go terribly wrong (especially if you are using more than one libraries with native code) - I would delete the ios & android directories, also delete node_modules, reinstall node modules (make sure you install RN 0.40 & rn-maps 0.13.0), then run react-native upgrade (to recreate the ios and android projects) and finally react-native link.
+
+Hope it helps!
+
+Ps. Basically if you run react-native link without doing the above and if you already have the previous version of rn-maps, it might not override the rn-maps native code in your project so it will not work - hence I am suggesting the above solution.
+
+
+    ==============================================
+
+Valid keys: [
+  "display",
+  "width",
+  "height",
+  "start",
+  "end",
+  "top",
+  "left",
+  "right",
+  "bottom",
+  "minWidth",
+  "maxWidth",
+  "minHeight",
+  "maxHeight",
+  "margin",
+  "marginVertical",
+  "marginHorizontal",
+  "marginTop",
+  "marginBottom",
+  "marginLeft",
+  "marginRight",
+  "marginStart",
+  "marginEnd",
+  "padding",
+  "paddingVertical",
+  "paddingHorizontal",
+  "paddingTop",
+  "paddingBottom",
+  "paddingLeft",
+  "paddingRight",
+  "paddingStart",
+  "paddingEnd",
+  "borderWidth",
+  "borderTopWidth",
+  "borderStartWidth",
+  "borderEndWidth",
+  "borderRightWidth",
+  "borderBottomWidth",
+  "borderLeftWidth",
+  "position",
+  "flexDirection",
+  "flexWrap",
+  "justifyContent",
+  "alignItems",
+  "alignSelf",
+  "alignContent",
+  "overflow",
+  "flex",
+  "flexGrow",
+  "flexShrink",
+  "flexBasis",
+  "aspectRatio",
+  "zIndex",
+  "direction",
+  "shadowColor",
+  "shadowOffset",
+  "shadowOpacity",
+  "shadowRadius",
+  "transform",
+  "transformMatrix",
+  "decomposedMatrix",
+  "scaleX",
+  "scaleY",
+  "rotation",
+  "translateX",
+  "translateY",
+  "backfaceVisibility",
+  "backgroundColor",
+  "borderColor",
+  "borderTopColor",
+  "borderRightColor",
+  "borderBottomColor",
+  "borderLeftColor",
+  "borderStartColor",
+  "borderEndColor",
+  "borderRadius",
+  "borderTopLeftRadius",
+  "borderTopRightRadius",
+  "borderTopStartRadius",
+  "borderTopEndRadius",
+  "borderBottomLeftRadius",
+  "borderBottomRightRadius",
+  "borderBottomStartRadius",
+  "borderBottomEndRadius",
+  "borderStyle",
+  "opacity",
+  "elevation"
+]

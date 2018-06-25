@@ -1,0 +1,46 @@
+{
+  "name": "BROBSCOXNU",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "firebase": "^5.0.4",
+    "graphql": "^0.13.2",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "react-native-communications": "^2.2.1",
+    "react-native-maps": "^0.21.0",
+    "react-native-router-flux": "^4.0.0-beta.31",
+    "react-native-vector-icons": "^4.6.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.4.0",
+    "redux-thunk": "^2.3.0",
+    "remote-redux-devtools": "^0.5.12",
+    "sequelize": "^4.37.10"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "23.0.1",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "23.1.0",
+    "nodemon": "^1.17.5",
+    "react-test-renderer": "16.3.1",
+    "redux-mock-store": "^1.5.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
