@@ -1,5 +1,6 @@
 ***DO NOT HAVE THIS PROJECT NESTED IN ANY FOLDER THAT HAS A SPACE IN THE NAME!!
 
+**https://itnext.io/install-react-native-maps-with-gradle-3-on-android-44f91a70a395
 
 react-native run-ios --simulator="iPhone 5s"
 
@@ -8,6 +9,7 @@ open BROBSCOXNU.xcworkspace --> !from ios folder! in terminal
 DONT NEED TO LINK ANYMORE
 
 pod init and pod install in the ios folder <-- *did this already
+
 
 https://medium.com/@shamin616/how-to-setup-google-maps-with-react-native-maps-in-react-native-in-ios-c5dd95f00a2c
 
@@ -36,6 +38,47 @@ Ps. Basically if you run react-native link without doing the above and if you al
 
 
     ==============================================
+
+
+Fixing SDK Path Errors on Linux Distributions
+Your project is not finding the SDK set in the Project Settings via the path provided, so the project needs to be pointing in the right direction, and you have a couple options to accomplish this, but let's start by finding the correct SDK folder first.
+
+Finding your SDK
+From Package Manager
+
+If you are using a package-based JRE install like Java 8 JRE via a the custom PPA in a Debian-based distribution, or used OpenJDK, the directory will most likely be /usr/lib/jvm/java-8-oracle (or whatever version you have chosen). You can find this path set in the JAVA_HOME environment variable:
+
+$ echo $JAVA_HOME
+ /usr/lib/jvm/java-8-oracle
+Manual Download
+
+If you have installed via the Java JRE/SDK download, it will be wherever you placed the folder, e.g. /home/username/jdk-8u121_1.8.0 (or something similar).
+
+Scripted installs may even add the SDK to /opt/java-8-oracle, but as of this writing, the Java Install instructions leave the folder placement in your hands.
+
+Android Studio 2.2
+
+Lastly if you are using Android Studio, the SDK is placed where you have set it to place the SDK files downloaded through the Studio's SDK Manager. By going to File > Settings > Appearance & Behavior > System Settings > Android SDK, you can find the SDK location setting at the top with the option to change, and the default folder being ~/Android/Sdk.
+
+Android Studio SDK Path
+
+Setting the SDK Path
+Now that we know where the SDK is, it is time to let react-native know.
+
+Option 1: Set with local.properties
+
+This method is very simple, and all that is needed is creating the file local.properties in the following folder, where Project_Folder is the base of your React-Native application:
+
+Project_Folder/Android/App
+
+In your local.properties, you want to set the variable sdk.dir to the path of your SDK folder:
+
+sdk.dir=/home/username/Android/Sdk
+While this is the easiest way to remedy the issue, it is not the best, especially if you work with multiple projects. For every project, you will have to create this file for every project, and if the folder changes plan on changing this file for each project's local.properties.
+
+
+==============================================
+
 
 Valid keys: [
   "display",
