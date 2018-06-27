@@ -10,6 +10,17 @@ DONT NEED TO LINK ANYMORE
 
 pod init and pod install in the ios folder <-- *did this already
 
+command m - debug andriod
+
+**IMPORTANT - to get ANDROID BUNDLE WORKING - put http://localhost:8081/debugger-ui/ in browser and hit enter then on andriod emulator click command M and then debug-js-remotley IN THAT ORDER and  (seems to be a linking things)
+
+import {Platform, StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  height: Platform.OS === 'ios' ? 200 : 100,
+});
+
+npm install --save react-navigation
 
 https://medium.com/@shamin616/how-to-setup-google-maps-with-react-native-maps-in-react-native-in-ios-c5dd95f00a2c
 
