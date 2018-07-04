@@ -21,6 +21,16 @@ public class MainApplication extends Application implements ReactApplication {
       return BuildConfig.DEBUG;
     }
 
+    // https://github.com/callstack/haul/issues/334
+    // @Override
+    // public void onCreate() {
+    //     super.onCreate();
+    //     DevInternalSettings settings = (DevInternalSettings) getReactGateway().getReactInstanceManager().getDevSupportManager().getDevSettings();
+    //     if (settings != null) {
+    //         settings.setBundleDeltasEnabled(false);
+    //     }      
+    // }
+
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
