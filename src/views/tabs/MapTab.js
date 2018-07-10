@@ -80,6 +80,7 @@ export default class Maptab extends Component {
 
         this.renderMarkers =  this.renderMarkers.bind(this);
         this.renderCards =  this.renderCards.bind(this);
+        this.onCardClick = this.onCardClick.bind(this);
     }
   
   componentWillMount() {
@@ -158,9 +159,13 @@ export default class Maptab extends Component {
       );
   }
 
+  onCardClick (person) {
+      console.log('marker', person)
+  }
+
   renderCards(marker, index) {
        return (
-        <View style={styles.card} key={index}>
+        <View style={styles.card} key={index} onClick={this.onCardClick(marker)}>
             <Image
                 source={marker.image}
                 style={styles.cardImage}
@@ -209,7 +214,7 @@ export default class Maptab extends Component {
           style={styles.scrollView}
           contentContainerStyle={styles.endPadding}
         >
-          {this.state.markers.map(this.renderCards)}
+          { this.state.markers.map(this.renderCards) }
         </Animated.ScrollView>
       </View>
     );
