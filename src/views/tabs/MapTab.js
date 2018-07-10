@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
     overflow: "hidden",
+    borderRadius: 5 
   },
   cardImage: {
     flex: 3,
