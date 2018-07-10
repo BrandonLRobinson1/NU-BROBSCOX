@@ -149,6 +149,8 @@ export default class Maptab extends Component {
       const opacityStyle = {
         opacity: interpolations[index].opacity,
       };
+
+      //****** <MapView.Marker pinColor='green'/>*
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
           <Animated.View style={[styles.markerWrap, opacityStyle]}>
