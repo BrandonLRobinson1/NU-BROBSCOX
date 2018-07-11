@@ -307,12 +307,13 @@ marker: {
         backgroundColor: "rgba(130,4,150, 0.9)",
       },
       ring: {
-        
+        position: 'relative',
         width: 24,
         height: 24,
         borderRadius: 12,
         backgroundColor: "rgba(130,4,150, 0.3)",
         borderWidth: 1,
+        top: 15,
     borderColor: "rgba(130,4,150, 0.5)",
   },
 });
