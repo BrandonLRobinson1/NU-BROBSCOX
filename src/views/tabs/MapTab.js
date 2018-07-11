@@ -151,14 +151,19 @@ export default class Maptab extends Component {
       };
 
       //****** <MapView.Marker pinColor='green'/>*
+        // <MapView.Marker key={index} coordinate={marker.coordinate}>
+        //      <Animated.View style={[styles.markerWrap, opacityStyle]}>
+        //        <Animated.View style={[styles.ring, scaleStyle]} />
+        //        <View style={styles.marker} />
+        //      </Animated.View>
+        //    </MapView.Marker>
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
-            <Animated.View style={[ scaleStyle, opacityStyle]} />
-            <View style={[styles.ring, styles.markerWrap]}>
-                <View style={styles.marker}/>
-            </View>
+            <Animated.View style={[styles.markerWrap, opacityStyle]}>
+                <View style={styles.marker} />
+            </Animated.View>
         </MapView.Marker>
-      );
+      )
   }
 
   onCardClick (person) {
@@ -184,7 +189,6 @@ export default class Maptab extends Component {
   }
 
   render() {
-    
 
     return (
       <View style={styles.container}>
@@ -274,9 +278,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   marker: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 13,
+    height: 13,
+    borderRadius: 6,
     backgroundColor: "rgba(130,4,150, 0.9)",
   },
   ring: {
