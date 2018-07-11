@@ -53,21 +53,21 @@ const RouterComponent = () => (
         title="Phone Number"
         backTitle=" "
       />
-      */}
+      
       <Scene
         key="Validate"
         component={Validate}
         title="Validate"
         backTitle=" "
       />
-      {/*}
+   
       <Scene
         key="logIn"
         component={LogIn}
         title="Please Login"
         backTitle=" "
       />   
-    */}
+  
       <Scene
         key="tabbar"
         tabs
@@ -77,7 +77,9 @@ const RouterComponent = () => (
         pressOpacity={1}
         default="home"
       >
-        <Scene key="home" title="HOME" icon={tabIcon} >
+        */}
+      <Scene key="home" title="HOME" icon={tabIcon} >
+      {/*
           <Scene
             key="homeTab"
             title="HomeTab"
@@ -86,6 +88,7 @@ const RouterComponent = () => (
             initial
           />
         </Scene>
+      */}
         <Scene key="map" title="MAP" icon={tabIcon} >
           <Scene
             key="mapTab"
