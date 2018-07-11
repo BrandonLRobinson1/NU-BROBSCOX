@@ -160,9 +160,9 @@ export default class Maptab extends Component {
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
             <Animated.View style={[styles.markerWrap, opacityStyle]}>
-                    <View style={[styles.ring]} >
-                     <View style={[styles.marker]} />
-                    </View>
+                <Animated.View style={[styles.ring, scaleStyle]} />
+                
+                <View style={[styles.marker]} />
             </Animated.View>
         </MapView.Marker>
       )
@@ -279,24 +279,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  marker: {
-    display: 'flex',
-    alignItems: "center",
-    justifyContent: "center",
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "rgba(130,4,150, 0.9)",
-  },
-  ring: {
-    display: 'flex',
-    alignItems: "center",
-    justifyContent: "center",
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: "rgba(130,4,150, 0.3)",
-    borderWidth: 1,
+//   marker: {
+//     display: 'flex',
+//     alignItems: "center",
+//     justifyContent: "center",
+//     width: 8,
+//     height: 8,
+//     borderRadius: 4,
+//     backgroundColor: "rgba(130,4,150, 0.9)",
+//   },
+//   ring: {
+//     display: 'flex',
+//     alignItems: "center",
+//     justifyContent: "center",
+//     width: 24,
+//     height: 24,
+//     borderRadius: 12,
+//     backgroundColor: "rgba(130,4,150, 0.3)",
+//     borderWidth: 1,
+//     borderColor: "rgba(130,4,150, 0.5)",
+//   },
+
+marker: {
+     width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: "rgba(130,4,150, 0.9)",
+      },
+      ring: {
+        
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        backgroundColor: "rgba(130,4,150, 0.3)",
+        borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)",
   },
 });
