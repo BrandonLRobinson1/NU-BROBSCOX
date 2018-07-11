@@ -153,10 +153,10 @@ export default class Maptab extends Component {
       //****** <MapView.Marker pinColor='green'/>*
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
-          <Animated.View style={[styles.markerWrap, opacityStyle]}>
-            <Animated.View style={[styles.ring, scaleStyle]} />
-            <View style={styles.marker} />
-          </Animated.View>
+            <Animated.View style={[ scaleStyle, opacityStyle]} />
+            <View style={[styles.ring, styles.markerWrap]}>
+                <View style={styles.marker}/>
+            </View>
         </MapView.Marker>
       );
   }
@@ -189,7 +189,7 @@ export default class Maptab extends Component {
     return (
       <View style={styles.container}>
         <MapView
-         
+          provider={PROVIDER_GOOGLE}
           ref={map => this.map = map}
           initialRegion={this.state.region}
           style={styles.container}
