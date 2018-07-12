@@ -54,7 +54,7 @@ export default connect(
   }
 )(Home);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 
 const styles = StyleSheet.create({
   circleContainer: {

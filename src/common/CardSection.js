@@ -11,13 +11,13 @@ const CardSection = (props) => {
     );
 };
 
-const { NU_Red, NU_Blue, NU_White, NU_Grey, NU_Black, NU_Border_Grey, NU_Backround  } = colors
+const { NU_Red, NU_Blue, NU_White, NU_Grey, NU_Black, NU_Border_Grey, NU_Background  } = colors
 
 const styles = StyleSheet.create({
   CardSectionStyles: {
     borderBottomWidth: 1,
     padding: 5,
-    backgroundColor: NU_Backround,
+    backgroundColor: NU_Background,
     justifyContent: 'flex-start',
     borderColor: NU_Border_Grey,
     flexDirection: 'row',
