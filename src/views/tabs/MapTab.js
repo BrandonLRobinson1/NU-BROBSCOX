@@ -10,7 +10,9 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
+import { getUserLocation } from '../../store/location/locationServices'; 
 import { colors } from '../../Colors';
 
 const Images = [
@@ -25,7 +27,7 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-export default class Maptab extends Component {
+class Maptab extends Component {
     constructor() {
         super();
 
@@ -82,12 +84,14 @@ export default class Maptab extends Component {
         this.customMarker = this.customMarker.bind(this);
     }
   
-  componentWillMount() {
+  async componentWillMount() {
     this.index = 0;
     this.animation = new Animated.Value(0);
+    await this.props.getUserLocation();
+    console.log('my locations is: ', this.props.userLocation);
   }
   
-  componentDidMount() {
+    componentDidMount() {
     // We should detect when scrolling has stopped then animate
     // We should just debounce the event listener here
     this.animation.addListener(({ value }) => {
@@ -180,7 +184,7 @@ export default class Maptab extends Component {
   renderCards(marker, index) {
     const { card, cardImage, textContent, cardtitle, cardDescription } = styles;
     return (
-      <View style={card} key={index} onClick={this.onCardClick(marker)}>
+      <View style={card} key={index} onClick={() => this.onCardClick(marker)}>
           <Image
             source={marker.image}
             style={cardImage}
@@ -238,6 +242,15 @@ export default class Maptab extends Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    userLocation: state.location.locationServices.userLocation,
+  }),
+  {
+    getUserLocation,
+  }
+)(Maptab);
 
 const { NU_Red, NU_White, NU_Transparent, NU_Background, NU_Card_Border, NU_Text_Desc } = colors;
 

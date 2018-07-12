@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 // import dummyStore from './dummyStore';
 import signUp from './signUp';
 import logIn from './logIn';
+import location from './location';
 
 const rootReducer = combineReducers({
   signUp,
-  logIn
+  logIn,
+  location
 })
 
 export const store = createStore(
