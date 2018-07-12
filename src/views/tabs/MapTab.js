@@ -161,7 +161,7 @@ export default class Maptab extends Component {
         <MapView.Marker key={index} coordinate={marker.coordinate}>
         <Animated.View style={[styles.markerWrap, opacityStyle]}>
           <Animated.View style={[styles.ring, scaleStyle]} />
-            <View style={[{width: 50, height: 50, display: 'flex', backgroundColor: 'blue'}, styles.markerWrap,]}>
+            <View style={[{width: 100, height: 100, display: 'flex',}, styles.markerWrap,]}>
                 <View style={styles.marker} />
             </View>
         </Animated.View>
@@ -317,7 +317,7 @@ marker: {
         borderRadius: 12,
         backgroundColor: "rgba(130,4,150, 0.3)",
         borderWidth: 1,
-        top: 20,
+        top: 62,
     borderColor: "rgba(130,4,150, 0.5)",
   },
 });
