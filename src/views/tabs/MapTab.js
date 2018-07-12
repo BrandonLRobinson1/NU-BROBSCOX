@@ -239,7 +239,7 @@ export default class Maptab extends Component {
   }
 }
 
-const { NU_Red, NU_Transparent, NU_Background, NU_Card_Border, NU_Text_Desc } = colors;
+const { NU_Red, NU_White, NU_Transparent, NU_Background, NU_Card_Border, NU_Text_Desc } = colors;
 
 const styles = StyleSheet.create({
   container: {
@@ -292,8 +292,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   customMarkerShell: {
-    width: 34,
-    height: 26,
+    width: 40,
+    height: 30,
     display: 'flex',
     flexDirection: 'column',
   },
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     backgroundColor: NU_Red,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 4
+    borderRadius: 3
   },
   customMarkerTailShell: {
     flex: 1,
@@ -312,22 +312,21 @@ const styles = StyleSheet.create({
   customMarkerTail: {
     width: 0,
     height: 0,
-    borderColor: NU_Red,
     backgroundColor: NU_Transparent,
     borderStyle: 'solid',
-    borderLeftWidth: 7,
-    borderRightWidth: 7,
-    borderBottomWidth: 10,
+    borderLeftWidth: 4,
+    borderRightWidth: 4,
+    borderBottomWidth: 11,
     borderLeftColor: NU_Transparent,
     borderRightColor: NU_Transparent,
     borderBottomColor: NU_Red,
     transform: [
-      {rotate: '180deg'}
-    ]
+        {rotate: '180deg'}
+      ]
   },
   customMarkerText: {
-    color: 'white',
-    fontSize: 10,
+    color: NU_White,
+    fontSize: 11,
   },
   markerSize: {
     width: 100,
