@@ -142,7 +142,7 @@ export default class Maptab extends Component {
         ];
         const scale = this.animation.interpolate({
             inputRange,
-            outputRange: [1, 2.5, 1],
+            outputRange: [1, 1.3, 1],
             extrapolate: "clamp",
         });
         const opacity = this.animation.interpolate({
@@ -173,8 +173,8 @@ export default class Maptab extends Component {
         //    </MapView.Marker>
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
-          <Animated.View style={[styles.markerWrap, opacityStyle]}>
-                <Animated.View style={[styles.ring, scaleStyle]} />
+          <Animated.View style={[styles.markerWrap, opacityStyle, scaleStyle, {width: 100, height: 40}]}>
+                <Animated.View style={[scaleStyle ]} />
                 {this.customMarker()}
               </Animated.View>
             </MapView.Marker>
