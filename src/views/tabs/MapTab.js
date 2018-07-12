@@ -81,6 +81,7 @@ export default class Maptab extends Component {
         this.renderMarkers =  this.renderMarkers.bind(this);
         this.renderCards =  this.renderCards.bind(this);
         this.onCardClick = this.onCardClick.bind(this);
+        this.customMarker = this.customMarker.bind(this);
     }
   
   componentWillMount() {
@@ -116,6 +117,19 @@ export default class Maptab extends Component {
         }
       }, 10);
     });
+  }
+
+  customMarker() {
+      return (
+          <View style={styles.customMarkerShell}>
+            <View style={styles.customMarker}>
+                <Text style={styles.customMarkerText}> NU </Text>
+            </View>
+            <View style={styles.customMarkerTailShell}>
+                <View style={styles.customMarkerTail}/>
+            </View>
+          </View>
+      )
   }
 
   renderMarkers(marker, index) {
@@ -159,13 +173,11 @@ export default class Maptab extends Component {
         //    </MapView.Marker>
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
-        <Animated.View style={[styles.markerWrap, opacityStyle]}>
-          <Animated.View style={[styles.ring, scaleStyle]} />
-            <View style={[{width: 100, height: 100, display: 'flex',}, styles.markerWrap,]}>
-                <View style={styles.marker} />
-            </View>
-        </Animated.View>
-      </MapView.Marker>
+          <Animated.View style={[styles.markerWrap, opacityStyle]}>
+                <Animated.View style={[styles.ring, scaleStyle]} />
+                {this.customMarker()}
+              </Animated.View>
+            </MapView.Marker>
       )
   }
 
@@ -201,7 +213,9 @@ export default class Maptab extends Component {
           initialRegion={this.state.region}
           style={styles.container}
         >
+          
           { this.state.markers.map(this.renderMarkers) }
+         
         </MapView>
         <Animated.ScrollView
           horizontal
@@ -280,6 +294,44 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  customMarkerShell: {
+      width: 40,
+      height: 30,
+      display: 'flex',
+      flexDirection: 'column',
+  },
+  customMarker: {
+      flex: 2,
+      backgroundColor: 'red',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 3
+  },
+  customMarkerTailShell: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    alignItems: 'center'
+    
+  },
+  customMarkerTail: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 4,
+    borderRightWidth: 4,
+    borderBottomWidth: 10,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'red',
+    transform: [
+        {rotate: '180deg'}
+      ]
+  },
+  customMarkerText: {
+    color: 'white',
+    fontSize: 11,
+  },
 //   marker: {
 //     display: 'flex',
 //     alignItems: "center",
@@ -301,23 +353,21 @@ const styles = StyleSheet.create({
 //     borderColor: "rgba(130,4,150, 0.5)",
 //   },
 
-marker: {
-        display: 'flex',
-        alignItems: "center",
-        justifyContent: "center",
+// marker: {
+    marker: {
         width: 8,
         height: 8,
         borderRadius: 4,
         backgroundColor: "rgba(130,4,150, 0.9)",
       },
       ring: {
-        position: 'relative',
         width: 24,
         height: 24,
         borderRadius: 12,
         backgroundColor: "rgba(130,4,150, 0.3)",
+        position: "relative",
+        top: 15,
         borderWidth: 1,
-        top: 62,
     borderColor: "rgba(130,4,150, 0.5)",
   },
 });
