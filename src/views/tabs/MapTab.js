@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   customMarkerShell: {
-      width: 40,
+      width: 38,
       height: 30,
       display: 'flex',
       flexDirection: 'column',
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'red',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 3
+      borderRadius: 4
   },
   customMarkerTailShell: {
     flex: 1,
