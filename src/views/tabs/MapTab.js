@@ -159,12 +159,13 @@ export default class Maptab extends Component {
         //    </MapView.Marker>
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
-            <Animated.View style={[styles.markerWrap, opacityStyle]}>
-                <Animated.View style={[styles.ring, scaleStyle]} />
-                
-                <View style={[styles.marker]} />
-            </Animated.View>
-        </MapView.Marker>
+        <Animated.View style={[styles.markerWrap, opacityStyle]}>
+          <Animated.View style={[styles.ring, scaleStyle]} />
+            <View style={[{width: 50, height: 50, display: 'flex', backgroundColor: 'blue'}, styles.markerWrap,]}>
+                <View style={styles.marker} />
+            </View>
+        </Animated.View>
+      </MapView.Marker>
       )
   }
 
@@ -301,7 +302,10 @@ const styles = StyleSheet.create({
 //   },
 
 marker: {
-     width: 8,
+        display: 'flex',
+        alignItems: "center",
+        justifyContent: "center",
+        width: 8,
         height: 8,
         borderRadius: 4,
         backgroundColor: "rgba(130,4,150, 0.9)",
@@ -313,7 +317,7 @@ marker: {
         borderRadius: 12,
         backgroundColor: "rgba(130,4,150, 0.3)",
         borderWidth: 1,
-        top: 15,
+        top: 20,
     borderColor: "rgba(130,4,150, 0.5)",
   },
 });
