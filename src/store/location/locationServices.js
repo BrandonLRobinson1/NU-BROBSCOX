@@ -67,6 +67,7 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
                 longitudeDelta: longDelta
               };
         dispatch(setRegionObj(regionObj));
+        console.log('regionobj', regionObj)
         return regionObj;
       },
       // // position => console.log('postion', position),
