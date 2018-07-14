@@ -76,6 +76,7 @@ class Maptab extends Component {
               latitudeDelta: 0.04864195044303443,
               longitudeDelta: 0.040142817690068,
             },
+
           };
 
         this.renderMarkers =  this.renderMarkers.bind(this);
