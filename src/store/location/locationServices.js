@@ -15,7 +15,7 @@ const defaultState = {
   // full location obj
   userLocation: '',
   userLatitude: '',
-  userLongittude: '',
+  userLongitude: '',
   regionObj: {}
 };
 
@@ -37,7 +37,7 @@ export default handleActions({
   }),
   [setCurrentLongitude]: (state, { payload }) => ({
     ...state,
-    userLongittude: payload
+    userLongitude: payload
   }),
   [setRegionObj]: (state, { payload }) => ({
     ...state,
@@ -51,14 +51,14 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
   
     return navigator.geolocation.getCurrentPosition(
       position => {
-        const { latitude, longitude } = position.coords;
+        const { timestamp, coords: { latitude, longitude } } = position;
         // has to spit out region, can take in variables of array
         dispatch(setCurrentLocation(position));
         dispatch(setCurrentLatitude(latitude));
         dispatch(setCurrentLongitude(longitude));
+        
         // create a region object for front end
-
-        const regionObj = markersArray
+        const regionInfo = markersArray
           ? getRegionForCoordinates(markersArray)
           : {
                 latitude,
@@ -66,13 +66,30 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
                 latitudeDelta: latDelta,
                 longitudeDelta: longDelta
               };
-        dispatch(setRegionObj(regionObj));
-        console.log('regionobj', regionObj)
-        return regionObj;
+
+        regionInfo.timeStamp = timestamp; // because its not a field added in the getRegionForCoordinates function so I add it here so its added for both every time - also if i decide the timestamp would make better sense elsewhere i can move it
+        dispatch(setRegionObj(regionInfo));
+
+        // Test
+      //   const {
+      //     location: {
+      //       locationServices: {
+      //         userLocation,
+      //         userLatitude,
+      //         userLongittude,
+      //         regionObj
+      //       }
+      //     }
+      //   } = getState();
+      //   console.log('return from hell redux store',
+      //         'loc', userLocation,
+      //         'lat', userLatitude,
+      //         'long', userLongittude,
+      //         'reeeGEN-C', regionObj
+      // )
+        return regionInfo;
       },
-      // // position => console.log('postion', position),
       error => console.log('get location errr message:', error.message),
       { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
     );
-
 }

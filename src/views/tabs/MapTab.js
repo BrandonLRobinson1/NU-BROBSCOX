@@ -76,7 +76,7 @@ class Maptab extends Component {
               latitudeDelta: 0.04864195044303443,
               longitudeDelta: 0.040142817690068,
             },
-
+            recievedLocationSwitch: false
           };
 
         this.renderMarkers =  this.renderMarkers.bind(this);
@@ -85,11 +85,12 @@ class Maptab extends Component {
         this.customMarker = this.customMarker.bind(this);
     }
   
-  async componentWillMount() {
+  componentWillMount() {
     this.index = 0;
     this.animation = new Animated.Value(0);
-    await this.props.getUserLocation();
-    console.log('my locations is: ', this.props.userLocation);
+
+    // should probaly fire this when you can navigate with the tabs on the bottom (on load)
+    this.props.getUserLocation();
   }
   
     componentDidMount() {
@@ -203,6 +204,26 @@ class Maptab extends Component {
 
   render() {
     const { container, scrollView, endPadding } = styles;
+    
+    console.log('this.props.regionObj.timeStamp', this.props.regionObj.timeStamp, this.props.regionObj)
+    this.props.regionObj.timeStamp && !this.state.recievedLocationSwitch
+      ?  this.setState({
+            region: this.props.regionObj,
+            recievedLocationSwitch: true,
+            // this is because my current location and these hard coded markers dont match - but could set markers here IF its a good place for the markers to be be here and not in redux
+            markers: []
+
+        })
+      // ?  
+      //   console.log('ughh')
+    //   this.setState({
+    //     region: this.props.regionObj,
+    //     // this is because my current location and these hard coded markers dont match - but could set markers here IF its a good place for the markers to be be here and not in redux
+    //     markers: []
+
+    // })
+      : console.log('no set');
+
     return (
       <View style={container}>
         <MapView
@@ -246,7 +267,7 @@ class Maptab extends Component {
 
 export default connect(
   state => ({
-    userLocation: state.location.locationServices.userLocation,
+    regionObj: state.location.locationServices.regionObj
   }),
   {
     getUserLocation,
