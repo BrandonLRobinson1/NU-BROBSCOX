@@ -16,13 +16,15 @@ const defaultState = {
   userLocation: '',
   userLatitude: '',
   userLongitude: '',
-  regionObj: {}
+  regionObj: {},
+  readyToRenderMap: false
 };
 
 const prefix = 'NU_STORE/LOCATION/';
 export const setCurrentLocation = createAction(`${prefix}SET_CURRENT_LOCATION`);
 export const setCurrentLatitude = createAction(`${prefix}SET_CURRENT_LATITUDE`);
 export const setCurrentLongitude = createAction(`${prefix}SET_CURRENT_LONGITUDE`);
+export const setReadyToRenderMap = createAction(`${prefix}SET_READY_TO_RENDER_MAP`);
 export const setRegionObj = createAction(`${prefix}SET_REGION_OBJ`);
 
 
@@ -38,6 +40,10 @@ export default handleActions({
   [setCurrentLongitude]: (state, { payload }) => ({
     ...state,
     userLongitude: payload
+  }),
+  [setReadyToRenderMap]: (state, { payload }) => ({
+    ...state,
+    readyToRenderMap: payload
   }),
   [setRegionObj]: (state, { payload }) => ({
     ...state,
@@ -61,32 +67,34 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
         const regionInfo = markersArray
           ? getRegionForCoordinates(markersArray)
           : {
-                latitude,
-                longitude,
-                latitudeDelta: latDelta,
-                longitudeDelta: longDelta
-              };
+              latitude,
+              longitude,
+              latitudeDelta: latDelta,
+              longitudeDelta: longDelta
+            };
 
         regionInfo.timeStamp = timestamp; // because its not a field added in the getRegionForCoordinates function so I add it here so its added for both every time - also if i decide the timestamp would make better sense elsewhere i can move it
         dispatch(setRegionObj(regionInfo));
+        dispatch(setReadyToRenderMap(true));
 
         // Test
-      //   const {
-      //     location: {
-      //       locationServices: {
-      //         userLocation,
-      //         userLatitude,
-      //         userLongittude,
-      //         regionObj
-      //       }
-      //     }
-      //   } = getState();
-      //   console.log('return from hell redux store',
-      //         'loc', userLocation,
-      //         'lat', userLatitude,
-      //         'long', userLongittude,
-      //         'reeeGEN-C', regionObj
-      // )
+        const {
+          location: {
+            locationServices: {
+              userLocation,
+              userLatitude,
+              userLongittude,
+              regionObj
+            }
+          }
+        } = getState();
+        console.log('return from hell redux store',
+              'loc', userLocation,
+              'lat', userLatitude,
+              'long', userLongittude,
+              'reeeGEN-C', regionObj
+      )
+      // console.log('redux regionInfo', regionInfo)
         return regionInfo;
       },
       error => console.log('get location errr message:', error.message),

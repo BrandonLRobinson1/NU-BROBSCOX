@@ -70,13 +70,14 @@ class Maptab extends Component {
                 image: Images[3],
               },
             ],
-            region: {
-              latitude: 45.52220671242907,
-              longitude: -122.6653281029795,
-              latitudeDelta: 0.04864195044303443,
-              longitudeDelta: 0.040142817690068,
-            },
-            recievedLocationSwitch: false
+            // region: {
+            //   latitude: 45.52220671242907,
+            //   longitude: -122.6653281029795,
+            //   latitudeDelta: 0.04864195044303443,
+            //   longitudeDelta: 0.040142817690068,
+            // },
+            region: ((this.props || {}).regionObj || {})
+            // recievedLocationSwitch: false
           };
 
         this.renderMarkers =  this.renderMarkers.bind(this);
@@ -205,24 +206,24 @@ class Maptab extends Component {
   render() {
     const { container, scrollView, endPadding } = styles;
     
-    console.log('this.props.regionObj.timeStamp', this.props.regionObj.timeStamp, this.props.regionObj)
-    this.props.regionObj.timeStamp && !this.state.recievedLocationSwitch
-      ?  this.setState({
-            region: this.props.regionObj,
-            recievedLocationSwitch: true,
-            // this is because my current location and these hard coded markers dont match - but could set markers here IF its a good place for the markers to be be here and not in redux
-            markers: []
+    console.log('this.props.regionObj', this.props.regionObj)
+    // this.props.regionObj.timeStamp && !this.state.recievedLocationSwitch
+    //   ?  this.setState({
+    //         region: this.props.regionObj,
+    //         recievedLocationSwitch: true,
+    //         // this is because my current location and these hard coded markers dont match - but could set markers here IF its a good place for the markers to be be here and not in redux
+    //         // markers: []
 
-        })
-      // ?  
-      //   console.log('ughh')
-    //   this.setState({
-    //     region: this.props.regionObj,
-    //     // this is because my current location and these hard coded markers dont match - but could set markers here IF its a good place for the markers to be be here and not in redux
-    //     markers: []
+    //     })
+    //   : console.log('no set');
 
-    // })
-      : console.log('no set');
+    console.log('this.shhtate', this.state.region)
+
+    if (!this.props.readyToRenderMap) return (
+      <View>
+        <Text> loading map </Text>
+      </View>
+    );
 
     return (
       <View style={container}>
@@ -267,7 +268,8 @@ class Maptab extends Component {
 
 export default connect(
   state => ({
-    regionObj: state.location.locationServices.regionObj
+    regionObj: state.location.locationServices.regionObj,
+    readyToRenderMap: state.location.locationServices.readyToRenderMap,
   }),
   {
     getUserLocation,
