@@ -5,7 +5,7 @@ import { getRegionForCoordinates } from '../../helpers/helpersFunctions';
 
 /// ***** helper function above is a way to get latitiud delta and longitude delta based on a number of points/markers
 const { width, height } = Dimensions.get('window');
-const aspectRatio = width/ height;
+const aspectRatio = width / height;
 
 const latDelta = .0922;
 const longDelta = aspectRatio * latDelta;
@@ -17,7 +17,7 @@ const defaultState = {
   userLatitude: '',
   userLongitude: '',
   regionObj: {},
-  readyToRenderMap: false
+  // readyToRenderMap: false
 };
 
 const prefix = 'NU_STORE/LOCATION/';
@@ -41,10 +41,10 @@ export default handleActions({
     ...state,
     userLongitude: payload
   }),
-  [setReadyToRenderMap]: (state, { payload }) => ({
-    ...state,
-    readyToRenderMap: payload
-  }),
+  // [setReadyToRenderMap]: (state, { payload }) => ({
+  //   ...state,
+  //   readyToRenderMap: payload
+  // }),
   [setRegionObj]: (state, { payload }) => ({
     ...state,
     regionObj: payload
@@ -74,10 +74,17 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
             };
 
         regionInfo.timeStamp = timestamp; // because its not a field added in the getRegionForCoordinates function so I add it here so its added for both every time - also if i decide the timestamp would make better sense elsewhere i can move it
-        dispatch(setRegionObj(regionInfo));
-        dispatch(setReadyToRenderMap(true));
+        
+        // need this to run test data
+        // regionInfo.latitude = 45.52220671242907;
+        // regionInfo.longitude = 122.6653281029795;
+        // regionInfo.latitudeDelta = 0.04864195044303443;
+        // regionInfo.longitudeDelta = 0.040142817690068;
 
-        // Test
+        dispatch(setRegionObj(regionInfo));
+        // dispatch(setReadyToRenderMap(true));
+
+        // ********** Testing purposes 
         const {
           location: {
             locationServices: {
@@ -88,13 +95,15 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
             }
           }
         } = getState();
-        console.log('return from hell redux store',
-              'loc', userLocation,
-              'lat', userLatitude,
-              'long', userLongittude,
-              'reeeGEN-C', regionObj
+
+      console.log('return from hell redux store',
+        'loc', userLocation,
+        'lat', userLatitude,
+        'long', userLongittude,
+        'reeeGEN-C', regionObj
       )
-      // console.log('redux regionInfo', regionInfo)
+      // ********** Testing purposes 
+
         return regionInfo;
       },
       error => console.log('get location errr message:', error.message),
