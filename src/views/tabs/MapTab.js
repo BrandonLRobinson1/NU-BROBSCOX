@@ -12,7 +12,9 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { getUserLocation } from '../../store/location/locationServices'; 
+import { getUserLocation } from '../../store/location/locationServices';
+import  SearchBox  from './SearchBox';
+import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
 
 const Images = [
@@ -71,6 +73,7 @@ class Maptab extends Component {
               },
             ],
             region: ((this.props || {}).regionObj || {}),
+            // region: this.props.regionObj,
             // region: {
             //   latitude: 45.52220671242907,
             //   longitude: -122.6653281029795,
@@ -204,7 +207,6 @@ class Maptab extends Component {
 
   render() {
     const { container, scrollView, endPadding } = styles;
-
     // initialRegion={{
     //   latitude: 45.52220671242907,
     //   longitude: -122.6653281029795,
@@ -212,18 +214,29 @@ class Maptab extends Component {
     //   longitudeDelta: 0.040142817690068,
     // }}
 
+    const loadMap = 
+      // this.props.regionObj.longitude // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
+      this.props.regionObj === false // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
+        ? (
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            ref={map => this.map = map}
+            initialRegion={this.props.regionObj}
+            style={container}
+          >
+          
+            { this.state.markers.map(this.renderMarkers) }
+          
+          </MapView>)
+        : (<Text> im not even fuckin TRYING to render a map - bc for andriod i only render once </Text>)
+
+
+    console.log('???', this.props.regionObj.latitude)
     return (
       <View style={container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          ref={map => this.map = map}
-          initialRegion={ ((this.props || {}).regionObj || {}) }
-          style={container}
-        >
-          
-          { this.state.markers.map(this.renderMarkers) }
-         
-        </MapView>
+
+       {loadMap}
+        {/*}
         <Animated.ScrollView
           horizontal
           scrollEventThrottle={1}
@@ -248,6 +261,8 @@ class Maptab extends Component {
           { this.state.markers.map(this.renderCards) }
 
         </Animated.ScrollView>
+        */}
+        <SearchBox />
       </View>
     );
   }

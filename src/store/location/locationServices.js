@@ -1,5 +1,6 @@
 import { handleActions, createAction } from 'redux-actions';
 import { Dimensions } from 'react-native';
+import RNGooglePlaces from 'react-native-google-places';
 
 import { getRegionForCoordinates } from '../../helpers/helpersFunctions';
 
@@ -18,15 +19,21 @@ const defaultState = {
   userLongitude: '',
   regionObj: {},
   // readyToRenderMap: false
+  
+  // googleplaces
+  searchAddress: '',
+  predictions: null
 };
 
 const prefix = 'NU_STORE/LOCATION/';
 export const setCurrentLocation = createAction(`${prefix}SET_CURRENT_LOCATION`);
 export const setCurrentLatitude = createAction(`${prefix}SET_CURRENT_LATITUDE`);
 export const setCurrentLongitude = createAction(`${prefix}SET_CURRENT_LONGITUDE`);
-export const setReadyToRenderMap = createAction(`${prefix}SET_READY_TO_RENDER_MAP`);
+// export const setReadyToRenderMap = createAction(`${prefix}SET_READY_TO_RENDER_MAP`);
 export const setRegionObj = createAction(`${prefix}SET_REGION_OBJ`);
 
+export const setAddress = createAction(`${prefix}SET_ADDRESS`);
+export const setPredictions = createAction(`${prefix}SET_PREDICTIONS`);
 
 export default handleActions({
   [setCurrentLocation]: (state, { payload }) => ({
@@ -48,6 +55,15 @@ export default handleActions({
   [setRegionObj]: (state, { payload }) => ({
     ...state,
     regionObj: payload
+  }),
+
+  [setAddress]: (state, { payload }) => ({
+    ...state,
+    searchAddress: payload
+  }),
+  [setPredictions]: (state, { payload }) => ({
+    ...state,
+    predictions: payload
   }),
 
 }, defaultState);
@@ -109,4 +125,38 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
       error => console.log('get location errr message:', error.message),
       { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
     );
+}
+
+export const callForResults = (userInput) => (dispatch, getState) => {
+  dispatch(setAddress(userInput));
+  dispatch(getAddressSuggestions());
+  
+  // ///// ???
+    // const {
+    //   location: {
+    //     locationServices: {
+    //       searchAddress
+    //     }
+    //   }
+    // } = getState();
+  // console.log('wtf addy input', searchAddress, userInput)
+}
+
+export const getAddressSuggestions = () => (dispatch, getState) => {
+  const {
+    location: {
+      locationServices: {
+        searchAddress
+      }
+    }
+  } = getState();
+  console.log('RNGooglePlaces**', RNGooglePlaces.getAutocompletePredictions, searchAddress)
+  console.log('RN**', RNGooglePlaces.getAutocompletePredictions(searchAddress, null))
+
+  if (searchAddress.length < 1) return;
+
+  // return RNGooglePlaces.getAutocompletePredictions(searchAddress, { country: 'MY'})
+  //   // .then( results => dispatch(setPredictions(results)))
+  //   .then( res => console.log('results', res))
+    // .catch( error => console.log('error', error.message))
 }
