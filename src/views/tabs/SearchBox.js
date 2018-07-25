@@ -4,8 +4,10 @@ import { debounce } from 'lodash';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input } from '../../common';
-import { callForResults } from '../../store/location/locationServices'; 
-import { colors } from '../../Colors';
+import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
+// import { colors } from '../../Colors';
+
+// TODO: fix DEBOUNCE ***************************************************** onChangeText={text => debounce(() => this.props.googlePlacesSuggestions(text), 800)}
 
 class SearchBox extends Component {
 
@@ -20,7 +22,7 @@ class SearchBox extends Component {
             placeholder="Address"
             value={this.props.searchAddress}
             clearTextOnFocus={false}
-            onChangeText={text => this.props.callForResults(text)}
+            onChangeText={text => this.props.googlePlacesSuggestions(text)}
             style={container}
           />
         </CardSection>
@@ -36,11 +38,11 @@ export default connect(
     predictions: state.location.locationServices.predictions
   }),
   {
-    callForResults
+    googlePlacesSuggestions
   }
 )(SearchBox);
 
-// const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 
 const styles = StyleSheet.create({
   container: {
@@ -49,6 +51,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     paddingVertical: 10,
-    borderColor: 'blue'
+    borderColor: NU_Blue
   }
 });

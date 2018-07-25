@@ -1,10 +1,11 @@
 import { handleActions, createAction } from 'redux-actions';
 import { Dimensions } from 'react-native';
 import RNGooglePlaces from 'react-native-google-places';
+// const { RNGooglePlaces } = require('react-native-google-places');
 
-import { getRegionForCoordinates } from '../../helpers/helpersFunctions';
+import { getRegionForCoordinates } from '../../helpers/helpersFunctions'; // helper function is a way to get latitiud delta and longitude delta based on a number of points/markers
 
-/// ***** helper function above is a way to get latitiud delta and longitude delta based on a number of points/markers
+/// *****
 const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
 
@@ -13,12 +14,10 @@ const longDelta = aspectRatio * latDelta;
 /// *****
 
 const defaultState = {
-  // full location obj
   userLocation: '',
   userLatitude: '',
   userLongitude: '',
   regionObj: {},
-  // readyToRenderMap: false
   
   // googleplaces
   searchAddress: '',
@@ -29,7 +28,6 @@ const prefix = 'NU_STORE/LOCATION/';
 export const setCurrentLocation = createAction(`${prefix}SET_CURRENT_LOCATION`);
 export const setCurrentLatitude = createAction(`${prefix}SET_CURRENT_LATITUDE`);
 export const setCurrentLongitude = createAction(`${prefix}SET_CURRENT_LONGITUDE`);
-// export const setReadyToRenderMap = createAction(`${prefix}SET_READY_TO_RENDER_MAP`);
 export const setRegionObj = createAction(`${prefix}SET_REGION_OBJ`);
 
 export const setAddress = createAction(`${prefix}SET_ADDRESS`);
@@ -48,10 +46,6 @@ export default handleActions({
     ...state,
     userLongitude: payload
   }),
-  // [setReadyToRenderMap]: (state, { payload }) => ({
-  //   ...state,
-  //   readyToRenderMap: payload
-  // }),
   [setRegionObj]: (state, { payload }) => ({
     ...state,
     regionObj: payload
@@ -74,7 +68,7 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
     return navigator.geolocation.getCurrentPosition(
       position => {
         const { timestamp, coords: { latitude, longitude } } = position;
-        // has to spit out region, can take in variables of array
+        // getUserLocation has to spit out region, can take in variables of array
         dispatch(setCurrentLocation(position));
         dispatch(setCurrentLatitude(latitude));
         dispatch(setCurrentLongitude(longitude));
@@ -89,7 +83,7 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
               longitudeDelta: longDelta
             };
 
-        regionInfo.timeStamp = timestamp; // because its not a field added in the getRegionForCoordinates function so I add it here so its added for both every time - also if i decide the timestamp would make better sense elsewhere i can move it
+        regionInfo.timeStamp = timestamp; // because its not a field added in the getRegionForCoordinates function so I add it here so its added for both every time - also if i decide the timestamp would make better sense elsewhere i can move it **also collect WHEN users are doing things patterns = data
         
         // need this to run test data
         // regionInfo.latitude = 45.52220671242907;
@@ -98,7 +92,7 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
         // regionInfo.longitudeDelta = 0.040142817690068;
 
         dispatch(setRegionObj(regionInfo));
-        // dispatch(setReadyToRenderMap(true));
+
 
         // ********** Testing purposes 
         const {
@@ -127,21 +121,24 @@ export const getUserLocation = markersArray => (dispatch, getState) => {
     );
 }
 
-export const callForResults = (userInput) => (dispatch, getState) => {
+export const googlePlacesSuggestions = (userInput) => (dispatch, getState) => {
   dispatch(setAddress(userInput));
   dispatch(getAddressSuggestions());
   
-  // ///// ???
-    // const {
-    //   location: {
-    //     locationServices: {
-    //       searchAddress
-    //     }
-    //   }
-    // } = getState();
+  // for testing
+  //   const {
+  //     location: {
+  //       locationServices: {
+  //         searchAddress
+  //       }
+  //     }
+  //   } = getState();
   // console.log('wtf addy input', searchAddress, userInput)
 }
 
+
+//TODO: FIX ERROR - THERE IS SOMETHING WRONG WITH THE IMPORT RNGooglePlaces
+// https://www.youtube.com/watch?v=otRaAhnXtSg&t=133s
 export const getAddressSuggestions = () => (dispatch, getState) => {
   const {
     location: {
@@ -150,13 +147,21 @@ export const getAddressSuggestions = () => (dispatch, getState) => {
       }
     }
   } = getState();
-  console.log('RNGooglePlaces**', RNGooglePlaces.getAutocompletePredictions, searchAddress)
-  console.log('RN**', RNGooglePlaces.getAutocompletePredictions(searchAddress, null))
+
+  // console.log('RNGooglePlaces1**', RNGooglePlaces.getAutocompletePredictions, RNGooglePlaces.getAutocompletePredictions('pizza', { country: 'MY'}));
+
+  
+  // console.log('RN**', RNGooglePlaces.getAutocompletePredictions(searchAddress, {
+	//   type: 'establishments',
+	//   latitude: 53.544389,
+	//   longitude: -113.490927,
+	//   radius: 10
+  // }))
 
   if (searchAddress.length < 1) return;
 
-  // return RNGooglePlaces.getAutocompletePredictions(searchAddress, { country: 'MY'})
-  //   // .then( results => dispatch(setPredictions(results)))
-  //   .then( res => console.log('results', res))
-    // .catch( error => console.log('error', error.message))
+  return RNGooglePlaces.getAutocompletePredictions(searchAddress, { country: 'MY'})
+    // .then( results => dispatch(setPredictions(results)))
+    .then( res => console.log('results', res))
+    .catch( error => console.log('error', error.message))
 }

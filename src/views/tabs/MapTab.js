@@ -92,7 +92,7 @@ class Maptab extends Component {
     this.index = 0;
     this.animation = new Animated.Value(0);
 
-    // should probaly fire this when you can navigate with the tabs on the bottom (on load)
+    // should probaly move/fire this when you can navigate with the tabs on the bottom (on load)
     this.props.getUserLocation();
   }
   
@@ -215,8 +215,8 @@ class Maptab extends Component {
     // }}
 
     const loadMap = 
-      // this.props.regionObj.longitude // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
-      this.props.regionObj === false // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
+    // this.props.regionObj === false // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
+      this.props.regionObj.longitude // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
         ? (
           <MapView
             provider={PROVIDER_GOOGLE}
@@ -236,7 +236,7 @@ class Maptab extends Component {
       <View style={container}>
 
        {loadMap}
-        {/*}
+
         <Animated.ScrollView
           horizontal
           scrollEventThrottle={1}
@@ -261,8 +261,9 @@ class Maptab extends Component {
           { this.state.markers.map(this.renderCards) }
 
         </Animated.ScrollView>
+        {/*
+          <SearchBox />
         */}
-        <SearchBox />
       </View>
     );
   }
