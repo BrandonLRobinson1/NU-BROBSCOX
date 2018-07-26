@@ -38,141 +38,150 @@ const CARD_WIDTH = CARD_HEIGHT - 50;
 
 class Maptab extends Component {
     constructor() {
-        super();
+      super();
 
-        this.state = {
-            markers: [
-              {
-                coordinate: {
-                  latitude: 45.524548,
-                  longitude: -122.6749817,
-                },
-                title: "Best Place",
-                description: "This is the best place in Portland",
-                image: Images[0],
-              },
-              {
-                coordinate: {
-                  latitude: 45.524698,
-                  longitude: -122.6655507,
-                },
-                title: "Second Best Place",
-                description: "This is the second best place in Portland",
-                image: Images[1],
-              },
-              {
-                coordinate: {
-                  latitude: 45.5230786,
-                  longitude: -122.6701034,
-                },
-                title: "Third Best Place",
-                description: "This is the third best place in Portland",
-                image: Images[2],
-              },
-              {
-                coordinate: {
-                  latitude: 45.521016,
-                  longitude: -122.6561917,
-                },
-                title: "Fourth Best Place",
-                description: "This is the fourth best place in Portland",
-                image: Images[3],
-              },
-            ],
-            // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
-            // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
-            // region: this.props.regionObj,
-            initialPosition: null,
-            markerPosition: {}
-          };
+      this.state = {
+        markers: [
+          {
+            coordinate: {
+              latitude: 45.524548,
+              longitude: -122.6749817,
+            },
+            title: "Best Place",
+            description: "This is the best place in Portland",
+            image: Images[0],
+          },
+          {
+            coordinate: {
+              latitude: 45.524698,
+              longitude: -122.6655507,
+            },
+            title: "Second Best Place",
+            description: "This is the second best place in Portland",
+            image: Images[1],
+          },
+          {
+            coordinate: {
+              latitude: 45.5230786,
+              longitude: -122.6701034,
+            },
+            title: "Third Best Place",
+            description: "This is the third best place in Portland",
+            image: Images[2],
+          },
+          {
+            coordinate: {
+              latitude: 45.521016,
+              longitude: -122.6561917,
+            },
+            title: "Fourth Best Place",
+            description: "This is the fourth best place in Portland",
+            image: Images[3],
+          },
+        ],
+        // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
+        // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
+        // region: this.props.regionObj,
+        initialPosition: null,
+        markerPosition: {}
+      };
 
-        this.renderMarkers =  this.renderMarkers.bind(this);
-        this.renderCards =  this.renderCards.bind(this);
-        this.onCardClick = this.onCardClick.bind(this);
-        this.customMarker = this.customMarker.bind(this);
+      this.renderMarkers =  this.renderMarkers.bind(this);
+      this.renderCards =  this.renderCards.bind(this);
+      this.onCardClick = this.onCardClick.bind(this);
+      this.customMarker = this.customMarker.bind(this);
     }
   
-  async componentWillMount() {
-    this.index = 0;
-    this.animation = new Animated.Value(0);
+    async componentWillMount() {
+      this.index = 0;
+      this.animation = new Animated.Value(0);
 
-    // should probaly move/fire this when you can navigate with the tabs on the bottom (on load)
-    // await this.props.getUserLocation()
-      
-  }
-
-  // watchID: ? number = null;
+      // should probaly move/fire this when you can navigate with the tabs on the bottom (on load)
+      // await this.props.getUserLocation()   
+    }
   
     componentDidMount() {
-    // We should detect when scrolling has stopped then animate
-    // We should just debounce the event listener here
-    this.animation.addListener(({ value }) => {
-      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= this.state.markers.length) {
-        index = this.state.markers.length - 1;
-      }
-      if (index <= 0) {
-        index = 0;
-      }
-
-      clearTimeout(this.regionTimeout);
-      this.regionTimeout = setTimeout(() => {
-        if (this.index !== index) {
-          this.index = index;
-          const { coordinate } = this.state.markers[index];
-          // changes the region you animate too and keeps your deltas *****
-          this.map.animateToRegion(
-            {
-              ...coordinate,
-              latitudeDelta: this.state.initialPosition.latitudeDelta,
-              longitudeDelta: this.state.initialPosition.longitudeDelta,
-            },
-            350
-          );
+      // We should detect when scrolling has stopped then animate
+      // We should just debounce the event listener here
+      this.animation.addListener(({ value }) => {
+        let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+        if (index >= this.state.markers.length) {
+          index = this.state.markers.length - 1;
         }
-      }, 10);
-    });
+        if (index <= 0) {
+          index = 0;
+        }
 
-    // gets current location and sets it to state
-    navigator.geolocation.getCurrentPosition(position => {
+        clearTimeout(this.regionTimeout);
+        this.regionTimeout = setTimeout(() => {
+          if (this.index !== index) {
+            this.index = index;
+            const { coordinate } = this.state.markers[index];
+            // changes the region you animate too and keeps your deltas *****
+            this.map.animateToRegion(
+              {
+                ...coordinate,
+                latitudeDelta: this.state.initialPosition.latitudeDelta,
+                longitudeDelta: this.state.initialPosition.longitudeDelta,
+              },
+              350
+            );
+          }
+        }, 10);
+      });
+
+      // gets current location and sets it to state
+      navigator.geolocation.getCurrentPosition(position => {
+        const latitude = parseFloat(position.coords.latitude);
+        const longitude = parseFloat(position.coords.longitude);
+
+        const initialRegion = {
+          latitude,
+          longitude,
+          latitudeDelta: latDelta,
+          longitudeDelta: longDelta
+          // For testing
+          // latitude: 45.52220671242907,
+          // longitude: -122.6653281029795,
+          // latitudeDelta: 0.04864195044303443,
+          // longitudeDelta: 0.040142817690068,
+        };
+
+        this.setState({
+          initialPosition: initialRegion,
+          markerPositoin: initialRegion
+        });
+
+        console.log('initialPosition: ', initialRegion);
+      },
+      // error => console.error(error),
+      error => console.error(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
+    )
+
+    this.watchID = navigator.geolocation.watchPosition(position=> {
       const latitude = parseFloat(position.coords.latitude);
       const longitude = parseFloat(position.coords.longitude);
 
-      const initialRegion = {
+      const lastRegion = {
         latitude,
         longitude,
         latitudeDelta: latDelta,
         longitudeDelta: longDelta
-      };
+        // For testing
+        // latitude: 45.52220671242907,
+        // longitude: -122.6653281029795,
+        // latitudeDelta: 0.04864195044303443,
+        // longitudeDelta: 0.040142817690068,
+      }
 
       this.setState({
-        initialPosition: initialRegion,
-        markerPositoin: initialRegion
+        initialPosition: lastRegion,
+        markerPositoin: lastRegion
       });
 
-      console.log('initialPosition: ', initialRegion)
-    },
-    // error => console.error(error),
-    error => console.error(JSON.stringify(error)),
-    { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
-  )
-
-  this.watchID = navigator.geolocation.watchPosition(position=> {
-    const latitude = parseFloat(position.coords.latitude);
-    const longitude = parseFloat(position.coords.longitude);
-
-    const lastRegion = {
-      latitude,
-      longitude,
-      latitudeDelta: latDelta,
-      longitudeDelta: longDelta
-    }
-
-    this.setState({
-      initialPosition: lastRegion,
-      markerPositoin: lastRegion
     });
-  });
+
   }
 
   componentWillUnmount() {
@@ -198,19 +207,19 @@ class Maptab extends Component {
     // this is the snippet of code that is reponsible for what paticlular marker is zoomed in on
     const interpolations = this.state.markers.map((marker, index) => {
         const inputRange = [
-            (index - 1) * CARD_WIDTH,
-            index * CARD_WIDTH,
-            ((index + 1) * CARD_WIDTH),
+          (index - 1) * CARD_WIDTH,
+          index * CARD_WIDTH,
+          ((index + 1) * CARD_WIDTH),
         ];
         const scale = this.animation.interpolate({
-            inputRange,
-            outputRange: [1, 1.35, 1],
-            extrapolate: "clamp",
+          inputRange,
+          outputRange: [1, 1.35, 1],
+          extrapolate: "clamp",
         });
         const opacity = this.animation.interpolate({
-            inputRange,
-            outputRange: [0.35, 1, 0.35],
-            extrapolate: "clamp",
+          inputRange,
+          outputRange: [0.35, 1, 0.35],
+          extrapolate: "clamp",
         });
         return { scale, opacity };
     });
@@ -243,58 +252,52 @@ class Maptab extends Component {
   renderCards(marker, index) {
     const { card, cardImage, textContent, cardtitle, cardDescription } = styles;
     return (
-      <View style={card} key={index} onClick={() => this.onCardClick(marker)}>
+      <View style={card} key={index}>
           <Image
             source={marker.image}
             style={cardImage}
             resizeMode="cover"
           />
           <View style={textContent}>
-              <Text numberOfLines={1} style={cardtitle}>{marker.title}</Text>
-              <Text numberOfLines={1} style={cardDescription}>
-                {marker.description}
-              </Text>
+            <Text numberOfLines={1} style={cardtitle}>{marker.title}</Text>
+            <Text numberOfLines={1} style={cardDescription}>
+              {marker.description}
+            </Text>
           </View>
+          <TouchableOpacity onPress={() => {
+            console.log('yo');
+            this.onCardClick(marker);
+          }}>
+            <Text>button</Text>
+          </TouchableOpacity>
       </View>
     );
   }
 
   render() {
-    console.log('this.map', this);
     const { container, scrollView, endPadding } = styles;
-    // initialRegion={{
-    //   latitude: 45.52220671242907,
-    //   longitude: -122.6653281029795,
-    //   latitudeDelta: 0.04864195044303443,
-    //   longitudeDelta: 0.040142817690068,
-    // }}
 
-    const loadMap = 
-    // this.props.regionObj === false // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
-      // this.state.initialPosition // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
-        // ? (
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            ref={map => this.map = map}
-            initialRegion={this.state.initialPosition}
-            style={container}
-          >
-          
-            { this.state.markers.map(this.renderMarkers) }
-          
-          </MapView> // )
-        // : (<Text> im not even fuckin TRYING to render a map - bc for andriod i only render once </Text>)
+    console.log(
+      '???', this.props.regionObj,
+      'this.map', this
+    );
 
-
-    console.log('???', this.props.regionObj.latitude)
-
-    if (!this.state.initialRegion) return( <Text> loading wheel </Text> );
+    if (!this.state.initialPosition) return( <Text> loading wheel </Text> );
 
     return (
       <View style={container}>
 
-       {loadMap}
-
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          ref={map => this.map = map}
+          initialRegion={this.state.initialPosition}
+          style={container}
+        >
+        
+          { this.state.markers.map(this.renderMarkers) }
+        
+        </MapView>
+  
         <Animated.ScrollView
           horizontal
           scrollEventThrottle={1}
@@ -319,8 +322,8 @@ class Maptab extends Component {
           { this.state.markers.map(this.renderCards) }
 
         </Animated.ScrollView>
-        {/*
-          <SearchBox />
+        {/*  
+              <SearchBox />
         */}
       </View>
     );
@@ -330,7 +333,6 @@ class Maptab extends Component {
 export default connect(
   state => ({
     regionObj: state.location.locationServices.regionObj,
-    // readyToRenderMap: state.location.locationServices.readyToRenderMap,
   }),
   {
     getUserLocation,
