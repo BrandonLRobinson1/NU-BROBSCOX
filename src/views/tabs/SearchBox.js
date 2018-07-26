@@ -7,6 +7,7 @@ import { Button, CardSection, Card, Input } from '../../common';
 import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
 import { colors } from '../../Colors';
 
+
 // TODO: fix DEBOUNCE ***************************************************** onChangeText={text => debounce(() => this.props.googlePlacesSuggestions(text), 800)}
 
 class SearchBox extends Component {

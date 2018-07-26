@@ -17,6 +17,7 @@ import  SearchBox  from './SearchBox';
 import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
 
+
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
   { uri: "https://i.imgur.com/N7rlQYt.jpg" },

@@ -19,7 +19,7 @@
   // [GMSPlacesClient provideAPIKey:@"AIzaSyCYkhqyywY6NlqnHOV91Bj0vqIjwhPtF1Y"];
   // [GMSServices provideAPIKey:@"AIzaSyCYkhqyywY6NlqnHOV91Bj0vqIjwhPtF1Y"];
   [GMSPlacesClient provideAPIKey:@"AIzaSyC8RfgskLZnQBb5xF905zW9XbUUFk8DFgs"];
-  [GMSServices provideAPIKey:@"AIzaSyBgZ0MzvWaTwBkz6fmMjmQ0049QVmiQ4Ks"];
+  [GMSServices provideAPIKey:@"AIzaSyC8RfgskLZnQBb5xF905zW9XbUUFk8DFgs"];
 
   NSURL *jsCodeLocation;
 

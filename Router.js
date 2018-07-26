@@ -12,6 +12,8 @@ import Validate from './src/views/getCredentials/Validate';
 import Home from './src/views/tabs/Home';
 import MapTab from './src/views/tabs/MapTab';
 
+import SearchAddress from './src/views/tabs/SearchAddress';
+
 import {colors } from './src/Colors';
 // import CredentialsRouter from './src/views/getCredentials/index';
 
@@ -88,12 +90,15 @@ const RouterComponent = () => (
             
           />
         </Scene>
+        component={MapTab}
   */}
         <Scene key="map" title="MAP" icon={tabIcon} >
           <Scene
             key="mapTab"
             title="MapTab"
-            component={MapTab}
+            
+            component={SearchAddress}
+
             backTitle=" "
             initial
             hideNavBar

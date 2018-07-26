@@ -125,15 +125,15 @@ export const googlePlacesSuggestions = (userInput) => (dispatch, getState) => {
   dispatch(setAddress(userInput));
   dispatch(getAddressSuggestions());
   
-  // for testing
-  //   const {
-  //     location: {
-  //       locationServices: {
-  //         searchAddress
-  //       }
-  //     }
-  //   } = getState();
-  // console.log('wtf addy input', searchAddress, userInput)
+  // f or testing
+    const {
+      location: {
+        locationServices: {
+          searchAddress
+        }
+      }
+    } = getState();
+  console.log('wtf addy input', searchAddress, userInput)
 }
 
 
@@ -148,8 +148,8 @@ export const getAddressSuggestions = () => (dispatch, getState) => {
     }
   } = getState();
 
-  // console.log('RNGooglePlaces1**', RNGooglePlaces.getAutocompletePredictions, RNGooglePlaces.getAutocompletePredictions('pizza', { country: 'MY'}));
-
+  console.log('RNGooglePlaces1**', RNGooglePlaces.getAutocompletePredictions //, RNGooglePlaces.getAutocompletePredictions('pizza', { country: 'MY'})
+);
   
   // console.log('RN**', RNGooglePlaces.getAutocompletePredictions(searchAddress, {
 	//   type: 'establishments',
@@ -158,10 +158,10 @@ export const getAddressSuggestions = () => (dispatch, getState) => {
 	//   radius: 10
   // }))
 
-  if (searchAddress.length < 1) return;
+  // if (searchAddress.length < 1) return;
 
-  return RNGooglePlaces.getAutocompletePredictions(searchAddress, { country: 'MY'})
-    // .then( results => dispatch(setPredictions(results)))
-    .then( res => console.log('results', res))
-    .catch( error => console.log('error', error.message))
+  // return RNGooglePlaces.getAutocompletePredictions(searchAddress, { country: 'MY'})
+  //   // .then( results => dispatch(setPredictions(results)))
+  //   .then( res => console.log('results', res))
+  //   .catch( error => console.log('error', error.message))
 }
