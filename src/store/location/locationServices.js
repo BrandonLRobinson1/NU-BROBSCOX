@@ -9,7 +9,8 @@ import { getRegionForCoordinates } from '../../helpers/helpersFunctions'; // hel
 const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
 
-const latDelta = .0922;
+// const latDelta = .0922;
+const latDelta = .0622;
 const longDelta = aspectRatio * latDelta;
 /// *****
 

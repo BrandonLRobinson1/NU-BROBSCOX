@@ -1,1 +1,25 @@
 react-native link react-native-vector-icons --> try in new branch for driod fix
+
+            // original porings
+            // region: {
+              // latitude: 45.52220671242907,
+              // longitude: -122.6653281029795,
+              // latitudeDelta: 0.04864195044303443,
+              // longitudeDelta: 0.040142817690068,
+            // },
+
+            // google maps location + own func for lat long deltas
+            // region: {
+            //   latitude: 37.785834,
+            //   longitude: -122.406417,
+            //   latitudeDelta:  0.0622,
+            //   longitudeDelta: 0.05183658170914543,
+            // },
+
+            // me trying to nail the us
+            // region: {
+            //   latitude: 37.090240,
+            //   longitude: -95.712891,
+            //   latitudeDelta:  60,
+            //   longitudeDelta: 60,
+            // },

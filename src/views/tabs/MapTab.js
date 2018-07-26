@@ -22,9 +22,16 @@ const Images = [
   { uri: "https://i.imgur.com/N7rlQYt.jpg" },
   { uri: "https://i.imgur.com/UDrH0wm.jpg" },
   { uri: "https://i.imgur.com/Ka8kNST.jpg" }
-]
+];
 
-const { width, height } = Dimensions.get("window");
+/// *****
+const { width, height } = Dimensions.get('window');
+const aspectRatio = width / height;
+
+// const latDelta = .0922;
+const latDelta = .0622;
+const longDelta = aspectRatio * latDelta;
+/// *****
 
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
@@ -72,14 +79,11 @@ class Maptab extends Component {
                 image: Images[3],
               },
             ],
-            region: ((this.props || {}).regionObj || {}),
+            // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
+            // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
             // region: this.props.regionObj,
-            // region: {
-            //   latitude: 45.52220671242907,
-            //   longitude: -122.6653281029795,
-            //   latitudeDelta: 0.04864195044303443,
-            //   longitudeDelta: 0.040142817690068,
-            // },
+            initialPosition: null,
+            markerPosition: {}
           };
 
         this.renderMarkers =  this.renderMarkers.bind(this);
@@ -88,13 +92,16 @@ class Maptab extends Component {
         this.customMarker = this.customMarker.bind(this);
     }
   
-  componentWillMount() {
+  async componentWillMount() {
     this.index = 0;
     this.animation = new Animated.Value(0);
 
     // should probaly move/fire this when you can navigate with the tabs on the bottom (on load)
-    this.props.getUserLocation();
+    // await this.props.getUserLocation()
+      
   }
+
+  // watchID: ? number = null;
   
     componentDidMount() {
     // We should detect when scrolling has stopped then animate
@@ -113,17 +120,63 @@ class Maptab extends Component {
         if (this.index !== index) {
           this.index = index;
           const { coordinate } = this.state.markers[index];
+          // changes the region you animate too and keeps your deltas *****
           this.map.animateToRegion(
             {
               ...coordinate,
-              latitudeDelta: this.state.region.latitudeDelta,
-              longitudeDelta: this.state.region.longitudeDelta,
+              latitudeDelta: this.state.initialPosition.latitudeDelta,
+              longitudeDelta: this.state.initialPosition.longitudeDelta,
             },
             350
           );
         }
       }, 10);
     });
+
+    // gets current location and sets it to state
+    navigator.geolocation.getCurrentPosition(position => {
+      const latitude = parseFloat(position.coords.latitude);
+      const longitude = parseFloat(position.coords.longitude);
+
+      const initialRegion = {
+        latitude,
+        longitude,
+        latitudeDelta: latDelta,
+        longitudeDelta: longDelta
+      };
+
+      this.setState({
+        initialPosition: initialRegion,
+        markerPositoin: initialRegion
+      });
+
+      console.log('initialPosition: ', initialRegion)
+    },
+    // error => console.error(error),
+    error => console.error(JSON.stringify(error)),
+    { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
+  )
+
+  this.watchID = navigator.geolocation.watchPosition(position=> {
+    const latitude = parseFloat(position.coords.latitude);
+    const longitude = parseFloat(position.coords.longitude);
+
+    const lastRegion = {
+      latitude,
+      longitude,
+      latitudeDelta: latDelta,
+      longitudeDelta: longDelta
+    }
+
+    this.setState({
+      initialPosition: lastRegion,
+      markerPositoin: lastRegion
+    });
+  });
+  }
+
+  componentWillUnmount() {
+    navigatorgeolocation.clearWatch(this.watchID);
   }
 
   customMarker() {
@@ -173,6 +226,7 @@ class Maptab extends Component {
         opacity: interpolations[index].opacity,
       };
 
+      // pinColor='green' can also be added to standard marker to change color
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
           <Animated.View style={[markerWrap, opacityStyle, scaleStyle, markerSize]}>
@@ -206,6 +260,7 @@ class Maptab extends Component {
   }
 
   render() {
+    console.log('this.map', this);
     const { container, scrollView, endPadding } = styles;
     // initialRegion={{
     //   latitude: 45.52220671242907,
@@ -216,22 +271,25 @@ class Maptab extends Component {
 
     const loadMap = 
     // this.props.regionObj === false // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
-      this.props.regionObj.longitude // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
-        ? (
+      // this.state.initialPosition // adding .longitude is a BIG problem for andriod sim, also initital region MUST be known on render for driod sim
+        // ? (
           <MapView
             provider={PROVIDER_GOOGLE}
             ref={map => this.map = map}
-            initialRegion={this.props.regionObj}
+            initialRegion={this.state.initialPosition}
             style={container}
           >
           
             { this.state.markers.map(this.renderMarkers) }
           
-          </MapView>)
-        : (<Text> im not even fuckin TRYING to render a map - bc for andriod i only render once </Text>)
+          </MapView> // )
+        // : (<Text> im not even fuckin TRYING to render a map - bc for andriod i only render once </Text>)
 
 
     console.log('???', this.props.regionObj.latitude)
+
+    if (!this.state.initialRegion) return( <Text> loading wheel </Text> );
+
     return (
       <View style={container}>
 
