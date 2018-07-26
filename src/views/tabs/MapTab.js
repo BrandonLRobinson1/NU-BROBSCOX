@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { getUserLocation } from '../../store/location/locationServices';
+import { getUserLocation, setCurrentLocation } from '../../store/location/locationServices';
 import  SearchBox  from './SearchBox';
 import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
@@ -146,12 +146,16 @@ class Maptab extends Component {
           // latitudeDelta: 0.04864195044303443,
           // longitudeDelta: 0.040142817690068,
         };
+        initialRegion.timeStamp = position.timestamp;
+
+        // *********************** getRegionForCoordinates(markersArray) // will calc a good lat long delta for many markers
 
         this.setState({
           initialPosition: initialRegion,
           markerPositoin: initialRegion
         });
 
+        this.props.setCurrentLocation(initialRegion); // to persist
         console.log('initialPosition: ', initialRegion);
       },
       // error => console.error(error),
@@ -174,6 +178,7 @@ class Maptab extends Component {
         // latitudeDelta: 0.04864195044303443,
         // longitudeDelta: 0.040142817690068,
       }
+      lastRegion.timeStamp = position.timeStamp
 
       this.setState({
         initialPosition: lastRegion,
@@ -251,6 +256,7 @@ class Maptab extends Component {
 
   renderCards(marker, index) {
     const { card, cardImage, textContent, cardtitle, cardDescription } = styles;
+    
     return (
       <View style={card} key={index}>
           <Image
@@ -264,10 +270,7 @@ class Maptab extends Component {
               {marker.description}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => {
-            console.log('yo');
-            this.onCardClick(marker);
-          }}>
+          <TouchableOpacity onPress={() => this.onCardClick(marker)}>
             <Text>button</Text>
           </TouchableOpacity>
       </View>
@@ -323,8 +326,8 @@ class Maptab extends Component {
 
         </Animated.ScrollView>
         {/*  
-              <SearchBox />
         */}
+        <SearchBox />
       </View>
     );
   }
@@ -336,6 +339,7 @@ export default connect(
   }),
   {
     getUserLocation,
+    setCurrentLocation
   }
 )(Maptab);
 
