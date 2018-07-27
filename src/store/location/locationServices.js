@@ -68,7 +68,7 @@ export default handleActions({
 
 // should have one thunk package all the data i need for a users session and send it up
 
-export const getActiveNailTechs = () => (dispatch, getState) => {
+export const getinitial = () => (dispatch, getState) => {
   const Images = [
     { uri: "https://i.imgur.com/sNam9iJ.jpg" },
     { uri: "https://i.imgur.com/N7rlQYt.jpg" },
@@ -168,9 +168,117 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
 
   // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users
   const markers = sfMarkers.map(marker => marker.coordinate);
-
   return markers.length > 1
     ? getRegionForCoordinates(markers)
     : Object.assign(markers.coordinate, {latitudeDelta: latDelta, longitudeDelta: longDelta});
+
+  return markers
 }
 
+export const getActiveNailTechs = () => (dispatch, getState) => {
+  const Images = [
+    { uri: "https://i.imgur.com/sNam9iJ.jpg" },
+    { uri: "https://i.imgur.com/N7rlQYt.jpg" },
+    { uri: "https://i.imgur.com/UDrH0wm.jpg" },
+    { uri: "https://i.imgur.com/Ka8kNST.jpg" }
+  ];
+  
+  let originalMarkers =  [
+    {
+      coordinate: {
+        latitude: 45.524548,
+        longitude: -122.6749817,
+      },
+      title: "Best Place",
+      description: "This is the best place in Portland",
+      image: Images[0],
+    },
+    {
+      coordinate: {
+        latitude: 45.524698,
+        longitude: -122.6655507,
+      },
+      title: "Second Best Place",
+      description: "This is the second best place in Portland",
+      image: Images[1],
+    },
+    {
+      coordinate: {
+        latitude: 45.5230786,
+        longitude: -122.6701034,
+      },
+      title: "Third Best Place",
+      description: "This is the third best place in Portland",
+      image: Images[2],
+    },
+    {
+      coordinate: {
+        latitude: 45.521016,
+        longitude: -122.6561917,
+      },
+      title: "Fourth Best Place",
+      description: "This is the fourth best place in Portland",
+      image: Images[3],
+    },
+  ];
+
+  let sfMarkers = [
+    {
+      coordinate: {
+        latitude: 37.777067,
+        longitude: -122.431512,
+      },
+      title: "Best Place",
+      description: "This is the best place in Portland",
+      image: Images[0],
+    },
+    {
+      coordinate: {
+        latitude: 37.771096,
+        longitude: -122.397195,
+      },
+      title: "Second Best Place",
+      description: "This is the second best place in Portland",
+      image: Images[1],
+    },
+    {
+      coordinate: {
+        latitude: 37.758340,
+        longitude: -122.410235,
+      },
+      title: "Third Best Place",
+      description: "This is the third best place in Portland",
+      image: Images[2],
+    },
+    {
+      coordinate: {
+        latitude: 37.789820,
+        longitude: -122.401999,
+      },
+      title: "Fourth Best Place",
+      description: "This is the fourth best place in Portland",
+      image: Images[3],
+    }
+  ];
+
+  let sfMarker = [
+    {
+      coordinate: {
+        latitude: 37.771096,
+        longitude: -122.397195,
+      },
+      title: "Second Best Place",
+      description: "This is the second best place in Portland",
+      image: Images[1],
+    }
+  ];
+
+  // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users
+  // let markers = sfMarkers.map(marker => marker.coordinate);
+  let markers = sfMarkers;
+  // console.log('mawkass', markers)
+  return markers
+  // return markers.length > 1
+  //   ? getRegionForCoordinates(markers)
+  //   : Object.assign(markers.coordinate, {latitudeDelta: latDelta, longitudeDelta: longDelta});
+}

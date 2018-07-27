@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { setGeoLocation, setCurrentLocation, getActiveNailTechs } from '../../store/location/locationServices';
+import { setGeoLocation, setCurrentLocation, getActiveNailTechs, getinitial } from '../../store/location/locationServices';
 import  SearchAddress  from './SearchAddress';
 import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
@@ -42,44 +42,7 @@ class Maptab extends Component {
       super();
 
       this.state = {
-        markers: [
-          {
-            coordinate: {
-              latitude: 45.524548,
-              longitude: -122.6749817,
-            },
-            title: "Best Place",
-            description: "This is the best place in Portland",
-            image: Images[0],
-          },
-          {
-            coordinate: {
-              latitude: 45.524698,
-              longitude: -122.6655507,
-            },
-            title: "Second Best Place",
-            description: "This is the second best place in Portland",
-            image: Images[1],
-          },
-          {
-            coordinate: {
-              latitude: 45.5230786,
-              longitude: -122.6701034,
-            },
-            title: "Third Best Place",
-            description: "This is the third best place in Portland",
-            image: Images[2],
-          },
-          {
-            coordinate: {
-              latitude: 45.521016,
-              longitude: -122.6561917,
-            },
-            title: "Fourth Best Place",
-            description: "This is the fourth best place in Portland",
-            image: Images[3],
-          },
-        ],
+        markers: null,
         initialPosition: null,
         markerPosition: {}
       };
@@ -99,8 +62,10 @@ class Maptab extends Component {
     }
   
     componentDidMount() {
+      const init = this.props.getinitial();
       const markers = this.props.getActiveNailTechs();
-      console.log('markers', markers)
+      console.log('mawk', markers, init)
+
 
       // We should detect when scrolling has stopped then animate
       // We should just debounce the event listener here
@@ -153,8 +118,10 @@ class Maptab extends Component {
         // ********************************************************************* getRegionForCoordinates(markersArray) // will calc a good lat long delta for many markers
 
         this.setState({
+          // initialPosition: init, // if you want ur stRTING POINT TO BE A central location beteen markers and not yourself
           initialPosition: initialRegion,
-          markerPositoin: initialRegion
+          markerPositoin: initialRegion,
+          markers
         });
 
         this.props.setCurrentLocation(initialRegion); // to persist
@@ -290,7 +257,7 @@ class Maptab extends Component {
       'this.map', this
     );
 
-    if (!this.state.initialPosition) return( <Text> loading wheel </Text> );
+    if (!this.state.initialPosition || !this.state.markers) return( <Text> loading wheel </Text> );
 
     return (
       <View style={container}>
@@ -345,7 +312,8 @@ export default connect(
   {
     setGeoLocation,
     setCurrentLocation,
-    getActiveNailTechs
+    getActiveNailTechs,
+    getinitial
   }
 )(Maptab);
 
