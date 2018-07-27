@@ -14,15 +14,16 @@ const latDelta = .0622;
 const longDelta = aspectRatio * latDelta;
 /// *****
 
+// need to design this to grab info from every SESSION
 const defaultState = {
   userLocation: '',
   userLatitude: '',
   userLongitude: '',
+  // for google maps?
   regionObj: {},
-  
   // googleplaces
   searchAddress: '',
-  predictions: null
+  // need a total information object to collect all
 };
 
 const prefix = 'NU_STORE/LOCATION/';
@@ -56,10 +57,7 @@ export default handleActions({
     ...state,
     searchAddress: payload
   }),
-  [setPredictions]: (state, { payload }) => ({
-    ...state,
-    predictions: payload
-  }),
+
 
 }, defaultState);
 

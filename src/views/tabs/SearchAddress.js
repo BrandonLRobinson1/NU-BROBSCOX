@@ -11,8 +11,12 @@ import { colors } from '../../Colors';
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
  
 class SearchAddress extends Component {
+
   render() {
-    // const { textInputContainer, textInput, predefinedPlacesDescription } = styles
+    const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+    const { textInputContainer, textInput, predefinedPlacesDescription } = styles;
+    // styles={Object.assign({}, textInputContainer, textInput, predefinedPlacesDescription)}
+
     return (
       <GooglePlacesAutocomplete
         placeholder='Enter Location'
@@ -27,6 +31,11 @@ class SearchAddress extends Component {
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
           console.log('search data logging', data);
           console.log('details logging', details);
+
+          // THIS COMPONENT WILL BE USED FOR NAIL TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
+
+          console.log('save selected address searched to redux', details.formatted_address)
+          console.log('save lat and long to make marker', details.geometry.location)
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
@@ -43,15 +52,32 @@ class SearchAddress extends Component {
             marginLeft: 0,
             marginRight: 0,
             height: 38,
-            color: 'red',
+            color: '#5d5d5d',
             fontSize: 16
+          },
+          predefinedPlacesDescription: {
+            color: '#1faadb'
           }
         }}
-   
         renderDescription={(row) => { // custom description render
           // console.log('row desc', row.description)
           return row.description
-        }} 
+        }}
+        // **** other style
+        // styles={{
+        //   textInputContainer: {
+        //     backgroundColor: 'rgba(0,0,0,0)',
+        //     borderTopWidth: 0,
+        //     borderBottomWidth:0
+        //   },
+        //   textInput: {
+        //     marginLeft: 0,
+        //     marginRight: 0,
+        //     height: 38,
+        //     color: 'red',
+        //     fontSize: 16
+        //   }
+        // }}
         // predefinedPlaces={[homePlace, workPlace]}
         // GooglePlacesSearchQuery={{
           // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
@@ -70,33 +96,31 @@ class SearchAddress extends Component {
 
 export default connect(
   state => ({
-    searchAddress: state.location.locationServices.searchAddress,
-    predictions: state.location.locationServices.predictions
+    
   }),
   {
-    // googlePlacesSuggestions
+    
   }
 )(SearchAddress);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 
-// const styles = StyleSheet.create({
-//   textInputContainer: {
-//     backgroundColor: 'rgba(0,0,0,0)',
-//     borderTopWidth: 0,
-//     borderBottomWidth:0
-//   },
-//   textInput: {
-//     marginLeft: 0,
-//     marginRight: 0,
-//     height: 38,
-//     color: '#5d5d5d',
-//     fontSize: 16
-//   },
-//   predefinedPlacesDescription: {
-//     color: '#1faadb'
-//   },
-// });
+const styles = StyleSheet.create({
+  textInputContainer: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    borderTopWidth: 0,
+    borderBottomWidth:0
+  },
+  textInput: {
+    marginLeft: 0,
+    marginRight: 0,
+    height: 38,
+    color: '#5d5d5d',
+    fontSize: 16
+  },
+  predefinedPlacesDescription: {
+    color: '#1faadb'
+  },
+});
 
 // styles={[textInputContainer,textInput, predefinedPlacesDescription]}
 
