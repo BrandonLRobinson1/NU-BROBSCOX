@@ -35,7 +35,7 @@ class SearchAddress extends Component {
           // THIS COMPONENT WILL BE USED FOR NAIL TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
 
           console.log('save selected address searched to redux', details.formatted_address)
-          console.log('save lat and long to make marker', details.geometry.location)
+          console.log('save lat and long to make map marker', details.geometry.location)
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete

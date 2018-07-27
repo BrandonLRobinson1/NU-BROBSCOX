@@ -12,8 +12,8 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { getUserLocation, setCurrentLocation } from '../../store/location/locationServices';
-import  SearchBox  from './SearchBox';
+import { setGeoLocation, setCurrentLocation } from '../../store/location/locationServices';
+import  SearchAddress  from './SearchAddress';
 import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
 
@@ -80,9 +80,6 @@ class Maptab extends Component {
             image: Images[3],
           },
         ],
-        // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
-        // region: ((this.props || {}).regionObj || {}), // if it defaults to zero send you to the ocean because inital doesnt seem to take a rerender
-        // region: this.props.regionObj,
         initialPosition: null,
         markerPosition: {}
       };
@@ -147,9 +144,10 @@ class Maptab extends Component {
           // latitudeDelta: 0.04864195044303443,
           // longitudeDelta: 0.040142817690068,
         };
+        // may want to assiociate timestamp with sessions
         initialRegion.timeStamp = position.timestamp;
 
-        // *********************** getRegionForCoordinates(markersArray) // will calc a good lat long delta for many markers
+        // ********************************************************************* getRegionForCoordinates(markersArray) // will calc a good lat long delta for many markers
 
         this.setState({
           initialPosition: initialRegion,
@@ -157,7 +155,9 @@ class Maptab extends Component {
         });
 
         this.props.setCurrentLocation(initialRegion); // to persist
-        console.log('initialPosition: ', initialRegion);
+        this.props.setGeoLocation(position);
+
+        console.log('initialPosition: ', position);
       },
       // error => console.error(error),
       error => console.error(JSON.stringify(error)),
@@ -253,6 +253,7 @@ class Maptab extends Component {
 
   onCardClick (person) {
       console.log('marker', person)
+      // capture info for confirmed visit and details in the redux
   }
 
   renderCards(marker, index) {
@@ -327,8 +328,8 @@ class Maptab extends Component {
 
         </Animated.ScrollView>
         {/*  
+          <SearchAddress />
         */}
-        <SearchBox />
       </View>
     );
   }
@@ -339,7 +340,7 @@ export default connect(
     regionObj: state.location.locationServices.regionObj,
   }),
   {
-    getUserLocation,
+    setGeoLocation,
     setCurrentLocation
   }
 )(Maptab);

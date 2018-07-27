@@ -90,14 +90,14 @@ const RouterComponent = () => (
             
           />
         </Scene>
-        component={MapTab}
+        component={SearchAddress}
   */}
         <Scene key="map" title="MAP" icon={tabIcon} >
           <Scene
             key="mapTab"
             title="MapTab"
             
-            component={SearchAddress}
+            component={MapTab}
 
             backTitle=" "
             initial
