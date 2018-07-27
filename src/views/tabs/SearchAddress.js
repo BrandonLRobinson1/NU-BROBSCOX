@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { connect } from 'react-redux';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; // https://www.npmjs.com/package/react-native-google-places-autocomplete
 
-import { betterPlacesKeylol } from '../../../private';
+// import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
+import { placesKey } from '../../../private';
+import { colors } from '../../Colors';
  
 // const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
  
 class SearchAddress extends Component {
   render() {
-    const { textInputContainer, textInput, predefinedPlacesDescription } = styles
+    // const { textInputContainer, textInput, predefinedPlacesDescription } = styles
     return (
       <GooglePlacesAutocomplete
         placeholder='Enter Location'
@@ -22,54 +25,80 @@ class SearchAddress extends Component {
         debounce={200}
         renderDescription={(row) => row.description}
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        console.log('search data logging', data);
-        console.log('details logging', details);
-      }}
-      query={{
-        // available options: https://developers.google.com/places/web-service/autocomplete
-        key: betterPlacesKeylol,
-        types: 'address' // ** reponsible for filtering results
-      }}
-      styles={[ textInputContainer,textInput, predefinedPlacesDescription]}
-      renderDescription={(row) => { // custom description render
-        console.log('row desc', row.description)
-        return row.description
-      }} 
-      // predefinedPlaces={[homePlace, workPlace]}
-      // GooglePlacesSearchQuery={{
-        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-        // location: {
-        //     latitude: ,
-        //     longitude: ,
-        //   }
-          // radius: 25,
-          // rankby: 'distance',
-          // types: 'street_address'
-      // }}
+          console.log('search data logging', data);
+          console.log('details logging', details);
+        }}
+        query={{
+          // available options: https://developers.google.com/places/web-service/autocomplete
+          key: placesKey,
+          types: 'address' // ** reponsible for filtering results
+        }}
+        styles={{
+          textInputContainer: {
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderTopWidth: 0,
+            borderBottomWidth:0
+          },
+          textInput: {
+            marginLeft: 0,
+            marginRight: 0,
+            height: 38,
+            color: 'red',
+            fontSize: 16
+          }
+        }}
+   
+        renderDescription={(row) => { // custom description render
+          // console.log('row desc', row.description)
+          return row.description
+        }} 
+        // predefinedPlaces={[homePlace, workPlace]}
+        // GooglePlacesSearchQuery={{
+          // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+          // location: {
+          //     latitude: ,
+          //     longitude: ,
+          //   }
+            // radius: 25,
+            // rankby: 'distance',
+            // types: 'street_address'
+        // }}
       />
     );
   }
 }
 
-export default SearchAddress;
+export default connect(
+  state => ({
+    searchAddress: state.location.locationServices.searchAddress,
+    predictions: state.location.locationServices.predictions
+  }),
+  {
+    // googlePlacesSuggestions
+  }
+)(SearchAddress);
 
-const styles = StyleSheet.create({
-  textInputContainer: {
-    backgroundColor: 'rgba(0,0,0,0)',
-    borderTopWidth: 0,
-    borderBottomWidth:0
-  },
-  textInput: {
-    marginLeft: 0,
-    marginRight: 0,
-    height: 38,
-    color: '#5d5d5d',
-    fontSize: 16
-  },
-  predefinedPlacesDescription: {
-    color: '#1faadb'
-  },
-})
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+
+// const styles = StyleSheet.create({
+//   textInputContainer: {
+//     backgroundColor: 'rgba(0,0,0,0)',
+//     borderTopWidth: 0,
+//     borderBottomWidth:0
+//   },
+//   textInput: {
+//     marginLeft: 0,
+//     marginRight: 0,
+//     height: 38,
+//     color: '#5d5d5d',
+//     fontSize: 16
+//   },
+//   predefinedPlacesDescription: {
+//     color: '#1faadb'
+//   },
+// });
+
+// styles={[textInputContainer,textInput, predefinedPlacesDescription]}
 
 // <GooglePlacesAutocomplete
 //         placeholder='Search'
@@ -88,7 +117,7 @@ const styles = StyleSheet.create({
 //         }}
 //         query={{
 //           // available options: https://developers.google.com/places/web-service/autocomplete
-//           key: betterPlacesKeylol,
+//           key: placesKey,
 //           language: 'en', // language of the results
 //           types: '(cities)' // default: 'geocode'
 //           // types: '(address)' // default: 'geocode'
@@ -104,7 +133,7 @@ const styles = StyleSheet.create({
   
 //         currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
 //         currentLocationLabel="Current location"
-//         nearbyPlacesAPI={betterPlacesKeylol} // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+//         nearbyPlacesAPI={placesKey} // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
 //         GoogleReverseGeocodingQuery={{
 //           // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
 //         }}

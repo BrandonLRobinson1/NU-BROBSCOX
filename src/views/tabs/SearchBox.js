@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input } from '../../common';
-import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
+// import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
 import { colors } from '../../Colors';
 
 
@@ -39,7 +39,7 @@ export default connect(
     predictions: state.location.locationServices.predictions
   }),
   {
-    googlePlacesSuggestions
+    // googlePlacesSuggestions
   }
 )(SearchBox);
 
