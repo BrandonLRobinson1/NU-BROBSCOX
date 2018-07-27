@@ -166,9 +166,11 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
     }
   ];
 
-  // careful with variable name here!!!!!!!!!!!!!!!!
-  return sfMarkers.length > 0
-    ? getRegionForCoordinates(sfMarkers)
-    : Object.assign(sfMarkers.coordinate, {latitudeDelta: latDelta, longitudeDelta: longDelta});
+  // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users
+  const markers = sfMarkers.map(marker => marker.coordinate);
+
+  return markers.length > 1
+    ? getRegionForCoordinates(markers)
+    : Object.assign(markers.coordinate, {latitudeDelta: latDelta, longitudeDelta: longDelta});
 }
 

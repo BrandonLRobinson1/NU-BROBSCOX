@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { setGeoLocation, setCurrentLocation } from '../../store/location/locationServices';
+import { setGeoLocation, setCurrentLocation, getActiveNailTechs } from '../../store/location/locationServices';
 import  SearchAddress  from './SearchAddress';
 import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
@@ -99,6 +99,9 @@ class Maptab extends Component {
     }
   
     componentDidMount() {
+      const markers = this.props.getActiveNailTechs();
+      console.log('markers', markers)
+
       // We should detect when scrolling has stopped then animate
       // We should just debounce the event listener here
       this.animation.addListener(({ value }) => {
@@ -341,7 +344,8 @@ export default connect(
   }),
   {
     setGeoLocation,
-    setCurrentLocation
+    setCurrentLocation,
+    getActiveNailTechs
   }
 )(Maptab);
 
