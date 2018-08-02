@@ -17,7 +17,6 @@ import  SearchAddress  from './SearchAddress';
 import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
 
-
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
   { uri: "https://i.imgur.com/N7rlQYt.jpg" },
@@ -255,16 +254,13 @@ class Maptab extends Component {
   render() {
     const { container, scrollView, endPadding } = styles;
 
-    console.log(
-      '???', this.props.regionObj,
-      'this.map', this
-    );
+    // console.log('this.props.searchAddress', this.props.searchAddress, this.props.searchAddress === true)
 
-    if (!this.state.initialPosition || !this.state.markers) return( <Text> loading wheel </Text> );
+    // BELOW ADD THIS SEARCH ADDRESS MUST BE TRUE TOO ---- searchAddress
+    if (!this.state.initialPosition || !this.state.markers || this.props.searchAddress.length < 5) return (<SearchAddress />);
 
     return (
       <View style={container}>
-
         <MapView
           provider={PROVIDER_GOOGLE}
           ref={map => this.map = map}
@@ -300,8 +296,8 @@ class Maptab extends Component {
           { this.state.markers.map(this.renderCards) }
 
         </Animated.ScrollView>
+        
         {/*  
-          <SearchAddress />
         */}
       </View>
     );
@@ -311,6 +307,7 @@ class Maptab extends Component {
 export default connect(
   state => ({
     regionObj: state.location.locationServices.regionObj,
+    searchAddress: state.location.locationServices.searchAddress,
   }),
   {
     setGeoLocation,

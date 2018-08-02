@@ -74,9 +74,13 @@ react-native link react-native-vector-icons --> try in new branch for driod fix
       appointments: "idk what to do for this yet"
     },
 
+*seperate tabs with folders!!!
 
 favorites
 maps
 history?
 profile
 settings
+
+
+display users current or search location with standard pin

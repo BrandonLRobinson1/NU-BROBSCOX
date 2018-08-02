@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; // https://www.npmjs.com/package/react-native-google-places-autocomplete
+import { setAddress } from '../../store/location/locationServices';
 
 // import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
 import { placesKey } from '../../../private';
@@ -25,7 +26,7 @@ class SearchAddress extends Component {
         returnKeyType={'search'}
         fetchDetails={true}
         currentLocationLabel="Current location"
-        currentLocation={false}
+        currentLocation
         debounce={200}
         renderDescription={(row) => row.description}
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
@@ -36,29 +37,14 @@ class SearchAddress extends Component {
 
           console.log('save selected address searched to redux', details.formatted_address)
           console.log('save lat and long to make map marker', details.geometry.location)
+          this.props.setAddress(details.formatted_address);
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
           key: placesKey,
           types: 'address' // ** reponsible for filtering results
         }}
-        styles={{
-          textInputContainer: {
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderTopWidth: 0,
-            borderBottomWidth:0
-          },
-          textInput: {
-            marginLeft: 0,
-            marginRight: 0,
-            height: 38,
-            color: '#5d5d5d',
-            fontSize: 16
-          },
-          predefinedPlacesDescription: {
-            color: '#1faadb'
-          }
-        }}
+        styles={[textInputContainer,textInput, predefinedPlacesDescription]}
         renderDescription={(row) => { // custom description render
           // console.log('row desc', row.description)
           return row.description
@@ -99,16 +85,34 @@ export default connect(
     
   }),
   {
-    
+    setAddress
   }
 )(SearchAddress);
 
+
+// style for when i added it to the nail tech screen 
+// textInputContainer: {
+//   backgroundColor: 'rgba(0,0,0,0)',
+//   borderTopWidth: 0,
+//   borderBottomWidth:0
+// },
+// textInput: {
+//   marginLeft: 0,
+//   marginRight: 0,
+//   height: 38,
+//   color: '#5d5d5d',
+//   fontSize: 16
+// },
+// predefinedPlacesDescription: {
+//   color: '#1faadb'
+// }
+// style for when i added it to the nail tech screen 
 
 const styles = StyleSheet.create({
   textInputContainer: {
     backgroundColor: 'rgba(0,0,0,0)',
     borderTopWidth: 0,
-    borderBottomWidth:0
+    borderBottomWidth:0,
   },
   textInput: {
     marginLeft: 0,
