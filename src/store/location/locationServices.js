@@ -183,7 +183,7 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
     { uri: "https://i.imgur.com/UDrH0wm.jpg" },
     { uri: "https://i.imgur.com/Ka8kNST.jpg" }
   ];
-  
+
   let originalMarkers =  [
     {
       coordinate: {

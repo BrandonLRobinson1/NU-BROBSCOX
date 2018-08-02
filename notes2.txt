@@ -47,14 +47,14 @@ react-native link react-native-vector-icons --> try in new branch for driod fix
         zip: "33256"
       },
       phone: 708-897-2343,
-      services: ["stuff", "stuffy"],
+      servicesOffered: ["stuff", "stuffy"],
       ratings: [
         {
+          id: "xxxxxx"
           name: "angry Joe",
           comment: "blah",
           time: "timestamp",
           rating: "2",
-          id: "xxxxxx"
         }
       ],
       qr: {
@@ -65,9 +65,18 @@ react-native link react-native-vector-icons --> try in new branch for driod fix
           id: "",
           order: "",
           price: "",
-          time:""
+          time:"",
+          distance: "how far were you willing to go"
         }
       ],
       availabily: "",
-      avaialbleNow: false
+      avaialbleNow: false,
+      appointments: "idk what to do for this yet"
     },
+
+
+favorites
+maps
+history?
+profile
+settings

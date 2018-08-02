@@ -66,6 +66,9 @@ class Maptab extends Component {
       const init = this.props.getinitialDelta(); // depends on markers and must fire after its complete
       // need no markers logic
       console.log('mawk', markers, init);
+      // *** above should be called before this component loads
+
+
 
       // We should detect when scrolling has stopped then animate
       // We should just debounce the event listener here
