@@ -68,13 +68,15 @@ export default handleActions({
 
 // should have one thunk package all the data i need for a users session and send it up
 
-export const getinitial = () => (dispatch, getState) => {
+export const getinitialDelta = () => (dispatch, getState) => {
   const Images = [
     { uri: "https://i.imgur.com/sNam9iJ.jpg" },
     { uri: "https://i.imgur.com/N7rlQYt.jpg" },
     { uri: "https://i.imgur.com/UDrH0wm.jpg" },
     { uri: "https://i.imgur.com/Ka8kNST.jpg" }
   ];
+
+  //******* markers in reality this will pull from getState()
   
   const originalMarkers =  [
     {
@@ -172,7 +174,6 @@ export const getinitial = () => (dispatch, getState) => {
     ? getRegionForCoordinates(markers)
     : Object.assign(markers.coordinate, {latitudeDelta: latDelta, longitudeDelta: longDelta});
 
-  return markers
 }
 
 export const getActiveNailTechs = () => (dispatch, getState) => {

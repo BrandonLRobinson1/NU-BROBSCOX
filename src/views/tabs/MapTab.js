@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { setGeoLocation, setCurrentLocation, getActiveNailTechs, getinitial } from '../../store/location/locationServices';
+import { setGeoLocation, setCurrentLocation, getActiveNailTechs, getinitialDelta } from '../../store/location/locationServices';
 import  SearchAddress  from './SearchAddress';
 import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
@@ -61,11 +61,11 @@ class Maptab extends Component {
       // await this.props.getUserLocation()   
     }
   
-    componentDidMount() {
-      const init = this.props.getinitial();
-      const markers = this.props.getActiveNailTechs();
-      console.log('mawk', markers, init)
-
+    async componentDidMount() {
+      const markers = await this.props.getActiveNailTechs();
+      const init = this.props.getinitialDelta(); // depends on markers and must fire after its complete
+      // need no markers logic
+      console.log('mawk', markers, init);
 
       // We should detect when scrolling has stopped then animate
       // We should just debounce the event listener here
@@ -313,7 +313,7 @@ export default connect(
     setGeoLocation,
     setCurrentLocation,
     getActiveNailTechs,
-    getinitial
+    getinitialDelta
   }
 )(Maptab);
 

@@ -23,3 +23,51 @@ react-native link react-native-vector-icons --> try in new branch for driod fix
             //   latitudeDelta:  60,
             //   longitudeDelta: 60,
             // },
+
+
+
+---------->> ************ Google maps works better on ios if the remote debugger is on**
+
+
+  {
+      id: "xxxxxx"
+      coordinate: {
+        latitude: 45.524548,
+        longitude: -122.6749817,
+      },
+      title: "Best Place",
+      description: "This is the best place in Portland",
+      image: Images[0],
+      name: "Shizzle Jacklyn"
+      address: {
+        street: "8649 A C Skinner Parkway"
+        details: "App 922",
+        city: "Jacksonville",
+        state: "FL"
+        zip: "33256"
+      },
+      phone: 708-897-2343,
+      services: ["stuff", "stuffy"],
+      ratings: [
+        {
+          name: "angry Joe",
+          comment: "blah",
+          time: "timestamp",
+          rating: "2",
+          id: "xxxxxx"
+        }
+      ],
+      qr: {
+        qrStuff: {}
+      },
+      customers: [
+        {
+          id: "",
+          order: "",
+          price: "",
+          time:""
+        }
+      ],
+      availabily: "",
+      avaialbleNow: false
+    },
