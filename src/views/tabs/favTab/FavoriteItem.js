@@ -1,41 +1,39 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import FavoriteItem from './FavoriteItem';
-import { Button, CardSection, FullCard } from '../../../common';
-import data from '../../../store/dummyMembers.json';
+// import { Actions } from 'react-native-router-flux';
+import { AlbumCard, CardSection, Card } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
 import { colors } from '../../../Colors';
 
-class Favorites extends Component {
+class FavoriteItem extends Component {
   constructor(){
     super();
     this.state = {
-      errorMessage: ' ',
-      loading: false
     }
 
-    this.RenderFavorites = this.RenderFavorites.bind(this);
+    this.thing = this.thing.bind(this);
   }
 
   componentWillMount() {
     // get data for favorites
   }
 
-  RenderFavorites () {
-    return data.map( album => <FavoriteItem key={'x'} /> );
-    // return (<FavoriteItem /> );
+  thing () {
   }
 
   render() {
-    const {  circleContainer } = styles
+    const {  circleContainer } = styles;
     return (
-      <View>
-        <ScrollView>
-          {this.RenderFavorites()}
-        </ScrollView>
-      </View>
+    
+      <Card>
+        <CardSection>
+          <Text>yooo</Text>
+          <View>
+            <Image source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}/>
+          </View>
+        </CardSection>
+      </Card>
     )
   }
 }
@@ -51,7 +49,7 @@ export default connect(
     // updateLastName,
     // updateZipCode
   }
-)(Favorites);
+)(FavoriteItem);
 
 const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 
