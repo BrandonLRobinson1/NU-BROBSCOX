@@ -96,12 +96,17 @@ const RouterComponent = () => (
           <Scene
             key="mapTab"
             title="MapTab"
-            
             component={MapTab}
-
             backTitle=" "
             initial
-            hideNavBar
+            rightTitle="Change Location"
+            onRight={() => Actions.SearchAddress()}
+          />
+          <Scene
+            key="SearchAddress"
+            title="Address Search"
+            component={SearchAddress}
+            backTitle=" "
           />
         </Scene>
 

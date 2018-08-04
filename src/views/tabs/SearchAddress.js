@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
+
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; // https://www.npmjs.com/package/react-native-google-places-autocomplete
-import { setAddress } from '../../store/location/locationServices';
+import { setCurrentLocation } from '../../store/location/locationServices';
 
 // import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
 import { placesKey } from '../../../private';
@@ -12,6 +14,17 @@ import { colors } from '../../Colors';
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
  
 class SearchAddress extends Component {
+
+  // TODO: submit button - clear current address map is currently pulling from - then set new coordinates and markers
+
+  // maptab state.
+  // this.state = {
+  //   markers: null,
+  //   initialPosition: null,
+  //   markerPosition: {}
+  // };
+
+  // this.props.setGeoLocation(position);
 
   render() {
     const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
@@ -26,18 +39,25 @@ class SearchAddress extends Component {
         returnKeyType={'search'}
         fetchDetails={true}
         currentLocationLabel="Current location"
-        currentLocation
+        currentLocation={false}
         debounce={200}
         renderDescription={(row) => row.description}
-        onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+        onPress={async (data, details = null) => { // 'details' is provided when fetchDetails = true
+          const dt = new Date();
+          const utcDate = dt.toUTCString();
+
           console.log('search data logging', data);
           console.log('details logging', details);
 
-          // THIS COMPONENT WILL BE USED FOR NAIL TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
+
+          // THIS COMPONENT WILL ALSO BE USED FOR NAIL TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
 
           console.log('save selected address searched to redux', details.formatted_address)
           console.log('save lat and long to make map marker', details.geometry.location)
-          this.props.setAddress(details.formatted_address);
+
+          const locationToSearch = Object.assign({timeStamp: utcDate}, details.geometry.location);
+          await this.props.setCurrentLocation(locationToSearch);
+          return Actions.mapTab()
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
@@ -45,8 +65,9 @@ class SearchAddress extends Component {
           types: 'address' // ** reponsible for filtering results
         }}
         styles={[textInputContainer,textInput, predefinedPlacesDescription]}
-        renderDescription={(row) => { // custom description render
-          // console.log('row desc', row.description)
+        renderDescription={(row) => { 
+          // custom description render
+          console.log('row desc', row.description)
           return row.description
         }}
         // **** other style
@@ -85,7 +106,7 @@ export default connect(
     
   }),
   {
-    setAddress
+    setCurrentLocation
   }
 )(SearchAddress);
 

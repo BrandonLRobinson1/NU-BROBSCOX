@@ -6,16 +6,15 @@ import {
   Animated,
   Image,
   Dimensions,
-  AppRegistry,
-  ScrollView,
   TouchableOpacity,
+  // AppRegistry,
+  // ScrollView,
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 import { setGeoLocation, setCurrentLocation, getActiveNailTechs, getinitialDelta } from '../../store/location/locationServices';
-import  SearchAddress  from './SearchAddress';
-import  SearchResults  from './SearchResults';
 import { colors } from '../../Colors';
+// import  SearchAddress  from './SearchAddress';
 
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -27,7 +26,6 @@ const Images = [
 /// *****
 const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
-
 // const latDelta = .0922;
 const latDelta = .0622;
 const longDelta = aspectRatio * latDelta;
@@ -52,114 +50,142 @@ class Maptab extends Component {
       this.customMarker = this.customMarker.bind(this);
     }
   
-    async componentWillMount() {
+    componentWillMount() {
+      console.log('umountedddddddddd')
       this.index = 0;
       this.animation = new Animated.Value(0);
-
-      // should probaly move/fire this when you can navigate with the tabs on the bottom (on load)
-      // await this.props.getUserLocation()   
+      this.watchID = null;
     }
   
     async componentDidMount() {
       const markers = await this.props.getActiveNailTechs();
-      const init = this.props.getinitialDelta(); // depends on markers and must fire after its complete
-      // need no markers logic
+      const init = this.props.getinitialDelta(); // depends on markers and must fire after markers complete
       console.log('mawk', markers, init);
       // *** above should be called before this component loads
 
+      const dt = new Date();
+      const utcDate = dt.toUTCString(); // unique timestamp with date
 
+      // if you come to the map with no address loaded it grabs current location *** TODO:// set cases for no location services
+      if (!this.props.regionObj) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const latitude = parseFloat(position.coords.latitude);
+          const longitude = parseFloat(position.coords.longitude);
 
-      // We should detect when scrolling has stopped then animate
-      // We should just debounce the event listener here
-      this.animation.addListener(({ value }) => {
-        let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-        if (index >= this.state.markers.length) {
-          index = this.state.markers.length - 1;
-        }
-        if (index <= 0) {
-          index = 0;
-        }
+          const initialRegion = {
+            latitude,
+            longitude,
+            latitudeDelta: latDelta,
+            longitudeDelta: longDelta,
+            timeStamp: utcDate
+            // For testing
+            // latitude: 45.52220671242907,
+            // longitude: -122.6653281029795,
+            // latitudeDelta: 0.04864195044303443,
+            // longitudeDelta: 0.040142817690068,
+          };
+          // may want to assiociate timestamp with sessions
 
-        clearTimeout(this.regionTimeout);
-        this.regionTimeout = setTimeout(() => {
-          if (this.index !== index) {
-            this.index = index;
-            const { coordinate } = this.state.markers[index];
-            // changes the region you animate too and keeps your deltas *****
-            this.map.animateToRegion(
-              {
-                ...coordinate,
-                latitudeDelta: this.state.initialPosition.latitudeDelta,
-                longitudeDelta: this.state.initialPosition.longitudeDelta,
-              },
-              350
-            );
-          }
-        }, 10);
-      });
+          this.setState({
+            // initialPosition: init, // if you want ur stRTING POINT TO BE A central location beteen markers and not yourself
+            initialPosition: initialRegion,
+            markerPosition: initialRegion,
+            markers
+          });
 
-      // gets current location and sets it to state
-      navigator.geolocation.getCurrentPosition(position => {
+          this.props.setCurrentLocation(initialRegion);
+        },
+        error => console.error(JSON.stringify(error)),
+        { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
+      )
+
+      this.watchID = navigator.geolocation.watchPosition(position=> {
         const latitude = parseFloat(position.coords.latitude);
         const longitude = parseFloat(position.coords.longitude);
 
-        const initialRegion = {
+        const lastRegion = {
           latitude,
           longitude,
           latitudeDelta: latDelta,
-          longitudeDelta: longDelta
+          longitudeDelta: longDelta,
+          timeStamp: utcDate
           // For testing
           // latitude: 45.52220671242907,
           // longitude: -122.6653281029795,
           // latitudeDelta: 0.04864195044303443,
           // longitudeDelta: 0.040142817690068,
-        };
-        // may want to assiociate timestamp with sessions
-        initialRegion.timeStamp = position.timestamp;
-
-        // ********************************************************************* getRegionForCoordinates(markersArray) // will calc a good lat long delta for many markers
+        }
 
         this.setState({
-          // initialPosition: init, // if you want ur stRTING POINT TO BE A central location beteen markers and not yourself
-          initialPosition: initialRegion,
-          markerPositoin: initialRegion,
-          markers
+          initialPosition: lastRegion,
+          markerPosition: lastRegion
         });
 
-        this.props.setCurrentLocation(initialRegion); // to persist
-        this.props.setGeoLocation(position);
-
-        console.log('initialPosition: ', position);
-      },
-      // error => console.error(error),
-      error => console.error(JSON.stringify(error)),
-      { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
-    )
-
-    this.watchID = navigator.geolocation.watchPosition(position=> {
-      const latitude = parseFloat(position.coords.latitude);
-      const longitude = parseFloat(position.coords.longitude);
-
-      const lastRegion = {
-        latitude,
-        longitude,
-        latitudeDelta: latDelta,
-        longitudeDelta: longDelta
-        // For testing
-        // latitude: 45.52220671242907,
-        // longitude: -122.6653281029795,
-        // latitudeDelta: 0.04864195044303443,
-        // longitudeDelta: 0.040142817690068,
-      }
-      lastRegion.timeStamp = position.timeStamp
-
-      this.setState({
-        initialPosition: lastRegion,
-        markerPositoin: lastRegion
       });
 
-    });
+    } else {
+      // currently only works for address of home (skinner)
+      const initialRegion = {
+        latitude: this.props.regionObj.lat,
+        longitude: this.props.regionObj.lng,
+        latitudeDelta: .6622, // need to run something to actually get lat and long delta ( as well as markers )
+        longitudeDelta: 0.034317000000001485,
+      }
 
+      this.setState({
+        initialPosition: initialRegion,
+        markerPosition: initialRegion,
+        markers: [
+          {
+            coordinate: {
+              latitude: 30.293536,
+              longitude: -81.603096,
+            },
+            title: "Second xxxx Place",
+            description: "This is the second best place in Portland",
+            image: Images[1],
+          },
+          {
+            coordinate: {
+              latitude: 30.393536,
+              longitude: -81.803096,
+            },
+            title: "3rd",
+            description: "This is it",
+            image: Images[2],
+          }
+        ]
+      });
+    }
+
+    // We should detect when scrolling has stopped then animate
+    // We should just debounce the event listener here
+    this.animation.addListener(({ value }) => {
+      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+      if (index >= this.state.markers.length) {
+        index = this.state.markers.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      clearTimeout(this.regionTimeout);
+      this.regionTimeout = setTimeout(() => {
+        if (this.index !== index) {
+          this.index = index;
+          const { coordinate } = this.state.markers[index];
+          // changes the region you animate too and keeps your deltas *****
+          this.map.animateToRegion(
+            {
+              ...coordinate,
+              latitudeDelta: this.state.initialPosition.latitudeDelta,
+              longitudeDelta: this.state.initialPosition.longitudeDelta,
+            },
+            350
+          );
+        }
+      }, 10);
+    });
   }
 
   componentWillUnmount() {
@@ -254,10 +280,7 @@ class Maptab extends Component {
   render() {
     const { container, scrollView, endPadding } = styles;
 
-    // console.log('this.props.searchAddress', this.props.searchAddress, this.props.searchAddress === true)
-
-    // BELOW ADD THIS SEARCH ADDRESS MUST BE TRUE TOO ---- searchAddress
-    if (!this.state.initialPosition || !this.state.markers || this.props.searchAddress.length < 5) return (<SearchAddress />);
+    if (!this.state.initialPosition || !this.state.markers) return (<Text>loading</Text>);
 
     return (
       <View style={container}>
@@ -307,7 +330,7 @@ class Maptab extends Component {
 export default connect(
   state => ({
     regionObj: state.location.locationServices.regionObj,
-    searchAddress: state.location.locationServices.searchAddress,
+    // searchAddress: state.location.locationServices.searchAddress,
   }),
   {
     setGeoLocation,

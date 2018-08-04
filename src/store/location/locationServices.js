@@ -16,14 +16,14 @@ const longDelta = aspectRatio * latDelta;
 
 // need to design this to grab info from every SESSION
 const defaultState = {
-  geoLocationObj: '',
-  regionObj: {},
+  geoLocationObj: null,
+  regionObj: null,
   // userLocation: '',
   // userLatitude: '',
   // userLongitude: '',
   // for google maps?
   // googleplaces
-  searchAddress: '',
+  // searchAddress: '',
   // need a total information object to collect all
 };
 
@@ -34,13 +34,13 @@ export const setGeoLocation = createAction(`${prefix}SET_GEO_LOCATION`);
 // export const setCurrentLongitude = createAction(`${prefix}SET_CURRENT_LONGITUDE`);
 // export const setRegionObj = createAction(`${prefix}SET_REGION_OBJ`);
 
-export const setAddress = createAction(`${prefix}SET_ADDRESS`);
+// export const setAddress = createAction(`${prefix}SET_ADDRESS`);
 
 
 export default handleActions({
   [setCurrentLocation]: (state, { payload }) => ({
     ...state,
-    userLocation: payload
+    regionObj: payload
   }),
   [setGeoLocation]: (state, { payload }) => ({
     ...state,
@@ -58,10 +58,10 @@ export default handleActions({
   //   ...state,
   //   regionObj: payload
   // }),
-  [setAddress]: (state, { payload }) => ({
-    ...state,
-    searchAddress: payload
-  }),
+  // [setAddress]: (state, { payload }) => ({
+  //   ...state,
+  //   searchAddress: payload
+  // }),
 
 
 }, defaultState);
