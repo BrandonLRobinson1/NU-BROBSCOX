@@ -1,63 +1,35 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; // https://www.npmjs.com/package/react-native-google-places-autocomplete
 import { setCurrentLocation } from '../../store/location/locationServices';
 
-// import { googlePlacesSuggestions } from '../../store/location/locationServices'; 
 import { placesKey } from '../../../private';
 import { colors } from '../../Colors';
  
-// const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
-// const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
- 
 class SearchAddress extends Component {
-
-  // TODO: submit button - clear current address map is currently pulling from - then set new coordinates and markers
-
-  // maptab state.
-  // this.state = {
-  //   markers: null,
-  //   initialPosition: null,
-  //   markerPosition: {}
-  // };
-
-  // this.props.setGeoLocation(position);
-
+  // THIS COMPONENT WILL ALSO BE USED FOR TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
   render() {
-    const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
     const { textInputContainer, textInput, predefinedPlacesDescription } = styles;
-    // styles={Object.assign({}, textInputContainer, textInput, predefinedPlacesDescription)}
-
     return (
       <GooglePlacesAutocomplete
-        placeholder='Enter Location'
+        placeholder='Enter Address'
         minLength={2}
         autoFocus={false}
         returnKeyType={'search'}
         fetchDetails={true}
-        currentLocationLabel="Current location"
         currentLocation={false}
+        currentLocationLabel="Current location"
         debounce={200}
         renderDescription={(row) => row.description}
-        onPress={async (data, details = null) => { // 'details' is provided when fetchDetails = true
+        onPress={async (data, details = null) => { 
+          // 'details' is provided when fetchDetails = true
           const dt = new Date();
           const utcDate = dt.toUTCString();
-
-          console.log('search data logging', data);
-          console.log('details logging', details);
-
-
-          // THIS COMPONENT WILL ALSO BE USED FOR NAIL TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
-
-          console.log('save selected address searched to redux', details.formatted_address)
-          console.log('save lat and long to make map marker', details.geometry.location)
-
           const locationToSearch = Object.assign({timeStamp: utcDate}, details.geometry.location);
           await this.props.setCurrentLocation(locationToSearch);
-          return Actions.mapTab()
+          return Actions.mapTab();
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
@@ -66,36 +38,10 @@ class SearchAddress extends Component {
         }}
         styles={[textInputContainer,textInput, predefinedPlacesDescription]}
         renderDescription={(row) => { 
-          // custom description render
-          console.log('row desc', row.description)
+          // console.log('row desc', row.description)
           return row.description
         }}
-        // **** other style
-        // styles={{
-        //   textInputContainer: {
-        //     backgroundColor: 'rgba(0,0,0,0)',
-        //     borderTopWidth: 0,
-        //     borderBottomWidth:0
-        //   },
-        //   textInput: {
-        //     marginLeft: 0,
-        //     marginRight: 0,
-        //     height: 38,
-        //     color: 'red',
-        //     fontSize: 16
-        //   }
-        // }}
-        // predefinedPlaces={[homePlace, workPlace]}
-        // GooglePlacesSearchQuery={{
-          // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-          // location: {
-          //     latitude: ,
-          //     longitude: ,
-          //   }
-            // radius: 25,
-            // rankby: 'distance',
-            // types: 'street_address'
-        // }}
+
       />
     );
   }
@@ -110,25 +56,7 @@ export default connect(
   }
 )(SearchAddress);
 
-
-// style for when i added it to the nail tech screen 
-// textInputContainer: {
-//   backgroundColor: 'rgba(0,0,0,0)',
-//   borderTopWidth: 0,
-//   borderBottomWidth:0
-// },
-// textInput: {
-//   marginLeft: 0,
-//   marginRight: 0,
-//   height: 38,
-//   color: '#5d5d5d',
-//   fontSize: 16
-// },
-// predefinedPlacesDescription: {
-//   color: '#1faadb'
-// }
-// style for when i added it to the nail tech screen 
-
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 const styles = StyleSheet.create({
   textInputContainer: {
     backgroundColor: 'rgba(0,0,0,0)',
@@ -146,61 +74,3 @@ const styles = StyleSheet.create({
     color: '#1faadb'
   },
 });
-
-// styles={[textInputContainer,textInput, predefinedPlacesDescription]}
-
-// <GooglePlacesAutocomplete
-//         placeholder='Search'
-//         minLength={2} // minimum length of text to search
-//         autoFocus={false}
-//         returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-//         listViewDisplayed='auto'    // true/false/undefined
-//         fetchDetails={true}
-        // renderDescription={(row) => row.description} // custom description render
-        // onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        //   console.log('search data logging', data);
-        //   console.log('details logging', details);
-        // }}
-//         getDefaultValue={() => {
-//           return ''; // text input default value
-//         }}
-//         query={{
-//           // available options: https://developers.google.com/places/web-service/autocomplete
-//           key: placesKey,
-//           language: 'en', // language of the results
-//           types: '(cities)' // default: 'geocode'
-//           // types: '(address)' // default: 'geocode'
-//         }}
-//         styles={{
-//           description: {
-//             fontWeight: 'bold'
-//           },
-//           predefinedPlacesDescription: {
-//             color: '#1faadb'
-//           }
-//         }}
-  
-//         currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-//         currentLocationLabel="Current location"
-//         nearbyPlacesAPI={placesKey} // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-//         GoogleReverseGeocodingQuery={{
-//           // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-//         }}
-        // GooglePlacesSearchQuery={{
-        //   // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-        //   // location: {
-        //   //   latitude: ,
-        //   //   longitude: ,
-        //   // }
-        //   // radius: 25,
-        //   rankby: 'distance',
-        //   types: 'street_address'
-        // }}
-  
-//         filterReverseGeocodingByTypes={['address']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-//         predefinedPlaces={[homePlace, workPlace]}
-  
-//         debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-//         renderLeftButton={() => <Text>Custom text after the inputg</Text>}
-//         renderRightButton={() => <Text>Custom text after the inputg</Text>}
-//       />

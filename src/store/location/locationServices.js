@@ -8,16 +8,14 @@ import { getRegionForCoordinates } from '../../helpers/helpersFunctions'; // hel
 /// *****
 const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
-
-// const latDelta = .0922;
-const latDelta = .0622;
+const latDelta = .0622; // .0922
 const longDelta = aspectRatio * latDelta;
 /// *****
 
 // need to design this to grab info from every SESSION
 const defaultState = {
-  geoLocationObj: null,
   regionObj: null,
+  // geoLocationObj: null,
   // userLocation: '',
   // userLatitude: '',
   // userLongitude: '',
@@ -29,7 +27,7 @@ const defaultState = {
 
 const prefix = 'NU_STORE/LOCATION/';
 export const setCurrentLocation = createAction(`${prefix}SET_CURRENT_LOCATION`);
-export const setGeoLocation = createAction(`${prefix}SET_GEO_LOCATION`);
+// export const setGeoLocation = createAction(`${prefix}SET_GEO_LOCATION`);
 // export const setCurrentLatitude = createAction(`${prefix}SET_CURRENT_LATITUDE`);
 // export const setCurrentLongitude = createAction(`${prefix}SET_CURRENT_LONGITUDE`);
 // export const setRegionObj = createAction(`${prefix}SET_REGION_OBJ`);
@@ -42,10 +40,10 @@ export default handleActions({
     ...state,
     regionObj: payload
   }),
-  [setGeoLocation]: (state, { payload }) => ({
-    ...state,
-    geoLocationObj: payload
-  }),
+  // [setGeoLocation]: (state, { payload }) => ({
+  //   ...state,
+  //   geoLocationObj: payload
+  // }),
   // [setCurrentLatitude]: (state, { payload }) => ({
   //   ...state,
   //   userLatitude: payload

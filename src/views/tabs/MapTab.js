@@ -6,15 +6,12 @@ import {
   Animated,
   Image,
   Dimensions,
-  TouchableOpacity,
-  // AppRegistry,
-  // ScrollView,
+  TouchableOpacity
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { setGeoLocation, setCurrentLocation, getActiveNailTechs, getinitialDelta } from '../../store/location/locationServices';
+import { setCurrentLocation, getActiveNailTechs, getinitialDelta } from '../../store/location/locationServices';
 import { colors } from '../../Colors';
-// import  SearchAddress  from './SearchAddress';
 
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -23,11 +20,10 @@ const Images = [
   { uri: "https://i.imgur.com/Ka8kNST.jpg" }
 ];
 
-/// *****
+/// phone dimensions *****
 const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
-// const latDelta = .0922;
-const latDelta = .0622;
+const latDelta = .0622; // .0922
 const longDelta = aspectRatio * latDelta;
 /// *****
 
@@ -41,20 +37,12 @@ class Maptab extends Component {
       this.state = {
         markers: null,
         initialPosition: null,
-        markerPosition: {}
       };
 
       this.renderMarkers =  this.renderMarkers.bind(this);
       this.renderCards =  this.renderCards.bind(this);
       this.onCardClick = this.onCardClick.bind(this);
       this.customMarker = this.customMarker.bind(this);
-    }
-  
-    componentWillMount() {
-      console.log('umountedddddddddd')
-      this.index = 0;
-      this.animation = new Animated.Value(0);
-      this.watchID = null;
     }
   
     async componentDidMount() {
@@ -77,19 +65,12 @@ class Maptab extends Component {
             longitude,
             latitudeDelta: latDelta,
             longitudeDelta: longDelta,
-            timeStamp: utcDate
-            // For testing
-            // latitude: 45.52220671242907,
-            // longitude: -122.6653281029795,
-            // latitudeDelta: 0.04864195044303443,
-            // longitudeDelta: 0.040142817690068,
+            timeStamp: utcDate // may want to assiociate timestamp with sessions
           };
-          // may want to assiociate timestamp with sessions
 
           this.setState({
             // initialPosition: init, // if you want ur stRTING POINT TO BE A central location beteen markers and not yourself
             initialPosition: initialRegion,
-            markerPosition: initialRegion,
             markers
           });
 
@@ -109,20 +90,13 @@ class Maptab extends Component {
           latitudeDelta: latDelta,
           longitudeDelta: longDelta,
           timeStamp: utcDate
-          // For testing
-          // latitude: 45.52220671242907,
-          // longitude: -122.6653281029795,
-          // latitudeDelta: 0.04864195044303443,
-          // longitudeDelta: 0.040142817690068,
         }
 
         this.setState({
           initialPosition: lastRegion,
-          markerPosition: lastRegion
         });
 
       });
-
     } else {
       // currently only works for address of home (skinner)
       const initialRegion = {
@@ -134,7 +108,6 @@ class Maptab extends Component {
 
       this.setState({
         initialPosition: initialRegion,
-        markerPosition: initialRegion,
         markers: [
           {
             coordinate: {
@@ -188,8 +161,10 @@ class Maptab extends Component {
     });
   }
 
-  componentWillUnmount() {
-    navigatorgeolocation.clearWatch(this.watchID);
+  componentWillMount() {
+    this.index = 0;
+    this.animation = new Animated.Value(0);
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   customMarker() {
@@ -239,7 +214,6 @@ class Maptab extends Component {
         opacity: interpolations[index].opacity,
       };
 
-      // pinColor='green' can also be added to standard marker to change color
       return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
           <Animated.View style={[markerWrap, opacityStyle, scaleStyle, markerSize]}>
@@ -250,8 +224,8 @@ class Maptab extends Component {
   }
 
   onCardClick (person) {
-      console.log('marker', person)
-      // capture info for confirmed visit and details in the redux
+    // capture info for confirmed visit and details in the redux on they book apt, build big info obj
+    console.log('marker', person)
   }
 
   renderCards(marker, index) {
@@ -279,6 +253,7 @@ class Maptab extends Component {
 
   render() {
     const { container, scrollView, endPadding } = styles;
+    const { NU_White } = colors;
 
     if (!this.state.initialPosition || !this.state.markers) return (<Text>loading</Text>);
 
@@ -292,6 +267,9 @@ class Maptab extends Component {
         >
         
           { this.state.markers.map(this.renderMarkers) }
+
+          {/*below is an optional your location marker*/}
+          <MapView.Marker coordinate={this.state.initialPosition} pinColor={NU_White}/>
         
         </MapView>
   
@@ -319,9 +297,7 @@ class Maptab extends Component {
           { this.state.markers.map(this.renderCards) }
 
         </Animated.ScrollView>
-        
-        {/*  
-        */}
+
       </View>
     );
   }
@@ -330,10 +306,8 @@ class Maptab extends Component {
 export default connect(
   state => ({
     regionObj: state.location.locationServices.regionObj,
-    // searchAddress: state.location.locationServices.searchAddress,
   }),
   {
-    setGeoLocation,
     setCurrentLocation,
     getActiveNailTechs,
     getinitialDelta
