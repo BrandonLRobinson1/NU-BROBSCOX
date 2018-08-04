@@ -9,7 +9,7 @@ import LogIn from './src/views/getCredentials/LogIn';
 import GetCredentials from './src/views/getCredentials/GetCredentials';
 import Validate from './src/views/getCredentials/Validate';
 
-import Home from './src/views/tabs/Home';
+import Favorites from './src/views/tabs/favTab/Favorites';
 import MapTab from './src/views/tabs/map/MapTab';
 
 import SearchAddress from './src/views/tabs/map/SearchAddress';
@@ -79,19 +79,15 @@ const RouterComponent = () => (
         pressOpacity={1}
         default="mapTab"
       >
-  {/*
-      <Scene key="home" title="HOME" icon={tabIcon} >
-
+      <Scene key="favorites" title="Favorites" icon={tabIcon} >
           <Scene
-            key="homeTab"
-            title="HomeTab"
-            component={Home}
-            backTitle=" "
-            
+            key="FavoritesTab"
+            title="FavoritesTab"
+            component={Favorites}
+            initial       
           />
         </Scene>
-        component={SearchAddress}
-  */}
+
         <Scene key="map" title="MAP" icon={tabIcon} >
           <Scene
             key="mapTab"

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { Button, CardSection, Card } from '../../common';
+import { Button, CardSection, FullCard } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
-import { colors } from '../../Colors';
+import { colors } from '../../../Colors';
 
-class Home extends Component {
+class Favorites extends Component {
   constructor(){
     super();
     this.state = {
@@ -23,20 +23,9 @@ class Home extends Component {
   render() {
     const {  circleContainer } = styles
     return (
-      <Card>
-
-        <View style={circleContainer}>
-          <Text>Home text</Text>
-        </View>
-
-        <CardSection>
-          <Button
-            buttonText="home"
-            onPress={() => Actions.Tab()}
-          />
-        </CardSection>
-
-      </Card>
+      <FullCard>
+        <Text>map thru things</Text>
+      </FullCard>
     )
   }
 }
@@ -52,7 +41,7 @@ export default connect(
     // updateLastName,
     // updateZipCode
   }
-)(Home);
+)(Favorites);
 
 const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 

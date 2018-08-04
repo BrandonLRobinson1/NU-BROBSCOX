@@ -30,7 +30,7 @@ react-native link react-native-vector-icons --> try in new branch for driod fix
 
 
   {
-      id: "xxxxxx"
+      id: "xxxxxx",
       coordinate: {
         latitude: 45.524548,
         longitude: -122.6749817,
