@@ -3,10 +3,10 @@ import { Actions } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; // https://www.npmjs.com/package/react-native-google-places-autocomplete
-import { setCurrentLocation } from '../../store/location/locationServices';
+import { setCurrentLocation } from '../../../store/location/locationServices';
 
-import { placesKey } from '../../../private';
-import { colors } from '../../Colors';
+import { placesKey } from '../../../../private';
+import { colors } from '../../../Colors';
  
 class SearchAddress extends Component {
   // THIS COMPONENT WILL ALSO BE USED FOR TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM

@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import { setCurrentLocation, getActiveNailTechs, getinitialDelta } from '../../store/location/locationServices';
-import { colors } from '../../Colors';
+import { setCurrentLocation, getActiveNailTechs, getinitialDelta } from '../../../store/location/locationServices';
+import { colors } from '../../../Colors';
 
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -259,6 +259,7 @@ class Maptab extends Component {
 
     return (
       <View style={container}>
+
         <MapView
           provider={PROVIDER_GOOGLE}
           ref={map => this.map = map}

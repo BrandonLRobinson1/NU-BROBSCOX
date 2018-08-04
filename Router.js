@@ -10,9 +10,9 @@ import GetCredentials from './src/views/getCredentials/GetCredentials';
 import Validate from './src/views/getCredentials/Validate';
 
 import Home from './src/views/tabs/Home';
-import MapTab from './src/views/tabs/MapTab';
+import MapTab from './src/views/tabs/map/MapTab';
 
-import SearchAddress from './src/views/tabs/SearchAddress';
+import SearchAddress from './src/views/tabs/map/SearchAddress';
 
 import {colors } from './src/Colors';
 // import CredentialsRouter from './src/views/getCredentials/index';
