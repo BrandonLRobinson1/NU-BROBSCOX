@@ -1,44 +1,77 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import FavoriteItem from './FavoriteItem';
+import { View, Text, StyleSheet, Dimensions, ScrollView, ListView } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, FullCard } from '../../../common';
-import data from '../../../store/dummyMembers.json';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
+import data from '../../../store/dummyMembers.json';
 import { colors } from '../../../Colors';
 
+
 class Favorites extends Component {
-  constructor(){
+  constructor() {
     super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      errorMessage: ' ',
-      loading: false
-    }
-
-    this.RenderFavorites = this.RenderFavorites.bind(this);
-  }
-
-  componentWillMount() {
-    // get data for favorites
-  }
-
-  RenderFavorites () {
-    return data.map( album => <FavoriteItem key={'x'} /> );
-    // return (<FavoriteItem /> );
+      dataSource: ds.cloneWithRows(data),
+    };
   }
 
   render() {
-    const {  circleContainer } = styles
     return (
-      <View>
-        <ScrollView>
-          {this.RenderFavorites()}
-        </ScrollView>
-      </View>
-    )
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={(personData) => <FavoriteItem key={'x'} personData={personData} />}
+      />
+    );
   }
 }
+
+// class Favorites extends Component {
+//   // constructor(){
+//   //   super();
+//   // //   this.state = {
+//   // //     errorMessage: ' ',
+//   // //     loading: false
+//   // //   }
+
+//   //   this.renderFavorites = this.renderFavorites.bind(this);
+//   // }
+
+//   componentWillMount() {
+//     // listview set up
+//     const ds = new ListView.DataSource({
+//       rowHasChanged: (r1, r2) => r1 !== r2
+//     });
+//     this.dataSource = ds.cloneWithRows( [1,2,3] );
+//     console.log('diss', this)
+//   }
+
+//   renderFavorites = person => <FavoriteItem key={'x'} person={person} />
+
+//   // renderRow () {
+//   //   return data.map( album => <FavoriteItem key={'x'} /> );
+//   //   // return (<FavoriteItem /> );
+//   // }
+
+//   // renderFavorites (fav) { 
+//   //   return (
+//   //     <FavoriteItem fav={fav} />
+//   //   )
+//   // }
+
+
+//   render() {
+//     const {  circleContainer } = styles
+//     return (
+//       <ListView
+//         dataSource={this.dataSource}
+//         renderFavorites={this.renderFavorites}
+//       />
+//     )
+//   }
+// }
 
 export default connect(
   state => ({
@@ -66,3 +99,25 @@ const styles = StyleSheet.create({
     borderBottomColor: NU_Grey
   }
 });
+
+
+
+// componentWillMount() {
+//   // listview set up
+//   const ds = new ListView.DataSource({
+//     rowHasChanged: (r1, r2) => r1 !== r2
+//   });
+//   this.dataSource = ds.cloneWithRows(this.props.libraries);
+// }
+
+// renderFavorites = (library) => <ListItem library={library} /> //native agrument to pass
+
+// render() {
+//   return (
+//     <ListView
+//       dataSource={this.dataSource}
+//       renderFavorites={this.renderFavorites}
+//     />
+//   )
+// }
+// }
