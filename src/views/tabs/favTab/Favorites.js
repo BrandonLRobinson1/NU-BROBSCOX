@@ -10,68 +10,23 @@ import { colors } from '../../../Colors';
 
 
 class Favorites extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(data),
-    };
+  componentWillMount() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    this.dataSource = ds.cloneWithRows(data); //**  data pulled from sample json!!
   }
 
   render() {
+    if (!this.dataSource) return (<Text>Loading..</Text>);
     return (
       <ListView
-        dataSource={this.state.dataSource}
-        renderRow={(personData) => <FavoriteItem key={'x'} personData={personData} />}
+        dataSource={this.dataSource}
+        renderRow={(personData) => <FavoriteItem key={ Math.random() } personData={personData} />} // TODO: replace Math.random with personData.id
       />
     );
   }
 }
-
-// class Favorites extends Component {
-//   // constructor(){
-//   //   super();
-//   // //   this.state = {
-//   // //     errorMessage: ' ',
-//   // //     loading: false
-//   // //   }
-
-//   //   this.renderFavorites = this.renderFavorites.bind(this);
-//   // }
-
-//   componentWillMount() {
-//     // listview set up
-//     const ds = new ListView.DataSource({
-//       rowHasChanged: (r1, r2) => r1 !== r2
-//     });
-//     this.dataSource = ds.cloneWithRows( [1,2,3] );
-//     console.log('diss', this)
-//   }
-
-//   renderFavorites = person => <FavoriteItem key={'x'} person={person} />
-
-//   // renderRow () {
-//   //   return data.map( album => <FavoriteItem key={'x'} /> );
-//   //   // return (<FavoriteItem /> );
-//   // }
-
-//   // renderFavorites (fav) { 
-//   //   return (
-//   //     <FavoriteItem fav={fav} />
-//   //   )
-//   // }
-
-
-//   render() {
-//     const {  circleContainer } = styles
-//     return (
-//       <ListView
-//         dataSource={this.dataSource}
-//         renderFavorites={this.renderFavorites}
-//       />
-//     )
-//   }
-// }
 
 export default connect(
   state => ({
@@ -99,25 +54,3 @@ const styles = StyleSheet.create({
     borderBottomColor: NU_Grey
   }
 });
-
-
-
-// componentWillMount() {
-//   // listview set up
-//   const ds = new ListView.DataSource({
-//     rowHasChanged: (r1, r2) => r1 !== r2
-//   });
-//   this.dataSource = ds.cloneWithRows(this.props.libraries);
-// }
-
-// renderFavorites = (library) => <ListItem library={library} /> //native agrument to pass
-
-// render() {
-//   return (
-//     <ListView
-//       dataSource={this.dataSource}
-//       renderFavorites={this.renderFavorites}
-//     />
-//   )
-// }
-// }
