@@ -21,6 +21,7 @@ import { store } from './src/store'
 export default class App extends Component{
   componentWillMount() {
     firebase.initializeApp(config);
+    // TODO: right here load their recent, their favorites, and settings into redux
   }
 
   render() {

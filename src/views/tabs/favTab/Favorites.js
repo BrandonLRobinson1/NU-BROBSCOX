@@ -14,11 +14,11 @@ class Favorites extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    this.dataSource = ds.cloneWithRows(data); //**  data pulled from sample json!!
+    this.dataSource = ds.cloneWithRows(data); //**  data pulled from sample json!! WILL PULL FROM REDUX ON APP MOUNT
   }
 
   render() {
-    if (!this.dataSource) return (<Text>Loading..</Text>);
+    if (!this.dataSource) return (<Text>Loading..</Text>); // TODO change if statements to if (!this.props.keyname)
     return (
       <ListView
         dataSource={this.dataSource}

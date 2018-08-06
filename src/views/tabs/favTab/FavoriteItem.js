@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 // import { Actions } from 'react-native-router-flux';
-import { AlbumCard, CardSection, Card } from '../../../common';
+import { AlbumCard, CardSection, Card, SectionSmall, SectionMedium } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
 import { colors } from '../../../Colors';
 
@@ -23,14 +23,30 @@ class FavoriteItem extends Component {
   }
 
   render() {
-    const {  circleContainer } = styles;
+    const {  circleContainer, imageStyle, horizontalFlex, imageContainer, horizontalText, pictureStyle } = styles;
+    const { name } = this.props.personData;
+    console.log('fav item props', this.props)
     return (
     
       <Card>
         <CardSection>
-          <Text>yooo</Text>
-          <View>
-            <Image source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}/>
+          <View style={imageContainer}>
+            <Image
+              source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
+              style={imageStyle}
+            />
+          </View>
+          
+        </CardSection>
+
+        <CardSection>
+          <View style={horizontalFlex}>
+            <View style={pictureStyle}>  
+              <Text>{name}</Text>
+            </View>
+            <View style={horizontalText}>  
+              <Text>{name}</Text>
+            </View>
           </View>
         </CardSection>
       </Card>
@@ -62,8 +78,71 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: NU_Grey
+  },
+  imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
+    flex: 1,
+    backgroundColor: NU_Blue,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  imageStyle: { // this is how you would full screen an image **ORDER MATTERS****************************
+    height: 90,
+    width: 90,
+    borderRadius: 45,
+    margin: 2
+  },
+  horizontalFlex: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%'
+  },
+  pictureStyle: {
+    backgroundColor: NU_Red,
+    flex: 1,
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  horizontalText: {
+    backgroundColor: NU_Grey,
+    flex: 1,
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
+
+// <CardSection>
+//           <View style={imageContainer}>
+//             <Image
+//               source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
+//               style={imageStyle}
+//             />
+//           </View>
+//           <View style={horizontalFlex}>  
+//             <Text>{name}</Text>
+//           </View>
+//         </CardSection>
+
+//         imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
+//           flex: 1,
+//           backgroundColor: NU_Blue,
+//           height: 100,
+//           width: 100,
+//           alignItems: 'center',
+//           justifyContent: 'center'
+//         },
+//         imageStyle: { // this is how you would full screen an image **ORDER MATTERS****************************
+//           height: 80,
+//           width: 80,
+//         },
+//         horizontalFlex: {
+//           display: 'flex',
+//           flexDirection: 'row',
+//           backgroundColor: NU_Red,
+//           flex: 2.5,
+//           padding: 10
+//         }
 
 
