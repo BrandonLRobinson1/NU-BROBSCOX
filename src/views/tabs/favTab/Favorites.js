@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FavoriteItem from './FavoriteItem';
 import { View, Text, StyleSheet, Dimensions, ScrollView, ListView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Button, CardSection, FullCard } from '../../../common';
+import { Button, CardSection, FullCard, Spinner } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
 import data from '../../../store/dummyMembers.json';
 import { colors } from '../../../Colors';
@@ -18,7 +18,11 @@ class Favorites extends Component {
   }
 
   render() {
-    if (!this.dataSource) return (<Text>Loading..</Text>); // TODO change if statements to if (!this.props.keyname)
+    if (!this.dataSource) return (
+      <FullCard>
+        <Spinner />
+      </FullCard>
+    ); // TODO change if statements to if (!this.props.keyname)
     return (
       <ListView
         dataSource={this.dataSource}

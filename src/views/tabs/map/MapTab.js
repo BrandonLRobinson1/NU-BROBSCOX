@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { connect } from 'react-redux';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
+import { FullCard, Spinner } from '../../../common';
 import { setCurrentLocation, getActiveNailTechs, getinitialDelta } from '../../../store/location/locationServices';
 import { colors } from '../../../Colors';
 
@@ -255,7 +256,12 @@ class Maptab extends Component {
     const { container, scrollView, endPadding } = styles;
     const { NU_White } = colors;
 
-    if (!this.state.initialPosition || !this.state.markers) return (<Text>loading</Text>);
+    // if (!this.state.initialPosition || !this.state.markers) return (<Text>loading</Text>);
+    if (!this.state.initialPosition || !this.state.markers) return (
+      <FullCard>
+        <Spinner />
+      </FullCard>
+    );
 
     return (
       <View style={container}>
