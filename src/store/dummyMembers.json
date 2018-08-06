@@ -5,7 +5,7 @@
         "latitude": 45.524548,
         "longitude": -122.6749817
       },
-      "title": "Best 1",
+      "title": "Pierre Nails",
       "description": "This is the best place in Portland",
       "image": null,
       "name": "Shizzle Jacklyn",
@@ -43,6 +43,8 @@
       "avaialbleNow": false,
       "appointments": "idk what to do for this yet"
     },
+
+    
     {
       "id": "xxxxxx",
       "coordinate": {

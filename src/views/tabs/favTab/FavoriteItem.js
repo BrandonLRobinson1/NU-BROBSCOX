@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 // import { Actions } from 'react-native-router-flux';
-import { AlbumCard, CardSection, Card, SectionSmall, SectionMedium } from '../../../common';
+import { AlbumCard, CardSection, Card, SectionSmall, SectionMedium, Button } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
 import { colors } from '../../../Colors';
 
@@ -23,8 +23,8 @@ class FavoriteItem extends Component {
   }
 
   render() {
-    const {  circleContainer, imageStyle, horizontalFlex, imageContainer, horizontalText, pictureStyle } = styles;
-    const { name } = this.props.personData;
+    const {  circleContainer, imageStyle, horizontalFlex, imageContainer, horizontalText, headerStyle } = styles;
+    const { name, description, title, address: { city, state } } = this.props.personData;
     console.log('fav item props', this.props)
     return (
     
@@ -41,13 +41,39 @@ class FavoriteItem extends Component {
 
         <CardSection>
           <View style={horizontalFlex}>
-            <View style={pictureStyle}>  
-              <Text>{name}</Text>
+            <View style={headerStyle}>  
+              <Text>{title}</Text>
             </View>
             <View style={horizontalText}>  
-              <Text>{name}</Text>
+              <Text>{description}</Text>
+            </View>
+            <View style={horizontalText}>  
+              <Text>{city}</Text>
             </View>
           </View>
+        </CardSection>
+
+        <CardSection>
+          <View style={horizontalFlex}>
+            <View style={headerStyle}>  
+              <Text>Services pop out</Text>
+            </View>
+          </View>
+        </CardSection>
+
+        <CardSection>
+          <View style={horizontalFlex}>
+            <View style={headerStyle}>  
+              <Text>Ratings pop out</Text>
+            </View>
+          </View>
+        </CardSection>
+
+        <CardSection>
+          <Button
+            buttonText="Make an Appointment"
+            onPress={() => console.log('appointment made')}
+          />
         </CardSection>
       </Card>
     )
@@ -96,7 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%'
   },
-  pictureStyle: {
+  headerStyle: {
     backgroundColor: NU_Red,
     flex: 1,
     padding: 5,
@@ -108,7 +134,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 5,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 });
 
