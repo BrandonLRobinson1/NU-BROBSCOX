@@ -15,7 +15,7 @@ class ProfilePage extends Component {
   render() {
     const { NU_Header_Text, horizontalFlex, NU_Paragraph_Text, NU_Small_Header_Text } = commonStyles;
     const { imageStyle, imageContainer } = styles;
-    const { title, description } = this.props.personData;
+    const { title, description, address : { street } } = this.props.personData;
     console.log('xx', this.props)
     return (
       <Card>
@@ -46,14 +46,21 @@ class ProfilePage extends Component {
         </CardSection>
 
         <CardSection>
-          <View style={NU_Small_Header_Text}>
-            <Text>address</Text>
-          </View>
-          <View>
-            <Text>Reviews</Text>
-          </View>
-          <View>
-            <Text>see Reviews</Text>
+          <View style={horizontalFlex}>
+
+            <View>
+              <Text style={NU_Small_Header_Text}>
+                address
+              </Text>
+            </View>
+            <View>
+              <Text style={NU_Paragraph_Text}>
+                {street}
+              </Text>
+            </View>
+            <View>
+              <Text>see Reviews</Text>
+            </View>
           </View>
         </CardSection>
 
