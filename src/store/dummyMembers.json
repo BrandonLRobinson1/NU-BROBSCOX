@@ -6,7 +6,7 @@
         "longitude": -122.6749817
       },
       "title": "Pierre Nails",
-      "description": "This is the best place in Portland",
+      "description": "This is the best place in Portland, we specialize in this and that and this. Loctated in upper east, it is a luxury to treat you.",
       "image": null,
       "name": "Shizzle Jacklyn",
       "address": {
@@ -44,7 +44,7 @@
       "appointments": "idk what to do for this yet"
     },
 
-    
+
     {
       "id": "xxxxxx",
       "coordinate": {

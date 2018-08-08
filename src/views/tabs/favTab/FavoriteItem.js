@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-// import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import { AlbumCard, CardSection, Card, SectionSmall, SectionMedium, Button } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
 import { colors } from '../../../Colors';
@@ -47,32 +47,17 @@ class FavoriteItem extends Component {
             <View style={horizontalText}>  
               <Text>{description}</Text>
             </View>
-            <View style={horizontalText}>  
-              <Text>{city}</Text>
-            </View>
-          </View>
-        </CardSection>
-
-        <CardSection>
-          <View style={horizontalFlex}>
-            <View style={headerStyle}>  
-              <Text>Services pop out</Text>
-            </View>
-          </View>
-        </CardSection>
-
-        <CardSection>
-          <View style={horizontalFlex}>
-            <View style={headerStyle}>  
-              <Text>Ratings pop out</Text>
-            </View>
           </View>
         </CardSection>
 
         <CardSection>
           <Button
-            buttonText="Make an Appointment"
-            onPress={() => console.log('appointment made')}
+            buttonText="View"
+            onPress={() => {
+              // console.log('Actions', Actions)
+              Actions.pop();
+              Actions.ProfilePage( {personData: this.props.personData} );
+            }}
           />
         </CardSection>
       </Card>
@@ -93,7 +78,7 @@ export default connect(
   }
 )(FavoriteItem);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+const { NU_Red , NU_Blue, NU_White, NU_Grey, NU_Pink } = colors;
 
 const styles = StyleSheet.create({
   circleContainer: {
@@ -107,7 +92,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
     flex: 1,
-    backgroundColor: NU_Blue,
+    backgroundColor: NU_White,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -123,14 +108,14 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   headerStyle: {
-    backgroundColor: NU_Red,
+    backgroundColor: NU_Pink,
     flex: 1,
     padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
   horizontalText: {
-    backgroundColor: NU_Grey,
+    backgroundColor: NU_White,
     flex: 1,
     padding: 5,
     alignItems: 'center',

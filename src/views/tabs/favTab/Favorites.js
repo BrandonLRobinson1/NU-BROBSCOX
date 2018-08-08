@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FavoriteItem from './FavoriteItem';
 import { View, Text, StyleSheet, Dimensions, ScrollView, ListView } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+// import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, FullCard, Spinner } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
 import data from '../../../store/dummyMembers.json';
 import { colors } from '../../../Colors';
 
+// maybe favorites and available 
 
 class Favorites extends Component {
   componentWillMount() {
@@ -26,7 +27,7 @@ class Favorites extends Component {
     return (
       <ListView
         dataSource={this.dataSource}
-        renderRow={(personData) => <FavoriteItem key={ Math.random() } personData={personData} />} // TODO: replace Math.random with personData.id
+        renderRow={(personData) => <FavoriteItem key={Math.random()} personData={personData} />} // TODO: replace Math.random with personData.id
       />
     );
   }

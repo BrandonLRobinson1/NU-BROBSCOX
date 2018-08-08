@@ -10,6 +10,8 @@ import GetCredentials from './src/views/getCredentials/GetCredentials';
 import Validate from './src/views/getCredentials/Validate';
 
 import Favorites from './src/views/tabs/favTab/Favorites';
+import ProfilePage from './src/views/tabs/favTab/ProfilePage';
+
 import MapTab from './src/views/tabs/map/MapTab';
 
 import SearchAddress from './src/views/tabs/map/SearchAddress';
@@ -102,6 +104,12 @@ const RouterComponent = () => (
             key="SearchAddress"
             title="Address Search"
             component={SearchAddress}
+            backTitle=" "
+          />
+          <Scene
+            key="ProfilePage"
+            title=""
+            component={ProfilePage}
             backTitle=" "
           />
         </Scene>

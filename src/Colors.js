@@ -4,6 +4,7 @@ export const colors = {
   NU_White: 'white',
   NU_Grey: 'lightgrey',
   NU_Black: 'black',
+  NU_Pink: 'pink',
   NU_Border_Grey: '#ddd',
   NU_Background: '#FFF',
   NU_Modal_Black: 'rgba(0, 0, 0, .75)',
