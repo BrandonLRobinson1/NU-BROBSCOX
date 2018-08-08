@@ -8,3 +8,4 @@ export * from './Input';
 export * from './FullCard';
 export * from './SectionMedium';
 export * from './SectionSmall';
+export * from './FlexContainer';

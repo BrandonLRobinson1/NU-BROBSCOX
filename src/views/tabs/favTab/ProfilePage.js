@@ -3,22 +3,24 @@ import { connect } from 'react-redux';
 import FavoriteItem from './FavoriteItem';
 import { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Button, CardSection, Spinner, FullCard, SectionMedium, SectionSmall, Card } from '../../../common';
+import { Button, CardSection, Spinner, FullCard, SectionMedium, SectionSmall, Card, FlexContainer } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
 import data from '../../../store/dummyMembers.json';
-import { colors } from '../../../Colors';
+import { colors, commonStyles } from '../../../Colors';
 
 // maybe favorites and available 
 
 class ProfilePage extends Component {
   
   render() {
-    const { imageStyle, title, imageContainer } = styles;
+    const { NU_Header_Text, horizontalFlex, NU_Paragraph_Text, NU_Small_Header_Text } = commonStyles;
+    const { imageStyle, imageContainer } = styles;
+    const { title, description } = this.props.personData;
     console.log('xx', this.props)
     return (
       <Card>
 
-        <CardSection style={{'height': 250}}>
+        <CardSection>
           <View style={imageContainer}>
             <Image
               source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
@@ -27,18 +29,25 @@ class ProfilePage extends Component {
           </View>
         </CardSection>
 
-        <CardSection style={title}>
-          <View>
-            <Text>Title</Text>
-          </View>
-          <View>
-            <Text>Description</Text>
+        <CardSection>
+          <View style={horizontalFlex}>
+            <View>
+              <Text style={NU_Header_Text}>
+                {title}
+              </Text>
+            </View>
+
+            <View>
+              <Text style={NU_Paragraph_Text}>
+                {description}
+              </Text>
+            </View>
           </View>
         </CardSection>
 
-        <CardSection style={title}>
-          <View>
-            <Text>Reviews Title</Text>
+        <CardSection>
+          <View style={NU_Small_Header_Text}>
+            <Text>address</Text>
           </View>
           <View>
             <Text>Reviews</Text>
@@ -48,7 +57,7 @@ class ProfilePage extends Component {
           </View>
         </CardSection>
 
-        <CardSection style={title}>
+        <CardSection>
           <View>
             <Text>Reviews Title</Text>
           </View>
@@ -83,82 +92,18 @@ const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 
 const styles = StyleSheet.create({
   title: {
-    backgroundColor: NU_Red,
-    flex: 1,
-    // width: 50,
-    // height: 100,
+   
   },
-  imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
-    flex: 1,
-    // height: '33%',
-    // backgroundColor: NU_White,
+  imageContainer: {
+    height: 250,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden'
   },
-  imageStyle: { // this is how you would full screen an image **ORDER MATTERS****************************
-    // height: 90,
-    // width: 90,
-    // // borderRadius: 45,
-    // margin: 2,
-
-
-width: 'auto',
-height: 'auto',
+  imageStyle: {
+    width: 'auto',
+    height: 'auto',
     minWidth: '100%',
     minHeight: '100%'
   },
-  fullCardStyle: {
-    overflow: 'scroll',
-    width: '100%',
-    height: 50,
-  }
 });
-
-
-// <FullCard style={{height: "100%"}}>
-
-//         <SectionMedium>
-//           <View style={imageContainer}>
-//             <Image
-//               source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
-//               style={imageStyle}
-//             />
-//           </View>
-//         </SectionMedium>
-
-//         <SectionSmall style={title}>
-//           <View>
-//             <Text>Title</Text>
-//           </View>
-//           <View>
-//             <Text>Description</Text>
-//           </View>
-//         </SectionSmall>
-
-//         <SectionSmall style={title}>
-//           <View>
-//             <Text>Reviews Title</Text>
-//           </View>
-//           <View>
-//             <Text>Reviews</Text>
-//           </View>
-//           <View>
-//             <Text>see Reviews</Text>
-//           </View>
-//         </SectionSmall>
-
-//         <SectionSmall style={title}>
-//           <View>
-//             <Text>Reviews Title</Text>
-//           </View>
-//           <View>
-//             <Text>Reviews</Text>
-//           </View>
-//           <View>
-//             <Text>see Reviews</Text>
-//           </View>
-//         </SectionSmall>
-
-        
-//       </FullCard>

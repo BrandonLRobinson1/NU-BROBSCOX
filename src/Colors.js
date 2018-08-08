@@ -1,3 +1,6 @@
+import { StyleSheet } from 'react-native';
+
+
 export const colors = {
   NU_Red: 'red',
   NU_Blue: 'blue',
@@ -13,3 +16,26 @@ export const colors = {
   NU_Text_Desc: "#444",
   NU_Transparent: 'transparent'
 };
+
+export const commonStyles = StyleSheet.create({
+  NU_Header_Text: {
+    fontSize: 26,
+    color: colors.NU_Black,
+    backgroundColor: colors.NU_Pink
+  },
+  NU_Small_Header_Text: {
+    fontSize: 14,
+    color: colors.NU_Black,
+    backgroundColor: colors.NU_Pink
+  },
+  NU_Paragraph_Text: {
+    fontSize: 14,
+    color: colors.NU_Grey,
+    backgroundColor: colors.NU_Blue
+  },
+  horizontalFlex: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%'
+  }
+})
