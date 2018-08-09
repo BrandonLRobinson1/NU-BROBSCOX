@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FavoriteItem from './FavoriteItem';
-import { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView } from 'react-native';
+import { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Spinner, FullCard, SectionMedium, SectionSmall, Card, FlexContainer } from '../../../common';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
@@ -14,112 +14,140 @@ class ProfilePage extends Component {
   
   render() {
     const { NU_Header_Text, horizontalFlex, NU_Paragraph_Text, NU_Small_Header_Text } = commonStyles;
-    const { imageStyle, imageContainer } = styles;
+    const { imageStyle, imageContainer, container, scrollableBody, stickyBottom, customAppointmentButton, customAppointmentButtonText } = styles;
     const { title, description, address : { street } } = this.props.personData;
     console.log('xx', this.props)
     return (
-      <View>
-        <ScrollView>
-          <Card>
-            <CardSection>
-              <View style={imageContainer}>
-                <Image
-                  source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
-                  style={imageStyle}
-                />
-              </View>
-            </CardSection>
-      
-            <CardSection>
-              <View style={horizontalFlex}>
-                <View>
-                  <Text style={NU_Header_Text}>
-                    {title}
-                  </Text>
-                </View>
-      
-                <View>
-                  <Text style={NU_Paragraph_Text}>
-                    {description}
-                  </Text>
-                </View>
-              </View>
-            </CardSection>
-      
-            <CardSection>
-              <View style={horizontalFlex}>
-                <View>
-                  <Text style={NU_Small_Header_Text}>
-                    address
-                  </Text>
-                </View>
-                <View>
-                  <Text style={NU_Paragraph_Text}>
-                    {street}
-                  </Text>
-                </View>
-                <View>
-                  <Text>map segment</Text>
-                </View>
-              </View>
-            </CardSection>
-      
-            <CardSection>
-              <View style={horizontalFlex}>
-                <View>
-                  <Text style={NU_Small_Header_Text}>
-                    Ratings
-                  </Text>
-                </View>
-                <View>
-                  <Text>
-                    *******
-                  </Text>
-                </View>
-                <View>
-                  <Text>see reviews</Text>
-                </View>
-              </View>
-            </CardSection>
-      
-            <CardSection>
-              <View style={horizontalFlex}>
-                <View>
-                  <Text style={NU_Small_Header_Text}>
-                    Services
-                  </Text>
-                </View>
-                <View>
-                  <Text style={NU_Paragraph_Text}>
-                    blocklist of services
-                  </Text>
-                </View>
-              </View>
-            </CardSection>
-      
-            <CardSection>
-              <View style={horizontalFlex}>
-                <View>
-                  <Text style={NU_Small_Header_Text}>
-                    filler
-                  </Text>
-                </View>
-                <View>
-                  <Text style={NU_Paragraph_Text}>
-                    filler
-                  </Text>
-                </View>
-              </View>
-            </CardSection>
-          </Card>
-        </ScrollView>
+      <View style={container}>
 
+        <View style={scrollableBody}>
+          <ScrollView>
+            <Card>
+              <CardSection>
+                <View style={imageContainer}>
+                  <Image
+                    source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
+                    style={imageStyle}
+                  />
+                </View>
+              </CardSection>
         
+              <CardSection>
+                <View style={horizontalFlex}>
+                  <View>
+                    <Text style={NU_Header_Text}>
+                      {title}
+                    </Text>
+                  </View>
+        
+                  <View>
+                    <Text style={NU_Paragraph_Text}>
+                      {description}
+                    </Text>
+                  </View>
+                </View>
+              </CardSection>
+        
+              <CardSection>
+                <View style={horizontalFlex}>
+                  <View>
+                    <Text style={NU_Small_Header_Text}>
+                      address
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={NU_Paragraph_Text}>
+                      {street}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>map segment</Text>
+                  </View>
+                </View>
+              </CardSection>
+        
+              <CardSection>
+                <View style={horizontalFlex}>
+                  <View>
+                    <Text style={NU_Small_Header_Text}>
+                      Ratings
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>
+                      *******
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>see reviews</Text>
+                  </View>
+                </View>
+              </CardSection>
+        
+              <CardSection>
+                <View style={horizontalFlex}>
+                  <View>
+                    <Text style={NU_Small_Header_Text}>
+                      Services
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={NU_Paragraph_Text}>
+                      blocklist of services
+                    </Text>
+                  </View>
+                </View>
+              </CardSection>
+        
+              <CardSection>
+                <View style={horizontalFlex}>
+                  <View>
+                    <Text style={NU_Small_Header_Text}>
+                      filler
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={NU_Paragraph_Text}>
+                      filler
+                    </Text>
+                  </View>
+                </View>
+              </CardSection>
+            </Card>
+          </ScrollView>
+
+        </View>
+        
+        <View style={stickyBottom}>
+          <TouchableOpacity style={customAppointmentButton}>
+            <Text style={customAppointmentButtonText}>
+              nooo lisa.. whyyyy
+            </Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
 
     ); // TODO change if statements to if (!this.props.keyname)
   }
 }
+
+// <View style={{
+//   height: '10%',
+//   backgroundColor: 'red',
+  
+// }}>
+//   <Card>
+//     <CardSection>
+//     <Button
+//       buttonText="make appt"
+//       onPress={() => console.log("make apt")}
+//     />
+//     </CardSection>
+//   </Card>
+  
+// </View>
+
 
 // <Card>
 //   <CardSection>
@@ -146,8 +174,37 @@ export default connect(
 const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 
 const styles = StyleSheet.create({
-  title: {
-   
+  container: {
+    display: 'flex',
+    height: '100%'
+  },
+  scrollableBody: {
+    flex: 9,
+    marginBottom: 5
+  },
+  stickyBottom: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5
+  },
+  customAppointmentButton: {
+    height: 50,
+    alignSelf: 'stretch',
+    backgroundColor: NU_White,
+    borderColor: NU_Blue,
+    borderRadius: 5,
+    borderWidth: 1,
+    marginLeft: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 5
+  },
+  customAppointmentButtonText: {
+    color: NU_Blue,
+    fontSize: 16,
+    fontWeight: '600',
+    padding: 12,
   },
   imageContainer: {
     height: 250,

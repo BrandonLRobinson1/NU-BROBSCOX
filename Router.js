@@ -111,6 +111,7 @@ const RouterComponent = () => (
             title=""
             component={ProfilePage}
             backTitle=" "
+            hideTabBar
           />
         </Scene>
 
