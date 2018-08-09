@@ -55,7 +55,7 @@ class FavoriteItem extends Component {
             buttonText="View"
             onPress={() => {
               // console.log('Actions', Actions)
-              Actions.pop();
+              // Actions.pop();
               Actions.ProfilePage( {personData: this.props.personData} );
             }}
           />

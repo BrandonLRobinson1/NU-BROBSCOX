@@ -18,69 +18,117 @@ class ProfilePage extends Component {
     const { title, description, address : { street } } = this.props.personData;
     console.log('xx', this.props)
     return (
-      <Card>
-
-        <CardSection>
-          <View style={imageContainer}>
-            <Image
-              source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
-              style={imageStyle}
-            />
-          </View>
-        </CardSection>
-
-        <CardSection>
-          <View style={horizontalFlex}>
-            <View>
-              <Text style={NU_Header_Text}>
-                {title}
-              </Text>
-            </View>
-
-            <View>
-              <Text style={NU_Paragraph_Text}>
-                {description}
-              </Text>
-            </View>
-          </View>
-        </CardSection>
-
-        <CardSection>
-          <View style={horizontalFlex}>
-
-            <View>
-              <Text style={NU_Small_Header_Text}>
-                address
-              </Text>
-            </View>
-            <View>
-              <Text style={NU_Paragraph_Text}>
-                {street}
-              </Text>
-            </View>
-            <View>
-              <Text>see Reviews</Text>
-            </View>
-          </View>
-        </CardSection>
-
-        <CardSection>
-          <View>
-            <Text>Reviews Title</Text>
-          </View>
-          <View>
-            <Text>Reviews</Text>
-          </View>
-          <View>
-            <Text>see Reviews</Text>
-          </View>
-        </CardSection>
+      <View>
+        <ScrollView>
+          <Card>
+            <CardSection>
+              <View style={imageContainer}>
+                <Image
+                  source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
+                  style={imageStyle}
+                />
+              </View>
+            </CardSection>
+      
+            <CardSection>
+              <View style={horizontalFlex}>
+                <View>
+                  <Text style={NU_Header_Text}>
+                    {title}
+                  </Text>
+                </View>
+      
+                <View>
+                  <Text style={NU_Paragraph_Text}>
+                    {description}
+                  </Text>
+                </View>
+              </View>
+            </CardSection>
+      
+            <CardSection>
+              <View style={horizontalFlex}>
+                <View>
+                  <Text style={NU_Small_Header_Text}>
+                    address
+                  </Text>
+                </View>
+                <View>
+                  <Text style={NU_Paragraph_Text}>
+                    {street}
+                  </Text>
+                </View>
+                <View>
+                  <Text>map segment</Text>
+                </View>
+              </View>
+            </CardSection>
+      
+            <CardSection>
+              <View style={horizontalFlex}>
+                <View>
+                  <Text style={NU_Small_Header_Text}>
+                    Ratings
+                  </Text>
+                </View>
+                <View>
+                  <Text>
+                    *******
+                  </Text>
+                </View>
+                <View>
+                  <Text>see reviews</Text>
+                </View>
+              </View>
+            </CardSection>
+      
+            <CardSection>
+              <View style={horizontalFlex}>
+                <View>
+                  <Text style={NU_Small_Header_Text}>
+                    Services
+                  </Text>
+                </View>
+                <View>
+                  <Text style={NU_Paragraph_Text}>
+                    blocklist of services
+                  </Text>
+                </View>
+              </View>
+            </CardSection>
+      
+            <CardSection>
+              <View style={horizontalFlex}>
+                <View>
+                  <Text style={NU_Small_Header_Text}>
+                    filler
+                  </Text>
+                </View>
+                <View>
+                  <Text style={NU_Paragraph_Text}>
+                    filler
+                  </Text>
+                </View>
+              </View>
+            </CardSection>
+          </Card>
+        </ScrollView>
 
         
-      </Card>
+      </View>
+
     ); // TODO change if statements to if (!this.props.keyname)
   }
 }
+
+// <Card>
+//   <CardSection>
+//     <Button
+//       buttonText="make appt"
+//       onPress={() => console.log("make apt")}
+//     />
+//   </CardSection>
+// </Card>
 
 export default connect(
   state => ({

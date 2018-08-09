@@ -24,7 +24,7 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: colors.NU_Pink
   },
   NU_Small_Header_Text: {
-    fontSize: 14,
+    fontSize: 16,
     color: colors.NU_Black,
     backgroundColor: colors.NU_Pink,
     fontWeight: '700'
