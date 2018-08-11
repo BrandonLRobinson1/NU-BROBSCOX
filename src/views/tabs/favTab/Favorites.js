@@ -8,22 +8,21 @@ import { Button, CardSection, FullCard, Spinner } from '../../../common';
 import data from '../../../store/dummyMembers.json';
 import { colors } from '../../../Colors';
 
-// maybe favorites and available 
-
 class Favorites extends Component {
-  componentWillMount() {
+   componentWillMount() {
+    // will AUTOMATICALLY pull info from redux, sfetched as app loads
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    this.dataSource = ds.cloneWithRows(data); //**  data pulled from sample json!! WILL PULL FROM REDUX ON APP MOUNT
+    this.dataSource = ds.cloneWithRows(data); //**  data pulled from sample json!! WILL PULL FROM REDUX ON APP MOUNT => this.props.markerData
   }
 
   render() {
-    if (!this.dataSource) return (
+    if (!this.dataSource /* !this.props.markerData */) return (
       <FullCard>
         <Spinner />
       </FullCard>
-    ); // TODO change if statements to if (!this.props.keyname)
+    ); 
     return (
       <ListView
         dataSource={this.dataSource}
@@ -36,26 +35,16 @@ class Favorites extends Component {
 export default connect(
   state => ({
     // firstName: state.signUp.SignUp.firstName,
-    // lastName: state.signUp.SignUp.lastName,
-    // zipCode: state.signUp.SignUp.zipCode
   }),
   {
     // updateFirstName,
-    // updateLastName,
-    // updateZipCode
   }
 )(Favorites);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+// const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
 
-const styles = StyleSheet.create({
-  circleContainer: {
-    height: '13%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: NU_Grey
-  }
-});
+// const styles = StyleSheet.create({
+//   circleContainer: {
+//     borderBottomColor: NU_Grey
+//   }
+// });

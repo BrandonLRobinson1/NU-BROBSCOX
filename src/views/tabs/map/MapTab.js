@@ -256,7 +256,6 @@ class Maptab extends Component {
     const { container, scrollView, endPadding } = styles;
     const { NU_White } = colors;
 
-    // if (!this.state.initialPosition || !this.state.markers) return (<Text>loading</Text>);
     if (!this.state.initialPosition || !this.state.markers) return (
       <FullCard>
         <Spinner />

@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FavoriteItem from './FavoriteItem';
 import { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Button, CardSection, Spinner, FullCard, SectionMedium, SectionSmall, Card, FlexContainer } from '../../../common';
-// import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
-import data from '../../../store/dummyMembers.json';
+import { CardSection, Spinner, Card } from '../../../common';
 import { colors, commonStyles } from '../../../Colors';
 
 // maybe favorites and available 
-
 class ProfilePage extends Component {
   
   render() {
     const { NU_Header_Text, horizontalFlex, NU_Paragraph_Text, NU_Small_Header_Text } = commonStyles;
     const { imageStyle, imageContainer, container, scrollableBody, stickyBottom, customAppointmentButton, customAppointmentButtonText } = styles;
     const { title, description, address : { street } } = this.props.personData;
-    console.log('xx', this.props)
     return (
       <View style={container}>
 
@@ -26,7 +21,7 @@ class ProfilePage extends Component {
               <CardSection>
                 <View style={imageContainer}>
                   <Image
-                    source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
+                    source={{uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
                     style={imageStyle}
                   />
                 </View>
@@ -161,13 +156,9 @@ class ProfilePage extends Component {
 export default connect(
   state => ({
     // firstName: state.signUp.SignUp.firstName,
-    // lastName: state.signUp.SignUp.lastName,
-    // zipCode: state.signUp.SignUp.zipCode
   }),
   {
     // updateFirstName,
-    // updateLastName,
-    // updateZipCode
   }
 )(ProfilePage);
 
@@ -180,7 +171,7 @@ const styles = StyleSheet.create({
   },
   scrollableBody: {
     flex: 9,
-    marginBottom: 5
+    // marginBottom: 5
   },
   stickyBottom: {
     flex: 1,

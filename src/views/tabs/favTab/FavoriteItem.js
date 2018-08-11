@@ -16,7 +16,6 @@ class FavoriteItem extends Component {
   }
 
   componentWillMount() {
-    // get data for favorites
   }
 
   thing () {
