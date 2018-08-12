@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card } from '../../common';
-// import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
-
 import { colors } from '../../Colors';
 
 class Validate extends Component {
@@ -45,7 +43,7 @@ export default connect(
   }),
   {
     // updateFirstName,
-  }
+  },
 )(Validate);
 
 const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;

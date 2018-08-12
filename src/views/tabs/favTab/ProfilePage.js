@@ -5,13 +5,15 @@ import { Actions } from 'react-native-router-flux';
 import { CardSection, Spinner, Card } from '../../../common';
 import { colors, commonStyles } from '../../../Colors';
 
-// maybe favorites and available 
+// maybe favorites and available
+
+// eslint-disable-next-line
 class ProfilePage extends Component {
-  
+
   render() {
     const { NU_Header_Text, horizontalFlex, NU_Paragraph_Text, NU_Small_Header_Text } = commonStyles;
     const { imageStyle, imageContainer, container, scrollableBody, stickyBottom, customAppointmentButton, customAppointmentButtonText } = styles;
-    const { title, description, address : { street } } = this.props.personData;
+    const { title, description, address: { street } } = this.props.personData;
     return (
       <View style={container}>
 
@@ -56,7 +58,9 @@ class ProfilePage extends Component {
                     </Text>
                   </View>
                   <View>
-                    <Text>map segment</Text>
+                    <Text>
+                      map segment
+                    </Text>
                   </View>
                 </View>
               </CardSection>
@@ -74,7 +78,9 @@ class ProfilePage extends Component {
                     </Text>
                   </View>
                   <View>
-                    <Text>see reviews</Text>
+                    <Text>
+                      see reviews
+                    </Text>
                   </View>
                 </View>
               </CardSection>
@@ -93,7 +99,7 @@ class ProfilePage extends Component {
                   </View>
                 </View>
               </CardSection>
-        
+
               <CardSection>
                 <View style={horizontalFlex}>
                   <View>
@@ -122,7 +128,6 @@ class ProfilePage extends Component {
         </View>
 
       </View>
-
     ); // TODO change if statements to if (!this.props.keyname)
   }
 }

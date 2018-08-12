@@ -7,26 +7,24 @@ import { AlbumCard, CardSection, Card, SectionSmall, SectionMedium, Button } fro
 import { colors } from '../../../Colors';
 
 class FavoriteItem extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.state = {
-    }
+
+    this.state = {};
 
     this.thing = this.thing.bind(this);
   }
 
-  componentWillMount() {
-  }
+  componentWillMount() {}
 
-  thing () {
-  }
+  thing() {}
 
   render() {
-    const {  circleContainer, imageStyle, horizontalFlex, imageContainer, horizontalText, headerStyle } = styles;
-    const { name, description, title, address: { city, state } } = this.props.personData;
+    const { imageStyle, horizontalFlex, imageContainer, horizontalText, headerStyle } = styles;
+    const { name, description, title, address: { city, state } } = this.props.personData; // eslint-disable-line
     console.log('fav item props', this.props)
+
     return (
-    
       <Card>
         <CardSection>
           <View style={imageContainer}>
@@ -35,16 +33,19 @@ class FavoriteItem extends Component {
               style={imageStyle}
             />
           </View>
-          
         </CardSection>
 
         <CardSection>
           <View style={horizontalFlex}>
-            <View style={headerStyle}>  
-              <Text>{title}</Text>
+            <View style={headerStyle}>
+              <Text>
+                {title}
+              </Text>
             </View>
-            <View style={horizontalText}>  
-              <Text>{description}</Text>
+            <View style={horizontalText}>
+              <Text>
+                {description}
+              </Text>
             </View>
           </View>
         </CardSection>
@@ -55,7 +56,7 @@ class FavoriteItem extends Component {
             onPress={() => {
               // console.log('Actions', Actions)
               // Actions.pop();
-              Actions.ProfilePage( {personData: this.props.personData} );
+              Actions.ProfilePage({ personData: this.props.personData });
             }}
           />
         </CardSection>
@@ -87,24 +88,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey
+    borderBottomColor: NU_Grey,
   },
   imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
     flex: 1,
     backgroundColor: NU_White,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   imageStyle: { // this is how you would full screen an image **ORDER MATTERS****************************
     height: 90,
     width: 90,
     borderRadius: 45,
-    margin: 2
+    margin: 2,
   },
   horizontalFlex: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%'
+    width: '100%',
   },
   headerStyle: {
     backgroundColor: NU_Pink,
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });
 
 
