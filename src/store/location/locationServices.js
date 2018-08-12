@@ -1,13 +1,11 @@
 import { handleActions, createAction } from 'redux-actions';
 import { Dimensions } from 'react-native';
-
 import { getRegionForCoordinates } from '../../helpers/helpersFunctions'; // helper function is a way to get latitiud delta and longitude delta based on a number of points/markers
-
 
 // *****
 const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
-const latDelta = 0.0622; // .0922
+const latDelta = 0.0622; // 0.0922
 const longDelta = aspectRatio * latDelta;
 // *****
 
@@ -38,7 +36,7 @@ export const getinitialDelta = () => (dispatch, getState) => {
     { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
     { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
     { uri: 'https://i.imgur.com/UDrH0wm.jpg' },
-    { uri: 'https://i.imgur.com/Ka8kNST.jpg' }
+    { uri: 'https://i.imgur.com/Ka8kNST.jpg' },
   ];
 
   const sfMarkers = [
@@ -89,14 +87,14 @@ export const getinitialDelta = () => (dispatch, getState) => {
       title: 'Second Best Place',
       description: 'This is the second best place in Portland',
       image: Images[1],
-    }
+    },
   ];
 
   // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users
   const markers = sfMarkers.map(marker => marker.coordinate);
   return markers.length > 1
     ? getRegionForCoordinates(markers)
-    : Object.assign(markers.coordinate, {latitudeDelta: latDelta, longitudeDelta: longDelta});
+    : Object.assign(markers.coordinate, { latitudeDelta: latDelta, longitudeDelta: longDelta });
 
 }
 
@@ -105,10 +103,10 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
     { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
     { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
     { uri: 'https://i.imgur.com/UDrH0wm.jpg' },
-    { uri: 'https://i.imgur.com/Ka8kNST.jpg' }
+    { uri: 'https://i.imgur.com/Ka8kNST.jpg' },
   ];
 
-  let sfMarkers = [
+  const sfMarkers = [
     {
       coordinate: {
         latitude: 37.777067,
@@ -144,10 +142,10 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
       title: 'Fourth Best Place',
       description: 'This is the fourth best place in Portland',
       image: Images[3],
-    }
+    },
   ];
 
-  let sfMarker = [
+  const sfMarker = [
     {
       coordinate: {
         latitude: 37.771096,
@@ -156,11 +154,11 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
       title: 'Second Best Place',
       description: 'This is the second best place in Portland',
       image: Images[1],
-    }
+    },
   ];
 
-  // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users
-  let markers = sfMarkers;
+  // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users 
+  const markers = sfMarkers;
 
-  return markers
-}
+  return markers;
+};

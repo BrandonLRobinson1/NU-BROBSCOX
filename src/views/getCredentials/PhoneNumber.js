@@ -37,7 +37,7 @@ class PhoneNumber extends Component {
         Actions.Validate();
         this.setState({ loading: false });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         this.setState({ loading: false });
       });
@@ -59,17 +59,27 @@ class PhoneNumber extends Component {
         value={valueVar}
         onChangeText={text => {
           this.setState({
-            errorMessage: "",
+            errorMessage: '',
             [setStateVar]: text,
           });
         }}
       />
-    )
+    );
   }
-  
+
 
   render() {
-    const { circle, circleContainer, circleSelected, errorText, containerStyle, labelStyle } = styles;
+    const {
+      circle,
+      circleContainer,
+      circleSelected,
+      errorText,
+      containerStyle,
+      labelStyle,
+    } = styles;
+
+    const { errorMessage } = this.state;
+
     return (
       <Card>
 
@@ -78,15 +88,19 @@ class PhoneNumber extends Component {
           <View style={circle} />
           <View style={circleSelected} />
         </View>
-       
+
         <CardSection>
           <View style={containerStyle}>
-            <Text style={labelStyle}>Phone Number</Text>
+            <Text style={labelStyle}>
+              Phone Number
+            </Text>
             <Text>(</Text>
             {this.textInputRender(3, '555', '1')}
             <Text>)</Text>
             {this.textInputRender(3, '555', '2')}
-            <Text>-</Text>
+            <Text>
+              -
+            </Text>
             {this.textInputRender(4, '5555', '3')}
           </View>
         </CardSection>
@@ -107,7 +121,7 @@ class PhoneNumber extends Component {
 
         <CardSection>
           <Text style={errorText}>
-            {this.state.errorMessage}
+            {errorMessage}
           </Text>
         </CardSection>
 
@@ -143,14 +157,14 @@ const styles = StyleSheet.create({
     width: 12,
     backgroundColor: NU_Blue,
     borderRadius: 25,
-    margin: 5
+    margin: 5,
   },
   circleSelected: {
     height: 12,
     width: 12,
     backgroundColor: NU_Red,
     borderRadius: 25,
-    margin: 5
+    margin: 5,
   },
   circleContainer: {
     height: '13%',
@@ -159,13 +173,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey
+    borderBottomColor: NU_Grey,
   },
   errorText: {
     color: NU_Red,
     width: '100%',
     display: 'flex',
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   inputStyle: {
@@ -176,18 +190,17 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     flex: 1,
     // backgroundColor: 'blue',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   labelStyle: {
     fontSize: 18,
     paddingLeft: 20,
-    flex: 3
+    flex: 3,
   },
   containerStyle: {
     height: 40,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-  }
+  },
 });
-

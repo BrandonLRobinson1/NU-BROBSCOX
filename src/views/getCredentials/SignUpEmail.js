@@ -9,7 +9,7 @@ import { emailRegEx, specialCharacterValidation } from '../../helpers/helpersFun
 import { colors } from '../../Colors';
 
 class SignUp extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       errorMessage: '',
@@ -17,48 +17,56 @@ class SignUp extends Component {
       useSecondPassword: false,
       pw1: '',
       pw2: '',
-      loading: null
-    }
+      loading: null,
+    };
     this.onButtonPress = this.onButtonPress.bind(this);
     this.renderButton = this.renderButton.bind(this);
   }
 
   async onButtonPress() {
-    const { pw1, pw2, clearTextOnFocus, useSecondPassword } = this.state;
-    if (!emailRegEx(this.props.email)) return this.setState({errorMessage: 'The email address is badly formatted.'});
-    if (pw1.length < 7) return this.setState({errorMessage: 'Password must be at least 7 characters'});
-    if (!specialCharacterValidation(pw1) || !specialCharacterValidation(pw2)) return this.setState({errorMessage: 'Password must contain at least one special character'});
-    if (pw1 !== pw2) return this.setState({errorMessage: 'Password do not match', pw1: '', pw2: '', clearTextOnFocus: true, useSecondPassword: true});
-    
+    const { pw1, pw2, } = this.state;
+    const { signUserUp, updatePassword, email, } = this.props;
+
+    if (!emailRegEx(email)) return this.setState({ errorMessage: 'The email address is badly formatted.' });
+    if (pw1.length < 7) return this.setState({ errorMessage: 'Password must be at least 7 characters' });
+    if (!specialCharacterValidation(pw1) || !specialCharacterValidation(pw2)) return this.setState({ errorMessage: 'Password must contain at least one special character' });
+    if (pw1 !== pw2) return this.setState({
+      errorMessage: 'Password do not match',
+      pw1: '',
+      pw2: '',
+      clearTextOnFocus: true,
+      useSecondPassword: true,
+    });
+
     // TODO: encrtypt password save it and clear it from state
     // const salt = bcrypt.genSaltSync(saltRounds);
     // const hash = bcrypt.hashSync(myPlaintextPassword, salt);
-    // this.props.updatePassword(hash);
-    this.props.updatePassword(`findout how to encrypt in front end ${pw1}`);
+    // updatePassword(hash);
+    updatePassword(`findout how to encrypt in front end ${pw1}`);
 
     this.setState({ loading: true });
-    await this.props.signUserUp()
+    await signUserUp()
       .then(() => {
         this.setState({
           pw1: '',
-          pw2: ''
+          pw2: '',
         });
-        this.props.updatePassword(null);
-        Actions.SignUp();    
+        updatePassword(null);
+        Actions.SignUp();
         this.setState({ loading: false });
       })
-      .catch( (err) => {
+      .catch(err => {
         console.log('email sign in error', err);
         this.setState({ 
           errorMessage: err.message,
-          loading: false
+          loading: false,
         });
-      })
+      });
   }
 
   renderButton() {
     if (this.state.loading) {
-      return <Spinner size='large' />
+      return <Spinner size='large' />;
     }
     return (
       <Button
@@ -70,6 +78,8 @@ class SignUp extends Component {
 
   render() {
     const { circle, circleContainer, circleSelected, errorText  } = styles;
+    const { clearTextOnFocus, pw1, pw2, errorMessage, useSecondPassword } = this.state;
+    const { updateEmail, email } = this.props;
 
     return (
       <Card>
@@ -84,10 +94,10 @@ class SignUp extends Component {
           <Input
             label="Email"
             placeholder="Email Address"
-            value={this.props.email}
+            value={email}
             onChangeText={text => {
-              this.setState({errorMessage: ''});
-              this.props.updateEmail(text);
+              this.setState({ errorMessage: '' });
+              updateEmail(text);
             }}
           />
         </CardSection>
@@ -97,13 +107,13 @@ class SignUp extends Component {
             secureTextEntry
             label="Password"
             placeholder="Password"
-            value={this.state.p1}
-            clearTextOnFocus={this.state.clearTextOnFocus}
+            value={pw1}
+            clearTextOnFocus={clearTextOnFocus}
             onChangeText={text => {
               this.setState({
                 errorMessage: '',
                 pw1: text,
-                clearTextOnFocus: false
+                clearTextOnFocus: false,
               });
             }}
           />
@@ -114,42 +124,42 @@ class SignUp extends Component {
             secureTextEntry
             label="Password"
             placeholder="Re-Enter Password"
-            value={this.state.p2}
-            clearTextOnFocus={this.state.useSecondPassword}
+            value={pw2}
+            clearTextOnFocus={useSecondPassword}
             onChangeText={text => {
               this.setState({
                 errorMessage: '',
                 pw2: text,
-                useSecondPassword: false
+                useSecondPassword: false,
               });
             }}
           />
         </CardSection>
 
-        <CardSection>    
+        <CardSection>
           {this.renderButton()}
         </CardSection>
         
         <CardSection>
           <Text style={errorText}>
-            {this.state.errorMessage}
+            {errorMessage}
           </Text>
         </CardSection>
 
       </Card>
-    )
+    );
   }
 }
 
 export default connect(
   state => ({
     email: state.signUp.SignUp.email,
-    password: state.signUp.SignUp.password
+    password: state.signUp.SignUp.password,
   }),
   {
     updateEmail,
     updatePassword,
-    signUserUp
+    signUserUp,
   }
 )(SignUp);
 
@@ -161,14 +171,14 @@ const styles = StyleSheet.create({
     width: 12,
     backgroundColor: NU_Blue,
     borderRadius: 25,
-    margin: 5
+    margin: 5,
   },
-  circleSelected:{
+  circleSelected: {
     height: 12,
     width: 12,
     backgroundColor: NU_Red,
     borderRadius: 25,
-    margin: 5
+    margin: 5,
   },
   circleContainer: {
     height: '13%',
@@ -177,12 +187,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey
+    borderBottomColor: NU_Grey,
   },
   errorText: {
     color: NU_Red,
     width: '100%',
     display: 'flex',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
