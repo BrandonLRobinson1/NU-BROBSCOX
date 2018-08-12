@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input, EnterPhone } from '../../common';
 import { allNumbersRegEx } from '../../helpers/helpersFunctions';
 import { updatePhoneNumber, clearAll, addFormInfo } from '../../store/signUp/SignUp';
-import { colors } from '../../Colors'
+import { colors } from '../../Colors';
 
 class PhoneNumber extends Component {
   constructor() {
@@ -15,7 +15,7 @@ class PhoneNumber extends Component {
       loading: false,
       phoneNumber1: '',
       phoneNumber2: '',
-      phoneNumber3: ''
+      phoneNumber3: '',
     }
     this.onButtonPress = this.onButtonPress.bind(this);
     this.textInputRender = this.textInputRender.bind(this);
@@ -23,16 +23,17 @@ class PhoneNumber extends Component {
 
   async onButtonPress() {
     const { phoneNumber1, phoneNumber2, phoneNumber3 } = this.state;
+    const { updatePhoneNumber, clearAll, addFormInfo, } = this.props;
     const number = `${phoneNumber1}${phoneNumber2}${phoneNumber3}`;
-    // if (!allNumbersRegEx(this.props.phoneNumber) || this.props.phoneNumber.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
+    // if (!allNumbersRegEx(phoneNumber) || phoneNumber.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
     if (!allNumbersRegEx(number) || number.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
-  
-    await this.props.updatePhoneNumber(`${phoneNumber1}${phoneNumber2}${phoneNumber3}`);
-    
+
+    await updatePhoneNumber(`${phoneNumber1}${phoneNumber2}${phoneNumber3}`);
+
     this.setState({ loading: true });
-    this.props.addFormInfo()
+    addFormInfo()
       .then(() => {
-        this.props.clearAll();
+        clearAll();
         Actions.Validate();
         this.setState({ loading: false });
       })
@@ -40,17 +41,8 @@ class PhoneNumber extends Component {
         console.log(err);
         this.setState({ loading: false });
       });
-
-      // console.log(
-      //   'await in function before this log -->',
-      //   this.props.firstName,
-      //   this.props.lastName,
-      //   this.props.phoneNumber,
-      //   this.props.password,
-      //   this.props.zipCode,
-      //   this.props.email
-      // )
   }
+
 
   textInputRender(maxLength, placeholder, stateNum) {
     const { inputStyle } = styles;
@@ -74,6 +66,7 @@ class PhoneNumber extends Component {
       />
     )
   }
+  
 
   render() {
     const { circle, circleContainer, circleSelected, errorText, containerStyle, labelStyle } = styles;

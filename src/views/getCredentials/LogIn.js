@@ -21,37 +21,38 @@ class LogIn extends Component {
   }
 
   async onButtonPress() {
-    const { password, clearTextOnFocus } = this.state;
-    if (!emailRegEx(this.props.email)) return this.setState({ errorMessage: 'The email address is badly formatted.' });
+    const { password } = this.state;
+    const { email, updateLogInPassword, logUserIn } = this.props;
+    if (!emailRegEx(email)) return this.setState({ errorMessage: 'The email address is badly formatted.' });
     
-    this.props.updateLogInPassword(`findout how to encrypt in front end ${password}`);
+    updateLogInPassword(`findout how to encrypt in front end ${password}`);
 
     this.setState({ loading: true });
 
-    await this.props.logUserIn()
+    await logUserIn()
       .then(() => {
         this.setState({
-          password: ''
+          password: '',
         });
-        this.props.updateLogInPassword(null);
-        // Actions["Phone Number"]();    
+        updateLogInPassword(null);
         this.setState({ loading: false });
         console.log('logged in');
       })
-      .catch( (err) => {
+      .catch((err) => {
         console.log('email sign in error', err);
-        this.setState({ 
+        this.setState({
           errorMessage: err.message,
           clearTextOnFocus: true,
-          loading: false
+          loading: false,
         });
         console.log('not logged in');        
-      })
+      });
+    // return 1
   }
 
   renderButton() {
-    if (this.state.loading) {
-      return <Spinner size='large' />
+    if (this.state.loading) { // eslint-disable-line
+      return <Spinner size="large" />;
     }
     return (
       <Button
@@ -62,7 +63,9 @@ class LogIn extends Component {
   }
 
   render() {
-    const { errorText  } = styles;
+    const { errorText } = styles; // eslint-disable-line
+    const { password, clearTextOnFocus, errorMessage } = this.state;
+    const { email, updateLogInEmail, } = this.props;
 
     return (
       <Card>
@@ -71,10 +74,10 @@ class LogIn extends Component {
           <Input
             label="Email"
             placeholder="Email Address"
-            value={this.props.email}
-            onChangeText={text => {
-              this.setState({errorMessage: ''});
-              this.props.updateLogInEmail(text);
+            value={email}
+            onChangeText={(text) => {
+              this.setState({ errorMessage: '' });
+              updateLogInEmail(text);
             }}
           />
         </CardSection>
@@ -84,13 +87,13 @@ class LogIn extends Component {
             secureTextEntry
             label="Password"
             placeholder="Password"
-            value={this.state.password}
-            clearTextOnFocus={this.state.clearTextOnFocus}
-            onChangeText={text => {
+            value={password}
+            clearTextOnFocus={clearTextOnFocus}
+            onChangeText={(text) => {
               this.setState({
                 errorMessage: '',
                 password: text,
-                clearTextOnFocus: false
+                clearTextOnFocus: false,
               });
             }}
           />
@@ -102,7 +105,7 @@ class LogIn extends Component {
         
         <CardSection>
           <Text style={errorText}>
-            {this.state.errorMessage}
+            {errorMessage}
           </Text>
         </CardSection>
 
@@ -114,23 +117,22 @@ class LogIn extends Component {
 export default connect(
   state => ({
     email: state.logIn.logIn.email,
-    password: state.logIn.logIn.password
+    password: state.logIn.logIn.password,
   }),
   {
     updateLogInEmail,
     updateLogInPassword,
-    logUserIn
-  }
+    logUserIn,
+  },
 )(LogIn);
 
 const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
 
 const styles = StyleSheet.create({
-
   errorText: {
     color: NU_Red,
     width: '100%',
     display: 'flex',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
