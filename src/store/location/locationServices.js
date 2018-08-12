@@ -3,12 +3,13 @@ import { Dimensions } from 'react-native';
 
 import { getRegionForCoordinates } from '../../helpers/helpersFunctions'; // helper function is a way to get latitiud delta and longitude delta based on a number of points/markers
 
-/// *****
+
+// *****
 const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
-const latDelta = .0622; // .0922
+const latDelta = 0.0622; // .0922
 const longDelta = aspectRatio * latDelta;
-/// *****
+// *****
 
 // need to design this to grab info from every SESSION
 const defaultState = {
@@ -20,12 +21,10 @@ const prefix = 'NU_STORE/LOCATION/';
 export const setCurrentLocation = createAction(`${prefix}SET_CURRENT_LOCATION`);
 // export const setGeoLocation = createAction(`${prefix}SET_GEO_LOCATION`);
 
-
-
 export default handleActions({
   [setCurrentLocation]: (state, { payload }) => ({
     ...state,
-    regionObj: payload
+    regionObj: payload,
   }),
   // [setGeoLocation]: (state, { payload }) => ({
   //   ...state,
@@ -36,10 +35,10 @@ export default handleActions({
 // should have one thunk package all the data i need for a users session and send it up, generator
 export const getinitialDelta = () => (dispatch, getState) => {
   const Images = [
-    { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-    { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-    { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-    { uri: "https://i.imgur.com/Ka8kNST.jpg" }
+    { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
+    { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
+    { uri: 'https://i.imgur.com/UDrH0wm.jpg' },
+    { uri: 'https://i.imgur.com/Ka8kNST.jpg' }
   ];
 
   const sfMarkers = [
@@ -48,8 +47,8 @@ export const getinitialDelta = () => (dispatch, getState) => {
         latitude: 37.777067,
         longitude: -122.431512,
       },
-      title: "Best Place",
-      description: "This is the best place in Portland",
+      title: 'Best Place',
+      description: 'This is the best place in Portland',
       image: Images[0],
     },
     {
@@ -57,8 +56,8 @@ export const getinitialDelta = () => (dispatch, getState) => {
         latitude: 37.771096,
         longitude: -122.397195,
       },
-      title: "Second Best Place",
-      description: "This is the second best place in Portland",
+      title: 'Second Best Place',
+      description: 'This is the second best place in Portland',
       image: Images[1],
     },
     {
@@ -66,8 +65,8 @@ export const getinitialDelta = () => (dispatch, getState) => {
         latitude: 37.758340,
         longitude: -122.410235,
       },
-      title: "Third Best Place",
-      description: "This is the third best place in Portland",
+      title: 'Third Best Place',
+      description: 'This is the third best place in Portland',
       image: Images[2],
     },
     {
@@ -75,8 +74,8 @@ export const getinitialDelta = () => (dispatch, getState) => {
         latitude: 37.789820,
         longitude: -122.401999,
       },
-      title: "Fourth Best Place",
-      description: "This is the fourth best place in Portland",
+      title: 'Fourth Best Place',
+      description: 'This is the fourth best place in Portland',
       image: Images[3],
     },
   ];
@@ -87,8 +86,8 @@ export const getinitialDelta = () => (dispatch, getState) => {
         latitude: 37.771096,
         longitude: -122.397195,
       },
-      title: "Second Best Place",
-      description: "This is the second best place in Portland",
+      title: 'Second Best Place',
+      description: 'This is the second best place in Portland',
       image: Images[1],
     }
   ];
@@ -103,10 +102,10 @@ export const getinitialDelta = () => (dispatch, getState) => {
 
 export const getActiveNailTechs = () => (dispatch, getState) => {
   const Images = [
-    { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-    { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-    { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-    { uri: "https://i.imgur.com/Ka8kNST.jpg" }
+    { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
+    { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
+    { uri: 'https://i.imgur.com/UDrH0wm.jpg' },
+    { uri: 'https://i.imgur.com/Ka8kNST.jpg' }
   ];
 
   let sfMarkers = [
@@ -115,8 +114,8 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
         latitude: 37.777067,
         longitude: -122.431512,
       },
-      title: "Best Place",
-      description: "This is the best place in Portland",
+      title: 'Best Place',
+      description: 'This is the best place in Portland',
       image: Images[0],
     },
     {
@@ -124,8 +123,8 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
         latitude: 37.771096,
         longitude: -122.397195,
       },
-      title: "Second Best Place",
-      description: "This is the second best place in Portland",
+      title: 'Second Best Place',
+      description: 'This is the second best place in Portland',
       image: Images[1],
     },
     {
@@ -133,8 +132,8 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
         latitude: 37.758340,
         longitude: -122.410235,
       },
-      title: "Third Best Place",
-      description: "This is the third best place in Portland",
+      title: 'Third Best Place',
+      description: 'This is the third best place in Portland',
       image: Images[2],
     },
     {
@@ -142,8 +141,8 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
         latitude: 37.789820,
         longitude: -122.401999,
       },
-      title: "Fourth Best Place",
-      description: "This is the fourth best place in Portland",
+      title: 'Fourth Best Place',
+      description: 'This is the fourth best place in Portland',
       image: Images[3],
     }
   ];
@@ -154,8 +153,8 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
         latitude: 37.771096,
         longitude: -122.397195,
       },
-      title: "Second Best Place",
-      description: "This is the second best place in Portland",
+      title: 'Second Best Place',
+      description: 'This is the second best place in Portland',
       image: Images[1],
     }
   ];

@@ -8,21 +8,21 @@ import { emailRegEx, specialCharacterValidation } from '../../helpers/helpersFun
 import { colors } from '../../Colors';
 
 class LogIn extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       errorMessage: '',
       clearTextOnFocus: false,
       password: '',
-      loading: null
-    }
+      loading: null,
+    };
     this.onButtonPress = this.onButtonPress.bind(this);
     this.renderButton = this.renderButton.bind(this);
   }
 
   async onButtonPress() {
     const { password, clearTextOnFocus } = this.state;
-    if (!emailRegEx(this.props.email)) return this.setState({errorMessage: 'The email address is badly formatted.'});
+    if (!emailRegEx(this.props.email)) return this.setState({ errorMessage: 'The email address is badly formatted.' });
     
     this.props.updateLogInPassword(`findout how to encrypt in front end ${password}`);
 
