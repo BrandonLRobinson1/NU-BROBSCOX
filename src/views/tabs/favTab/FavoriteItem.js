@@ -20,9 +20,9 @@ class FavoriteItem extends Component {
   thing() {}
 
   render() {
-    const { imageStyle, horizontalFlex, imageContainer, horizontalText, headerStyle } = styles;
+    const { imageStyle, horizontalFlex, imageContainer, horizontalText, headerStyle } = styles; // eslint-disable-line
     const { name, description, title, address: { city, state } } = this.props.personData; // eslint-disable-line
-    console.log('fav item props', this.props)
+    console.log('fav item props', this.props);
 
     return (
       <Card>
@@ -78,7 +78,7 @@ export default connect(
   }
 )(FavoriteItem);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey, NU_Pink } = colors;
+const { NU_Red , NU_Blue, NU_White, NU_Grey, NU_Pink } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   circleContainer: {
@@ -88,39 +88,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey,
+    borderBottomColor: NU_Grey
   },
   imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
     flex: 1,
     backgroundColor: NU_White,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   imageStyle: { // this is how you would full screen an image **ORDER MATTERS****************************
     height: 90,
     width: 90,
     borderRadius: 45,
-    margin: 2,
+    margin: 2
   },
   horizontalFlex: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
+    width: '100%'
   },
   headerStyle: {
     backgroundColor: NU_Pink,
     flex: 1,
     padding: 5,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   horizontalText: {
     backgroundColor: NU_White,
     flex: 1,
     padding: 5,
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 });
 
 

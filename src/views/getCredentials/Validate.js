@@ -15,7 +15,7 @@ class Validate extends Component {
   }
 
   render() {
-    const { circleContainer } = styles;
+    const { circleContainer } = styles; // eslint-disable-line
     return (
       <Card>
 
@@ -33,7 +33,7 @@ class Validate extends Component {
         </CardSection>
 
       </Card>
-    )
+    );
   }
 }
 
@@ -43,10 +43,10 @@ export default connect(
   }),
   {
     // updateFirstName,
-  },
+  }
 )(Validate);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   circleContainer: {
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey,
-  },
+    borderBottomColor: NU_Grey
+  }
 });

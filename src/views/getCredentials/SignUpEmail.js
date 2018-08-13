@@ -17,7 +17,7 @@ class SignUp extends Component {
       useSecondPassword: false,
       pw1: '',
       pw2: '',
-      loading: null,
+      loading: null
     };
     this.onButtonPress = this.onButtonPress.bind(this);
     this.renderButton = this.renderButton.bind(this);
@@ -25,7 +25,7 @@ class SignUp extends Component {
 
   async onButtonPress() {
     const { pw1, pw2, } = this.state;
-    const { signUserUp, updatePassword, email, } = this.props;
+    const { signUserUp, updatePassword, email } = this.props;
 
     if (!emailRegEx(email)) return this.setState({ errorMessage: 'The email address is badly formatted.' });
     if (pw1.length < 7) return this.setState({ errorMessage: 'Password must be at least 7 characters' });
@@ -35,7 +35,7 @@ class SignUp extends Component {
       pw1: '',
       pw2: '',
       clearTextOnFocus: true,
-      useSecondPassword: true,
+      useSecondPassword: true
     });
 
     // TODO: encrtypt password save it and clear it from state
@@ -49,7 +49,7 @@ class SignUp extends Component {
       .then(() => {
         this.setState({
           pw1: '',
-          pw2: '',
+          pw2: ''
         });
         updatePassword(null);
         Actions.SignUp();
@@ -59,7 +59,7 @@ class SignUp extends Component {
         console.log('email sign in error', err);
         this.setState({ 
           errorMessage: err.message,
-          loading: false,
+          loading: false
         });
       });
   }
@@ -73,7 +73,7 @@ class SignUp extends Component {
         buttonText="Submit"
         onPress={() => this.onButtonPress()}
       />
-    )
+    );
   }
 
   render() {
@@ -113,7 +113,7 @@ class SignUp extends Component {
               this.setState({
                 errorMessage: '',
                 pw1: text,
-                clearTextOnFocus: false,
+                clearTextOnFocus: false
               });
             }}
           />
@@ -130,7 +130,7 @@ class SignUp extends Component {
               this.setState({
                 errorMessage: '',
                 pw2: text,
-                useSecondPassword: false,
+                useSecondPassword: false
               });
             }}
           />
@@ -154,7 +154,7 @@ class SignUp extends Component {
 export default connect(
   state => ({
     email: state.signUp.SignUp.email,
-    password: state.signUp.SignUp.password,
+    password: state.signUp.SignUp.password
   }),
   {
     updateEmail,
@@ -163,7 +163,7 @@ export default connect(
   }
 )(SignUp);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   circle: {
@@ -171,14 +171,14 @@ const styles = StyleSheet.create({
     width: 12,
     backgroundColor: NU_Blue,
     borderRadius: 25,
-    margin: 5,
+    margin: 5
   },
   circleSelected: {
     height: 12,
     width: 12,
     backgroundColor: NU_Red,
     borderRadius: 25,
-    margin: 5,
+    margin: 5
   },
   circleContainer: {
     height: '13%',
@@ -187,12 +187,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey,
+    borderBottomColor: NU_Grey
   },
   errorText: {
     color: NU_Red,
     width: '100%',
     display: 'flex',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });

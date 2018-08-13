@@ -11,9 +11,24 @@ import { colors, commonStyles } from '../../../Colors';
 class ProfilePage extends Component {
 
   render() {
-    const { NU_Header_Text, horizontalFlex, NU_Paragraph_Text, NU_Small_Header_Text } = commonStyles;
-    const { imageStyle, imageContainer, container, scrollableBody, stickyBottom, customAppointmentButton, customAppointmentButtonText } = styles;
-    const { title, description, address: { street } } = this.props.personData;
+    const {
+      NU_Header_Text,
+      horizontalFlex,
+      NU_Paragraph_Text,
+      NU_Small_Header_Text
+    } = commonStyles;
+    const {
+      imageStyle,
+      imageContainer,
+      container,
+      scrollableBody,
+      stickyBottom,
+      customAppointmentButton,
+      customAppointmentButtonText
+    } = styles; // eslint-disable-line
+    
+    const { title, description, address: { street } } = this.props.personData; // eslint-disable-line
+
     return (
       <View style={container}>
 
@@ -116,7 +131,6 @@ class ProfilePage extends Component {
               </CardSection>
             </Card>
           </ScrollView>
-
         </View>
         
         <View style={stickyBottom}>
@@ -167,7 +181,7 @@ export default connect(
   }
 )(ProfilePage);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   container: {
@@ -175,7 +189,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   scrollableBody: {
-    flex: 9,
+    flex: 9
     // marginBottom: 5
   },
   stickyBottom: {
@@ -213,5 +227,5 @@ const styles = StyleSheet.create({
     height: 'auto',
     minWidth: '100%',
     minHeight: '100%'
-  },
+  }
 });

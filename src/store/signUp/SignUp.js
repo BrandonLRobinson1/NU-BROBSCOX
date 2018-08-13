@@ -44,7 +44,6 @@ export default handleActions({
     ...state,
     email: payload
   })
-
 }, defaultState);
 
 export const signUserUp = passWord => (dispatch, getState) => {
@@ -57,7 +56,6 @@ export const signUserUp = passWord => (dispatch, getState) => {
         }
       }
     } = getState();
-
    return firebase.auth().createUserWithEmailAndPassword(email.toLowerCase(), password); // use return otherwise it will try to regulate password length
 };
 
@@ -69,7 +67,7 @@ export const addFormInfo = () => (dispatch, getState) => {
         firstName,
         lastName,
         zipCode,
-        phoneNumber,
+        phoneNumber
       }
     }
   } = getState();
@@ -81,7 +79,14 @@ export const addFormInfo = () => (dispatch, getState) => {
 
   // TODO: SWITCH IT OFF TEST DATA FOLDER IN FIREBASE
   return firebase.database().ref(`/users/${currentUser.uid}/testAccounts`)
-    .push({ firstName, lastName, zipCode, phoneNumber, logIns: 1, moreUsefulData: 'goes here' });
+    .push({
+      firstName,
+      lastName,
+      zipCode,
+      phoneNumber,
+      logIns: 1,
+      moreUsefulData: 'goes here'
+    });
 };
 
 

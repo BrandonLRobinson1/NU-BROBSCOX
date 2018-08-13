@@ -11,7 +11,7 @@ class SignUp extends Component {
   constructor() {
     super();
     this.state = {
-      errorMessage: '',
+      errorMessage: ''
     };
     this.onButtonPress = this.onButtonPress.bind(this);
   }
@@ -56,7 +56,7 @@ class SignUp extends Component {
             placeholder="Last Name"
             value={lastName}
             onChangeText={text => {
-              this.setState({errorMessage: ''});
+              this.setState({ errorMessage: '' });
               updateLastName(text);
             }}
           />
@@ -67,7 +67,7 @@ class SignUp extends Component {
             label="Zip Code"
             placeholder="Zip Code"
             value={zipCode}
-            keyboardType={'numeric'}
+            keyboardType="numeric"
             onChangeText={text => {
               this.setState({ errorMessage: '' });
               updateZipCode(text);
@@ -98,12 +98,12 @@ export default connect(
   state => ({
     firstName: state.signUp.SignUp.firstName,
     lastName: state.signUp.SignUp.lastName,
-    zipCode: state.signUp.SignUp.zipCode,
+    zipCode: state.signUp.SignUp.zipCode
   }),
   {
     updateFirstName,
     updateLastName,
-    updateZipCode,
+    updateZipCode
   }
 )(SignUp);
 
@@ -115,14 +115,14 @@ const styles = StyleSheet.create({
     width: 12,
     backgroundColor: NU_Blue,
     borderRadius: 25,
-    margin: 5,
+    margin: 5
   },
   circleSelected:{
     height: 12,
     width: 12,
     backgroundColor: NU_Red,
     borderRadius: 25,
-    margin: 5,
+    margin: 5
   },
   circleContainer: {
     height: '13%',
@@ -131,12 +131,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey,
+    borderBottomColor: NU_Grey
   },
   errorText: {
     color: NU_Red,
     width: '100%',
     display: 'flex',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });

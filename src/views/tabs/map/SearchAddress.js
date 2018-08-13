@@ -12,7 +12,7 @@ import { colors } from '../../../Colors';
 class SearchAddress extends Component {
   // THIS COMPONENT WILL ALSO BE USED FOR TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
   render() {
-    const { textInputContainer, textInput, predefinedPlacesDescription } = styles;
+    // const { textInputContainer, textInput, predefinedPlacesDescription } = styles;
     const { setCurrentLocation } = this.props; // eslint-disable-line
     return (
       <GooglePlacesAutocomplete
@@ -38,7 +38,7 @@ class SearchAddress extends Component {
           key: placesKey,
           types: 'address' // ** reponsible for filtering results
         }}
-        styles={[textInputContainer,textInput, predefinedPlacesDescription]}
+        styles={styles}
       />
     );
   }

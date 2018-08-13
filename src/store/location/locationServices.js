@@ -11,7 +11,7 @@ const longDelta = aspectRatio * latDelta;
 
 // need to design this to grab info from every SESSION
 const defaultState = {
-  regionObj: null,
+  regionObj: null
   // geoLocationObj: null,
 };
 
@@ -23,7 +23,7 @@ export default handleActions({
   [setCurrentLocation]: (state, { payload }) => ({
     ...state,
     regionObj: payload,
-  }),
+  })
   // [setGeoLocation]: (state, { payload }) => ({
   //   ...state,
   //   geoLocationObj: payload
@@ -36,7 +36,7 @@ export const getinitialDelta = () => (dispatch, getState) => {
     { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
     { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
     { uri: 'https://i.imgur.com/UDrH0wm.jpg' },
-    { uri: 'https://i.imgur.com/Ka8kNST.jpg' },
+    { uri: 'https://i.imgur.com/Ka8kNST.jpg' }
   ];
 
   const sfMarkers = [
@@ -75,7 +75,7 @@ export const getinitialDelta = () => (dispatch, getState) => {
       title: 'Fourth Best Place',
       description: 'This is the fourth best place in Portland',
       image: Images[3],
-    },
+    }
   ];
 
   const sfMarker = [
@@ -87,7 +87,7 @@ export const getinitialDelta = () => (dispatch, getState) => {
       title: 'Second Best Place',
       description: 'This is the second best place in Portland',
       image: Images[1],
-    },
+    }
   ];
 
   // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users
@@ -95,8 +95,7 @@ export const getinitialDelta = () => (dispatch, getState) => {
   return markers.length > 1
     ? getRegionForCoordinates(markers)
     : Object.assign(markers.coordinate, { latitudeDelta: latDelta, longitudeDelta: longDelta });
-
-}
+};
 
 export const getActiveNailTechs = () => (dispatch, getState) => {
   const Images = [
@@ -142,7 +141,7 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
       title: 'Fourth Best Place',
       description: 'This is the fourth best place in Portland',
       image: Images[3],
-    },
+    }
   ];
 
   const sfMarker = [
@@ -154,11 +153,10 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
       title: 'Second Best Place',
       description: 'This is the second best place in Portland',
       image: Images[1],
-    },
+    }
   ];
 
   // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users 
   const markers = sfMarkers;
-
   return markers;
 };

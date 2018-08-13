@@ -19,7 +19,7 @@ export default handleActions({
   [updateLogInPassword]: (state, { payload }) => ({
     ...state,
     password: payload
-  }),
+  })
 }, defaultState);
 
 export const logUserIn = () => (dispatch, getState) => {

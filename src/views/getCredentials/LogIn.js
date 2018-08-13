@@ -14,7 +14,7 @@ class LogIn extends Component {
       errorMessage: '',
       clearTextOnFocus: false,
       password: '',
-      loading: null,
+      loading: null
     };
     this.onButtonPress = this.onButtonPress.bind(this);
     this.renderButton = this.renderButton.bind(this);
@@ -32,7 +32,7 @@ class LogIn extends Component {
     await logUserIn()
       .then(() => {
         this.setState({
-          password: '',
+          password: ''
         });
         updateLogInPassword(null);
         this.setState({ loading: false });
@@ -65,7 +65,7 @@ class LogIn extends Component {
   render() {
     const { errorText } = styles; // eslint-disable-line
     const { password, clearTextOnFocus, errorMessage } = this.state;
-    const { email, updateLogInEmail, } = this.props;
+    const { email, updateLogInEmail } = this.props;
 
     return (
       <Card>
@@ -117,12 +117,12 @@ class LogIn extends Component {
 export default connect(
   state => ({
     email: state.logIn.logIn.email,
-    password: state.logIn.logIn.password,
+    password: state.logIn.logIn.password
   }),
   {
     updateLogInEmail,
     updateLogInPassword,
-    logUserIn,
+    logUserIn
   },
 )(LogIn);
 
@@ -133,6 +133,6 @@ const styles = StyleSheet.create({
     color: NU_Red,
     width: '100%',
     display: 'flex',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });

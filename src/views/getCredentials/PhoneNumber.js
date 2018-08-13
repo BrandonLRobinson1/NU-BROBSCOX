@@ -15,7 +15,7 @@ class PhoneNumber extends Component {
       loading: false,
       phoneNumber1: '',
       phoneNumber2: '',
-      phoneNumber3: '',
+      phoneNumber3: ''
     }
     this.onButtonPress = this.onButtonPress.bind(this);
     this.textInputRender = this.textInputRender.bind(this);
@@ -23,7 +23,7 @@ class PhoneNumber extends Component {
 
   async onButtonPress() {
     const { phoneNumber1, phoneNumber2, phoneNumber3 } = this.state;
-    const { updatePhoneNumber, clearAll, addFormInfo, } = this.props;
+    const { updatePhoneNumber, clearAll, addFormInfo } = this.props;
     const number = `${phoneNumber1}${phoneNumber2}${phoneNumber3}`;
     // if (!allNumbersRegEx(phoneNumber) || phoneNumber.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
     if (!allNumbersRegEx(number) || number.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
@@ -60,7 +60,7 @@ class PhoneNumber extends Component {
         onChangeText={text => {
           this.setState({
             errorMessage: '',
-            [setStateVar]: text,
+            [setStateVar]: text
           });
         }}
       />
@@ -157,14 +157,14 @@ const styles = StyleSheet.create({
     width: 12,
     backgroundColor: NU_Blue,
     borderRadius: 25,
-    margin: 5,
+    margin: 5
   },
   circleSelected: {
     height: 12,
     width: 12,
     backgroundColor: NU_Red,
     borderRadius: 25,
-    margin: 5,
+    margin: 5
   },
   circleContainer: {
     height: '13%',
@@ -173,13 +173,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: NU_Grey,
+    borderBottomColor: NU_Grey
   },
   errorText: {
     color: NU_Red,
     width: '100%',
     display: 'flex',
-    textAlign: 'center',
+    textAlign: 'center'
   },
 
   inputStyle: {
@@ -190,17 +190,17 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     flex: 1,
     // backgroundColor: 'blue',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   labelStyle: {
     fontSize: 18,
     paddingLeft: 20,
-    flex: 3,
+    flex: 3
   },
   containerStyle: {
     height: 40,
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-  },
+    alignItems: 'center'
+  }
 });

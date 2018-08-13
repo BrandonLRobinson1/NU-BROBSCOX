@@ -5,7 +5,7 @@ import {
   Button,
   CardSection,
   FullCard,
-  SectionSmall,
+  SectionSmall
 } from '../../common';
 import { colors } from '../../Colors';
 
@@ -57,24 +57,24 @@ const { NU_Red , NU_Blue, NU_White } = colors;
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 18,
-    color: NU_White,
+    color: NU_White
   },
   align: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: NU_Blue,
+    backgroundColor: NU_Blue
   },
   buttonSection: {
     flex: 1,
     backgroundColor: NU_White,
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    height: '100%'
   },
   buttonPadding: {
-    flex: 2,
+    flex: 2
   },
   buttonPlacement: {
-    flex: 3,
-  },
+    flex: 3
+  }
 });

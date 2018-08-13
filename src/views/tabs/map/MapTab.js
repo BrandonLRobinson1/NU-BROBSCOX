@@ -114,7 +114,7 @@ class Maptab extends Component {
         longitude: regionObj.lng,
         latitudeDelta: 0.6622, // need to run something to actually get lat and long delta ( as well as markers )
         longitudeDelta: 0.034317000000001485
-      }
+      };
 
       this.setState({
         initialPosition: initialRegion,
@@ -126,7 +126,7 @@ class Maptab extends Component {
             },
             title: 'Second xxxx Place',
             description: 'This is the second best place in Portland',
-            image: Images[1],
+            image: Images[1]
           },
           {
             coordinate: {
@@ -135,7 +135,7 @@ class Maptab extends Component {
             },
             title: '3rd',
             description: 'This is it',
-            image: Images[2],
+            image: Images[2]
           }
         ]
       });
@@ -173,7 +173,14 @@ class Maptab extends Component {
 
   // eslint-disable-next-line
   customMarker() {
-    const { customMarkerShell, customMarker, customMarkerText, customMarkerTailShell, customMarkerTail } = styles;
+    const {
+      customMarkerShell,
+      customMarker,
+      customMarkerText,
+      customMarkerTailShell,
+      customMarkerTail
+    } = styles; // eslint-disable-line
+
     return (
       <View style={customMarkerShell}>
         <View style={customMarker}>
