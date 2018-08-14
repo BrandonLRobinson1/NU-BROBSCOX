@@ -26,11 +26,12 @@ class PhoneNumber extends Component {
     const { updatePhoneNumber, clearAll, addFormInfo } = this.props;
     const number = `${phoneNumber1}${phoneNumber2}${phoneNumber3}`;
     // if (!allNumbersRegEx(phoneNumber) || phoneNumber.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
-    if (!allNumbersRegEx(number) || number.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
+    if (!allNumbersRegEx(number) || number.length < 10) return this.setState({ errorMessage: 'Please Enter Valid Phone Number' });
 
     await updatePhoneNumber(`${phoneNumber1}${phoneNumber2}${phoneNumber3}`);
 
     this.setState({ loading: true });
+
     addFormInfo()
       .then(() => {
         clearAll();
@@ -75,7 +76,7 @@ class PhoneNumber extends Component {
       circleSelected,
       errorText,
       containerStyle,
-      labelStyle,
+      labelStyle
     } = styles;
 
     const { errorMessage } = this.state;

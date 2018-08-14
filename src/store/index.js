@@ -12,11 +12,11 @@ import location from './location';
 const rootReducer = combineReducers({
   signUp,
   logIn,
-  location,
+  location
 });
 
 // eslint-disable-next-line
 export const store = createStore(
   rootReducer,
-  compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
+  // compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );

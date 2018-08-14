@@ -22,9 +22,9 @@ class LogIn extends Component {
 
   async onButtonPress() {
     const { password } = this.state;
-    const { email, updateLogInPassword, logUserIn } = this.props;
+    const { email, updateLogInPassword, logUserIn } = this.props; // eslint-disable-line
     if (!emailRegEx(email)) return this.setState({ errorMessage: 'The email address is badly formatted.' });
-    
+
     updateLogInPassword(`findout how to encrypt in front end ${password}`);
 
     this.setState({ loading: true });
@@ -38,12 +38,12 @@ class LogIn extends Component {
         this.setState({ loading: false });
         console.log('logged in');
       })
-      .catch((err) => {
+      .catch(err => {
         console.log('email sign in error', err);
         this.setState({
           errorMessage: err.message,
           clearTextOnFocus: true,
-          loading: false,
+          loading: false
         });
         console.log('not logged in');        
       });
@@ -59,7 +59,7 @@ class LogIn extends Component {
         buttonText="Submit"
         onPress={() => this.onButtonPress()}
       />
-    )
+    );
   }
 
   render() {
@@ -75,7 +75,7 @@ class LogIn extends Component {
             label="Email"
             placeholder="Email Address"
             value={email}
-            onChangeText={(text) => {
+            onChangeText={text => {
               this.setState({ errorMessage: '' });
               updateLogInEmail(text);
             }}
@@ -89,20 +89,20 @@ class LogIn extends Component {
             placeholder="Password"
             value={password}
             clearTextOnFocus={clearTextOnFocus}
-            onChangeText={(text) => {
+            onChangeText={text => {
               this.setState({
                 errorMessage: '',
                 password: text,
-                clearTextOnFocus: false,
+                clearTextOnFocus: false
               });
             }}
           />
         </CardSection>
 
-        <CardSection>    
+        <CardSection>
           {this.renderButton()}
         </CardSection>
-        
+
         <CardSection>
           <Text style={errorText}>
             {errorMessage}

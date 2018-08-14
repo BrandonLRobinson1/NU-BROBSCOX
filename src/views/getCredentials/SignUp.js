@@ -82,7 +82,7 @@ class SignUp extends Component {
             onPress={() => this.onButtonPress()}
           />
         </CardSection>
-        
+
         <CardSection>
           <Text style={errorText}>
             {errorMessage}
