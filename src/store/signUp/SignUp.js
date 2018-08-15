@@ -8,7 +8,12 @@ const defaultState = {
   phoneNumber: '',
   password: '',
   zipCode: '',
-  email: ''
+  email: '',
+
+  profilePic: '',
+  bio: 'bio',
+  gender: '',
+  dob: ''
 };
 
 const prefix = 'NU_STORE/SIGN_UP/';
@@ -18,6 +23,11 @@ export const updatePhoneNumber = createAction(`${prefix}UPDATE_PHONE_NUMBER`);
 export const updatePassword = createAction(`${prefix}UPDATE_PASSWORD`);
 export const updateZipCode = createAction(`${prefix}UPDATE_ZIP_CODE`);
 export const updateEmail = createAction(`${prefix}UPDATE_EMAIL`);
+
+export const setProfilePic = createAction(`${prefix}SET_PROFILE_PIC`);
+export const setBio = createAction(`${prefix}SET_BIO`);
+export const setGender = createAction(`${prefix}SET_GENDER`);
+export const setDob = createAction(`${prefix}SET_DOB`);
 
 export default handleActions({
   [updateFirstName]: (state, { payload }) => ({
@@ -43,20 +53,38 @@ export default handleActions({
   [updateEmail]: (state, { payload }) => ({
     ...state,
     email: payload
+  }),
+
+  [setProfilePic]: (state, { payload }) => ({
+    ...state,
+    profilePic: payload
+  }),
+  [setBio]: (state, { payload }) => ({
+    ...state,
+    bio: payload
+  }),
+  [setGender]: (state, { payload }) => ({
+    ...state,
+    gender: payload
+  }),
+  [setDob]: (state, { payload }) => ({
+    ...state,
+    dob: payload
   })
+
 }, defaultState);
 
 export const signUserUp = passWord => (dispatch, getState) => {
   const { currentUser } = firebase.auth();
-    const {
-      signUp: {
-        SignUp: {
-          email,
-          password
-        }
+  const {
+    signUp: {
+      SignUp: {
+        email,
+        password
       }
-    } = getState();
-   return firebase.auth().createUserWithEmailAndPassword(email.toLowerCase(), password); // use return otherwise it will try to regulate password length
+    }
+  } = getState();
+  return firebase.auth().createUserWithEmailAndPassword(email.toLowerCase(), password); // use return otherwise it will try to regulate password length
 };
 
 export const addFormInfo = () => (dispatch, getState) => {
@@ -73,7 +101,7 @@ export const addFormInfo = () => (dispatch, getState) => {
   } = getState();
 
   console.log('firebase.auth', firebase.auth());
-  console.log('firebase database',  firebase.database());
+  console.log('firebase database', firebase.database());
   console.log('firebase ref', firebase.database().ref());
   console.log('current user', currentUser);
 

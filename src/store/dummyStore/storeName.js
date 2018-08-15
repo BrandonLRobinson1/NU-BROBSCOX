@@ -22,7 +22,7 @@ export const someAsyncT = () => (dispatch, getState) => {
     dispatch(setHasServerError(true));
     resolve();
   });
-}
+};
 
 
 // How to pull real time data from firebase
