@@ -31,7 +31,7 @@ const tabIcon = ({ focused, title }) => {
 const RouterComponent = () => (
   <Router>
     <Scene key="root">
-      {/*
+ {/*
       <Scene
         key="getCredentials"
         component={GetCredentials}
@@ -72,7 +72,7 @@ const RouterComponent = () => (
         title="Please Login"
         backTitle=" "
       />
-      */}
+ */}
       <Scene
         key="tabbar"
         tabs
@@ -89,9 +89,20 @@ const RouterComponent = () => (
             component={Favorites}
             initial
           />
+          <Scene
+            key="ProfilePage"
+            title=""
+            component={ProfilePage}
+            backTitle=" "
+            hideTabBar
+            onRight={() => {
+              Actions.pop();
+              Actions.FavoritesTab();
+            }}
+          />
         </Scene>
 
-        <Scene key="map" title="MAP" icon={tabIcon} >
+        <Scene key="map" title="MAP" icon={tabIcon}>
           <Scene
             key="mapTab"
             title="MapTab"
@@ -99,20 +110,16 @@ const RouterComponent = () => (
             backTitle=" "
             initial
             rightTitle="Change Location"
-            onRight={() => Actions.SearchAddress()}
+            onRight={() => {
+              Actions.pop();
+              Actions.SearchAddress();
+            }}
           />
           <Scene
             key="SearchAddress"
             title="Address Search"
             component={SearchAddress}
             backTitle=" "
-          />
-          <Scene
-            key="ProfilePage"
-            title=""
-            component={ProfilePage}
-            backTitle=" "
-            hideTabBar
           />
         </Scene>
 
