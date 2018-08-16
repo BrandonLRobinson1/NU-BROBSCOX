@@ -1,5 +1,4 @@
 import { handleActions, createAction } from 'redux-actions';
-import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 
 const defaultState = {
@@ -16,7 +15,7 @@ const defaultState = {
   dob: ''
 };
 
-const prefix = 'NU_STORE/SIGN_UP/';
+const prefix = 'NU_STORE/USER_INFO/';
 export const updateFirstName = createAction(`${prefix}UPDATE_FIRST_NAME`);
 export const updateLastName = createAction(`${prefix}UPDATE_LAST_NAME`);
 export const updatePhoneNumber = createAction(`${prefix}UPDATE_PHONE_NUMBER`);
@@ -75,10 +74,11 @@ export default handleActions({
 }, defaultState);
 
 export const signUserUp = passWord => (dispatch, getState) => {
-  const { currentUser } = firebase.auth();
+  // const { currentUser } = firebase.auth();
+  console.log('hit signuserup');
   const {
-    signUp: {
-      SignUp: {
+    userInfo: {
+      user: {
         email,
         password
       }
@@ -90,8 +90,8 @@ export const signUserUp = passWord => (dispatch, getState) => {
 export const addFormInfo = () => (dispatch, getState) => {
   const { currentUser } = firebase.auth();
   const {
-    signUp: {
-      SignUp: {
+    userInfo: {
+      user: {
         firstName,
         lastName,
         zipCode,
@@ -100,10 +100,10 @@ export const addFormInfo = () => (dispatch, getState) => {
     }
   } = getState();
 
-  console.log('firebase.auth', firebase.auth());
-  console.log('firebase database', firebase.database());
-  console.log('firebase ref', firebase.database().ref());
-  console.log('current user', currentUser);
+  // console.log('firebase.auth', firebase.auth());
+  // console.log('firebase database', firebase.database());
+  // console.log('firebase ref', firebase.database().ref());
+  // console.log('current user', currentUser);
 
   // TODO: SWITCH IT OFF TEST DATA FOLDER IN FIREBASE
   return firebase.database().ref(`/users/${currentUser.uid}/testAccounts`)

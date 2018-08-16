@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input, EnterPhone } from '../../common';
 import { allNumbersRegEx } from '../../helpers/helpersFunctions';
-import { updatePhoneNumber, clearAll, addFormInfo } from '../../store/signUp/SignUp';
+import { updatePhoneNumber, clearAll, addFormInfo } from '../../store/userInfo/user';
 import { colors } from '../../Colors';
 
 class PhoneNumber extends Component {
@@ -133,15 +133,15 @@ class PhoneNumber extends Component {
 
 export default connect(
   state => ({
-    // phoneNumber: state.signUp.SignUp.phoneNumber
+    // phoneNumber: state.userInfo.user.phoneNumber
 
     // HAVE THESE ALL HERE FOR TESTING PURPOSES
-    firstName: state.signUp.SignUp.firstName,
-    lastName: state.signUp.SignUp.lastName,
-    phoneNumber: state.signUp.SignUp.phoneNumber,
-    password: state.signUp.SignUp.password,
-    zipCode: state.signUp.SignUp.zipCode,
-    email: state.signUp.SignUp.email
+    firstName: state.userInfo.user.firstName,
+    lastName: state.userInfo.user.lastName,
+    phoneNumber: state.userInfo.user.phoneNumber,
+    password: state.userInfo.user.password,
+    zipCode: state.userInfo.user.zipCode,
+    email: state.userInfo.user.email
   }),
   {
     updatePhoneNumber,

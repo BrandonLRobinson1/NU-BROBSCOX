@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input } from '../../common';
-import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp';
+import { updateFirstName, updateLastName, updateZipCode } from '../../store/userInfo/user';
 import { allLettersRegEx, allNumbersRegEx, specialCharacterValidation} from '../../helpers/helpersFunctions';
 import { colors } from '../../Colors';
 
@@ -96,9 +96,9 @@ class SignUp extends Component {
 
 export default connect(
   state => ({
-    firstName: state.signUp.SignUp.firstName,
-    lastName: state.signUp.SignUp.lastName,
-    zipCode: state.signUp.SignUp.zipCode
+    firstName: state.userInfo.user.firstName,
+    lastName: state.userInfo.user.lastName,
+    zipCode: state.userInfo.user.zipCode
   }),
   {
     updateFirstName,

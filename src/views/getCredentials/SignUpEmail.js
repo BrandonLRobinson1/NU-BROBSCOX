@@ -4,11 +4,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input, Spinner } from '../../common';
-import { updateEmail, updatePassword, signUserUp } from '../../store/signUp/SignUp'; 
+import { updateEmail, updatePassword, signUserUp } from '../../store/userInfo/user';
 import { emailRegEx, specialCharacterValidation } from '../../helpers/helpersFunctions';
 import { colors } from '../../Colors';
 
-class SignUp extends Component {
+class SignUpEmail extends Component {
   constructor() {
     super();
     this.state = {
@@ -153,15 +153,15 @@ class SignUp extends Component {
 
 export default connect(
   state => ({
-    email: state.signUp.SignUp.email,
-    password: state.signUp.SignUp.password
+    email: state.userInfo.user.email,
+    password: state.userInfo.user.password
   }),
   {
     updateEmail,
     updatePassword,
-    signUserUp,
+    signUserUp
   }
-)(SignUp);
+)(SignUpEmail);
 
 const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
 

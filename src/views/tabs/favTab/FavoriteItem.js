@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-nat
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { AlbumCard, CardSection, Card, SectionSmall, SectionMedium, Button } from '../../../common';
-// import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
+// import { updateFirstName, updateLastName, updateZipCode } from '../../store/userInfo.user'; 
 import { colors } from '../../../Colors';
 
 class FavoriteItem extends Component {
@@ -67,9 +67,9 @@ class FavoriteItem extends Component {
 
 export default connect(
   state => ({
-    // firstName: state.signUp.SignUp.firstName,
-    // lastName: state.signUp.SignUp.lastName,
-    // zipCode: state.signUp.SignUp.zipCode
+    // firstName: state.userInfo.user.firstName,
+    // lastName: state.userInfo.user.lastName,
+    // zipCode: state.userInfo.user.zipCode
   }),
   {
     // updateFirstName,

@@ -5,7 +5,7 @@ import { ListView } from 'react-native';
 import FavoriteItem from './FavoriteItem';
 import { FullCard, Spinner } from '../../../common';
 import data from '../../../store/dummyMembers.json';
-// import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp';
+// import { updateFirstName, updateLastName, updateZipCode } from '../../store/userInfo.user';
 
 class Favorites extends Component {
   componentWillMount() {
@@ -33,7 +33,7 @@ class Favorites extends Component {
 
 export default connect(
   state => ({
-    // firstName: state.signUp.SignUp.firstName,
+    // firstName: state.userInfo.user.firstName,
   }),
   {
     // updateFirstName,

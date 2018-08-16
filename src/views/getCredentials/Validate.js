@@ -39,7 +39,7 @@ class Validate extends Component {
 
 export default connect(
   state => ({
-    // firstName: state.signUp.SignUp.firstName,
+    // firstName: state.userInfo.user.firstName,
   }),
   {
     // updateFirstName,

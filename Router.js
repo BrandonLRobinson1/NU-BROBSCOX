@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
-import { Text } from 'react-native';
+// import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SignUp from './src/views/getCredentials/SignUp';
 import PhoneNumber from './src/views/getCredentials/PhoneNumber';
@@ -16,7 +16,7 @@ import MapTab from './src/views/tabs/map/MapTab';
 
 import SearchAddress from './src/views/tabs/map/SearchAddress';
 
-import {colors } from './src/Colors';
+import { colors } from './src/Colors';
 // import CredentialsRouter from './src/views/getCredentials/index';
 
 // eslint-disable-next-line
@@ -31,7 +31,7 @@ const tabIcon = ({ focused, title }) => {
 const RouterComponent = () => (
   <Router>
     <Scene key="root">
- {/*
+{/*
       <Scene
         key="getCredentials"
         component={GetCredentials}
@@ -72,7 +72,7 @@ const RouterComponent = () => (
         title="Please Login"
         backTitle=" "
       />
- */}
+*/}
       <Scene
         key="tabbar"
         tabs
@@ -85,14 +85,14 @@ const RouterComponent = () => (
         <Scene key="favorites" title="Favorites" icon={tabIcon} >
           <Scene
             key="FavoritesTab"
-            title="FavoritesTab"
             component={Favorites}
+            title="FavoritesTab"
             initial
           />
           <Scene
             key="ProfilePage"
-            title=""
             component={ProfilePage}
+            title=""
             backTitle=" "
             hideTabBar
             onRight={() => {
@@ -105,8 +105,8 @@ const RouterComponent = () => (
         <Scene key="map" title="MAP" icon={tabIcon}>
           <Scene
             key="mapTab"
-            title="MapTab"
             component={MapTab}
+            title="MapTab"
             backTitle=" "
             initial
             rightTitle="Change Location"
@@ -117,8 +117,8 @@ const RouterComponent = () => (
           />
           <Scene
             key="SearchAddress"
-            title="Address Search"
             component={SearchAddress}
+            title="Address Search"
             backTitle=" "
           />
         </Scene>

@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'remote-redux-devtools'; // eslint-disable-line
 import thunk from 'redux-thunk';
-import signUp from './signUp';
 import logIn from './logIn';
+import userInfo from './userInfo';
 import location from './location';
 
 // // import {
@@ -12,14 +12,14 @@ import location from './location';
 // //   compose,
 // // } from 'redux';
 // import thunk from 'redux-thunk';
-// import signUp from './signUp';
+// import signUp from './user';
 // import logIn from './logIn';
 // import location from './location';
 
 const rootReducer = combineReducers({
-  signUp,
   logIn,
-  location
+  location,
+  userInfo
 });
 
 // // eslint-disable-next-line
