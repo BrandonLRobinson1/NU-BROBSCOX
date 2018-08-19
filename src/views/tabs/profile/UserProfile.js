@@ -8,6 +8,36 @@ import { colors, commonStyles } from '../../../Colors';
 
 // eslint-disable-next-line
 class UserProfile extends Component {
+  constructor() {
+    super()
+    this.state = {
+      tabSelected: 'favorites'
+    };
+    this.renderFavsAndHistory = this.renderFavsAndHistory.bind(this);
+  }
+
+  // eslint-disable-next-line
+  renderFavsAndHistory () {
+    const thing = [];
+    // const thing = [1, 2, 3];
+    return thing.length > 0
+      ? (
+        <ScrollView>
+          <Text> 1 </Text>
+          <Text> 2 </Text>
+          <Text> 3 </Text>
+        </ScrollView>
+      )
+      : ( 
+        <Text>
+            you dont have any favorites yet
+        </Text>
+      );
+  }
+
+  tabSelect(selected) {
+    return this.setState({ tabSelected: selected });
+  }
 
   // should pull a fresh copy everytime you land on this page so on will mount might bee
   // overide sectional styles for some of these so like there isnt a line between the name and the picture
@@ -27,10 +57,18 @@ class UserProfile extends Component {
       flexCenter,
       sectionalButtonStyle,
       dividerStyle,
+      tabOff,
+      tabOn,
       stickyBottom,
       customAppointmentButton,
       customAppointmentButtonText
-    } = styles; // eslint-disable-line
+    } = styles; // eslint-disable-line 
+
+    const { tabSelected } = this.state;
+
+    const favSelectHistory = tabSelected === 'history' ? tabOn : tabOff;
+    const favSelectFavorites = tabSelected === 'favorites' ? tabOn : tabOff;
+    // console.log('favSelectHistory', typeof favSelectHistory, typeof imageContainer);
     
     // const { title, description, address: { street } } = this.props.personData; // eslint-disable-line
 
@@ -38,7 +76,6 @@ class UserProfile extends Component {
       <View style={container}>
 
         <View style={scrollableBody}>
-          <ScrollView>
             <Card>
               <CardSection>
                 <View style={imageContainer}>
@@ -94,23 +131,36 @@ class UserProfile extends Component {
 
               <CardSection>
                 <View style={[horizontalFlex, dividerStyle]}>
-                    <Text style={[NU_Small_Header_Text, sectionalButtonStyle]}>
-                      Favorites
-                    </Text>
-                    <Text style={[NU_Small_Header_Text, sectionalButtonStyle]}>
-                      History
-                    </Text>
-                  </View>
+                  <Text
+                    style={[NU_Small_Header_Text, sectionalButtonStyle, favSelectFavorites]}
+                    onPress={() => this.tabSelect('favorites')}
+                  >
+                    Favorites
+                  </Text>
+                  <Text
+                    style={[NU_Small_Header_Text, sectionalButtonStyle, favSelectHistory ]}
+                    onPress={() => this.tabSelect('history')}
+                  >
+                    History
+                  </Text>
+                </View>
+              </CardSection>
+
+              <CardSection>
+                {this.renderFavsAndHistory()}
               </CardSection>
     
             </Card>
-          </ScrollView>
+
+
         </View>
 
       </View>
     ); // TODO change if statements to if (!this.props.keyname)
   }
 }
+
+// `${tabSelected === 'favorites' ? tabOn : tabOff}`
 
 // <View style={{
 //   height: '10%',
@@ -182,5 +232,11 @@ const styles = StyleSheet.create({
   sectionalButtonStyle: {
     flex: 1,
     textAlign: 'center'
+  },
+  tabOff: {
+    color: NU_Grey
+  },
+  tabOn: {
+    color: NU_Blue
   }
 });
