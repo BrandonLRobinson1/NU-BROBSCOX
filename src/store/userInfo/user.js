@@ -28,6 +28,8 @@ export const setBio = createAction(`${prefix}SET_BIO`);
 export const setGender = createAction(`${prefix}SET_GENDER`);
 export const setDob = createAction(`${prefix}SET_DOB`);
 
+export const clearState = createAction(`${prefix}CLEAR_USER_STATE`);
+
 export default handleActions({
   [updateFirstName]: (state, { payload }) => ({
     ...state,
@@ -69,6 +71,9 @@ export default handleActions({
   [setDob]: (state, { payload }) => ({
     ...state,
     dob: payload
+  }),
+  [clearState]: (state, { payload }) => ({ // eslint-disable-line
+    defaultState
   })
 
 }, defaultState);
@@ -125,6 +130,18 @@ export const clearAll = () => (dispatch, getState) => {
   dispatch(updatePassword(null));
   dispatch(updateZipCode(null));
   dispatch(updateEmail(null));
+};
+
+// I assume this would work, load the info redux and have the app read from state
+export const userInfoFetch = () => {
+  const { currentUser } = firebase.auth();
+  return dispatch => {
+    firebase.database().ref(`/users/${currentUser.uid}/testAccounts`)
+      .on('value', snapshot => {
+        console.log('cha ching ... payload', snapshot.val());
+      },
+      error => console.log('err', error));
+  };
 };
 
 // export const employeesFetch = () => {

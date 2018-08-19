@@ -13,8 +13,10 @@ import Favorites from './src/views/tabs/favTab/Favorites';
 import ProfilePage from './src/views/tabs/favTab/ProfilePage';
 
 import MapTab from './src/views/tabs/map/MapTab';
-
 import SearchAddress from './src/views/tabs/map/SearchAddress';
+
+import UserProfile from './src/views/tabs/profile/UserProfile';
+// import EditProfile from './src/views/tabs/profile/EditProfile';
 
 import { colors } from './src/Colors';
 // import CredentialsRouter from './src/views/getCredentials/index';
@@ -82,6 +84,7 @@ const RouterComponent = () => (
         pressOpacity={1}
         default="mapTab"
       >
+ {/*     
         <Scene key="favorites" title="Favorites" icon={tabIcon} >
           <Scene
             key="FavoritesTab"
@@ -121,6 +124,30 @@ const RouterComponent = () => (
             title="Address Search"
             backTitle=" "
           />
+          </Scene>
+        */}
+
+        <Scene key="profile" title="Profile" icon={tabIcon}>
+          <Scene
+            key="userProfile"
+            component={UserProfile}
+            title="profile"
+            backTitle=" "
+            initial
+            rightTitle="Edit"
+            onRight={() => {
+              // Actions.pop();
+              // Actions.EditProfile();
+            }}
+          />
+          {/*
+          <Scene
+            key="EditProfile"
+            component={EditProfile}
+            title="Edit Profile"
+            backTitle=" "
+          />
+          */}
         </Scene>
 
       </Scene>
