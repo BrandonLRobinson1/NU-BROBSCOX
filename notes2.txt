@@ -85,7 +85,7 @@ react-native link react-native-vector-icons --> try in new branch for driod fix
 
 *seperate tabs with folders!!!
 
-**appointment tab
+**appointment tab - top right tab is instructions
 favorites 
 *maps
 *browse - history/

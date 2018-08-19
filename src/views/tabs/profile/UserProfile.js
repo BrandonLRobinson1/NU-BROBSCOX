@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity } from 'react-native';
+import Favorites from '../favTab/Favorites';
 import { CardSection, Spinner, Card } from '../../../common';
 import { colors, commonStyles } from '../../../Colors';
 
@@ -18,14 +19,12 @@ class UserProfile extends Component {
 
   // eslint-disable-next-line
   renderFavsAndHistory () {
-    const thing = [];
-    // const thing = [1, 2, 3];
+    // const thing = [];
+    const thing = [1, 2, 3];
     return thing.length > 0
       ? (
         <ScrollView>
-          <Text> 1 </Text>
-          <Text> 2 </Text>
-          <Text> 3 </Text>
+          <Favorites />
         </ScrollView>
       )
       : ( 
