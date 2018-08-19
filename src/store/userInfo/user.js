@@ -94,13 +94,15 @@ export const signUserUp = passWord => (dispatch, getState) => {
 
 export const addFormInfo = () => (dispatch, getState) => {
   const { currentUser } = firebase.auth();
+ 
   const {
     userInfo: {
       user: {
         firstName,
         lastName,
         zipCode,
-        phoneNumber
+        phoneNumber,
+        email
       }
     }
   } = getState();
@@ -111,10 +113,12 @@ export const addFormInfo = () => (dispatch, getState) => {
   // console.log('current user', currentUser);
 
   // TODO: SWITCH IT OFF TEST DATA FOLDER IN FIREBASE
-  return firebase.database().ref(`/users/${currentUser.uid}/testAccounts`)
+  // return firebase.database().ref(`/users/${currentUser.uid}/testAccounts`)
+  return firebase.database().ref(`/users/testAccounts/${currentUser.uid}`) // TODO ***** WILL HAVE SUBFOLDER LIKE USER INFO, LIKES ETC
     .push({
       firstName,
       lastName,
+      email,
       zipCode,
       phoneNumber,
       logIns: 1,
@@ -136,7 +140,7 @@ export const clearAll = () => (dispatch, getState) => {
 export const userInfoFetch = () => {
   const { currentUser } = firebase.auth();
   return dispatch => {
-    firebase.database().ref(`/users/${currentUser.uid}/testAccounts`)
+    firebase.database().ref(`/users/testAccounts/${currentUser.uid}`) // dCpWn7CLu9bx3ZVEoBOx8bNdINT2
       .on('value', snapshot => {
         console.log('cha ching ... payload', snapshot.val());
       },

@@ -33,7 +33,7 @@ const tabIcon = ({ focused, title }) => {
 const RouterComponent = () => (
   <Router>
     <Scene key="root">
-{/*
+
       <Scene
         key="getCredentials"
         component={GetCredentials}
@@ -74,7 +74,7 @@ const RouterComponent = () => (
         title="Please Login"
         backTitle=" "
       />
-*/}
+
       <Scene
         key="tabbar"
         tabs
