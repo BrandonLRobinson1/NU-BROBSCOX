@@ -10,6 +10,7 @@ import { colors, commonStyles } from '../../../Colors';
 class UserProfile extends Component {
 
   // should pull a fresh copy everytime you land on this page so on will mount might bee
+  // overide sectional styles for some of these so like there isnt a line between the name and the picture
 
   render() {
     const {
@@ -24,6 +25,8 @@ class UserProfile extends Component {
       container,
       scrollableBody,
       flexCenter,
+      sectionalButtonStyle,
+      dividerStyle,
       stickyBottom,
       customAppointmentButton,
       customAppointmentButtonText
@@ -87,6 +90,17 @@ class UserProfile extends Component {
                     </Text>
                   </View>
                 </View>
+              </CardSection>
+
+              <CardSection>
+                <View style={[horizontalFlex, dividerStyle]}>
+                    <Text style={[NU_Small_Header_Text, sectionalButtonStyle]}>
+                      Favorites
+                    </Text>
+                    <Text style={[NU_Small_Header_Text, sectionalButtonStyle]}>
+                      History
+                    </Text>
+                  </View>
               </CardSection>
     
             </Card>
@@ -159,5 +173,14 @@ const styles = StyleSheet.create({
   flexCenter: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  dividerStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  sectionalButtonStyle: {
+    flex: 1,
+    textAlign: 'center'
   }
 });

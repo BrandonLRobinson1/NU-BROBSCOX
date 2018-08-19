@@ -87,10 +87,10 @@ react-native link react-native-vector-icons --> try in new branch for driod fix
 
 **appointment tab
 favorites 
-maps
-history/browse
-profile
-settings
+*maps
+*browse - history/
+*profile
+*settings
 
 
 display users current or search location with standard pin
