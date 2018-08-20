@@ -5,23 +5,18 @@
  */
 
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { config } from './private';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
+import { config } from './private';
 import Router from './Router';
-import { store } from './src/store'
+import { store } from './src/store';
 
 
-export default class App extends Component{
+export default class App extends Component {
   componentWillMount() {
     // TODO: right here load their recent, their favorites, and settings into redux
     firebase.initializeApp(config);
+
   }
 
   render() {
@@ -33,12 +28,3 @@ export default class App extends Component{
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  }
-});
