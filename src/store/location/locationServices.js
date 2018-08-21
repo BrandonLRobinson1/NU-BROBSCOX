@@ -39,6 +39,16 @@ export const getinitialDelta = () => (dispatch, getState) => {
     { uri: 'https://i.imgur.com/Ka8kNST.jpg' }
   ];
 
+  const {
+    userInfo: {
+      user: {
+        favorites
+      }
+    }
+  } = getState();
+
+  console.log('favorites and state', favorites, getState());
+
   const sfMarkers = [
     {
       coordinate: {
@@ -102,9 +112,31 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
     { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
     { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
     { uri: 'https://i.imgur.com/UDrH0wm.jpg' },
-    { uri: 'https://i.imgur.com/Ka8kNST.jpg' },
+    { uri: 'https://i.imgur.com/Ka8kNST.jpg' }
   ];
 
+  let {
+    userInfo: {
+      user: {
+        favorites // set favorites bc its a place holder for this
+      }
+    }
+  } = getState();
+
+  if (favorites.length) {
+    const massagedData = [];
+    favorites.map((person, i) => {
+      person.image = Images[0];
+      person.title = `best place ${i}`;
+      person.description = 'This is the best place in Portland';
+      massagedData.push(person)
+    });
+    return massagedData;
+  }
+ 
+  return favorites;
+
+  /*  ------------------>>>      keep test data
   const sfMarkers = [
     {
       coordinate: {
@@ -159,4 +191,5 @@ export const getActiveNailTechs = () => (dispatch, getState) => {
   // careful with variable name here!!!!!!!!!!!!!!!! ALSO find a way to avoid this when creating users 
   const markers = sfMarkers;
   return markers;
+  */
 };

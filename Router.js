@@ -32,23 +32,23 @@ const { NU_Red, NU_Blue, NU_White, NU_Grey, NU_Black, NU_Border_Grey, NU_Card_Bo
 const tabIcon = ({ focused, title }) => {
   // return (<Text style={{color: focused ? 'red' :'black'}}>{title}</Text>)
   return (<Icon name="rocket" size={20} color={NU_Red} />);
-}
+};
 
 class RouterComponent extends Component {
 
-  conmponentWillMount() {
+  componentWillMount() {
     const { getinitialDelta, getActiveNailTechs, userInfoFetch } = this.props;
-    getinitialDelta();
-    getActiveNailTechs();
     userInfoFetch();
+    // getActiveNailTechs(); seem to be in maptabs
+    // getinitialDelta();
   }
 
   render() {
+    console.log('how many renders without listening to state');
     return (
       <Router>
         <Scene key="root">
         {/*
-    
           <Scene
             key="getCredentials"
             component={GetCredentials}
@@ -89,7 +89,6 @@ class RouterComponent extends Component {
             title="Please Login"
             backTitle=" "
           />
-          
         */}
           <Scene
             key="tabbar"
@@ -186,24 +185,24 @@ class RouterComponent extends Component {
 
 export default connect(
   state => {
-    console.log('state',)
+    console.log('state', state);
     return {
-      regionObj: state.location.locationServices.regionObj,
-      firstName: state.userInfo.user.firstName,
-      lastName: state.userInfo.user.lastName,
-      phoneNumber: state.userInfo.user.phoneNumber,
-      password: state.userInfo.user.password,
-      zipCode: state.userInfo.user.zipCode,
-      email: state.userInfo.user.email,
-      profilePic: state.userInfo.user.profilePic,
-      bio: state.userInfo.user.bio,
-      gender: state.userInfo.user.gender,
-      dob: state.userInfo.user.dob
+      // regionObj: state.location.locationServices.regionObj,
+      // firstName: state.userInfo.user.firstName,
+      // lastName: state.userInfo.user.lastName,
+      // phoneNumber: state.userInfo.user.phoneNumber,
+      // password: state.userInfo.user.password,
+      // zipCode: state.userInfo.user.zipCode,
+      // email: state.userInfo.user.email,
+      // profilePic: state.userInfo.user.profilePic,
+      // bio: state.userInfo.user.bio,
+      // gender: state.userInfo.user.gender,
+      // dob: state.userInfo.user.dob
     }
   },
   {
-    getinitialDelta,
-    getActiveNailTechs,
+    // getinitialDelta,
+    // getActiveNailTechs,
     userInfoFetch
   }
 )(RouterComponent);

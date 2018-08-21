@@ -53,7 +53,7 @@ class Maptab extends Component {
   }
 
   async componentDidMount() {
-    const { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj} = this.props; // eslint-disable-line
+    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj} = this.props; // eslint-disable-line
     const markers = await getActiveNailTechs();
     const init = getinitialDelta(); // depends on markers and must fire after markers complete
 
@@ -195,6 +195,18 @@ class Maptab extends Component {
     );
   }
 
+  componentWillUnmount() {
+    this.index = 0;
+    this.animation = new Animated.Value(0);
+    navigator.geolocation.clearWatch(this.watchID); // eslint-disable-line
+  }
+
+  // eslint-disable-next-line
+  onCardClick (person) {
+  // capture info for confirmed visit and details in the redux on they book apt, build big info obj
+    console.log('marker', person);
+  }
+
   renderMarkers(marker, index) {
     const { markerWrap, markerSize } = styles;
     // this is the snippet of code that is reponsible for what paticlular marker is zoomed in on
@@ -237,11 +249,6 @@ class Maptab extends Component {
     );
   }
 
-  // eslint-disable-next-line
-  onCardClick (person) {
-  // capture info for confirmed visit and details in the redux on they book apt, build big info obj
-    console.log('marker', person);
-  }
 
   renderCards(marker, index) {
     const {
@@ -281,7 +288,7 @@ class Maptab extends Component {
     const { initialPosition, markers } = this.state;
     const { NU_White } = colors;
 
-    if (!initialPosition || !markers) return (
+    if (!initialPosition || !markers) return ( // TODO write code to have option if you only have a zip code bc location is turned on
       <FullCard>
         <Spinner />
       </FullCard>
@@ -336,7 +343,8 @@ class Maptab extends Component {
 
 export default connect(
   state => ({
-    regionObj: state.location.locationServices.regionObj
+    regionObj: state.location.locationServices.regionObj,
+    // favorites: state.userInfo.user.favorites // be sure to change this where ever the markers are in the code so that it listens for the prop that gets the map info to renender when waiting
   }),
   {
     setCurrentLocation,

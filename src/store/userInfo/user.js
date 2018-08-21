@@ -12,7 +12,10 @@ const defaultState = {
   profilePic: '',
   bio: 'bio',
   gender: '',
-  dob: ''
+  dob: '',
+
+  favorites: '',
+  other: null
 };
 
 const prefix = 'NU_STORE/USER_INFO/';
@@ -27,6 +30,9 @@ export const setProfilePic = createAction(`${prefix}SET_PROFILE_PIC`);
 export const setBio = createAction(`${prefix}SET_BIO`);
 export const setGender = createAction(`${prefix}SET_GENDER`);
 export const setDob = createAction(`${prefix}SET_DOB`);
+
+export const setFavorites = createAction(`${prefix}SET_FAVORITES`);
+export const setOther = createAction(`${prefix}SET_OTHER`);
 
 export const clearState = createAction(`${prefix}CLEAR_USER_STATE`);
 
@@ -72,6 +78,16 @@ export default handleActions({
     ...state,
     dob: payload
   }),
+
+  [setFavorites]: (state, { payload }) => ({
+    ...state,
+    favorites: payload
+  }),
+  [setOther]: (state, { payload }) => ({
+    ...state,
+    other: payload
+  }),
+  
   [clearState]: (state, { payload }) => ({ // eslint-disable-line
     defaultState
   })
@@ -140,9 +156,31 @@ export const clearAll = () => (dispatch, getState) => {
 export const userInfoFetch = () => {
   const { currentUser } = firebase.auth();
   return dispatch => {
-    firebase.database().ref(`/users/testAccounts/${currentUser.uid}`) // dCpWn7CLu9bx3ZVEoBOx8bNdINT2
+    // **** this is assuming that getting info with the current used uid gives you full access to the information bc doing it with it doesnt!
+    firebase.database().ref('/users/testAccounts/dCpWn7CLu9bx3ZVEoBOx8bNdINT2/-LKJWP3gP_Tu3h0_IlSD') // dCpWn7CLu9bx3ZVEoBOx8bNdINT2
+    // firebase.database().ref(`/users/testAccounts/${currentUser.uid}`) // dCpWn7CLu9bx3ZVEoBOx8bNdINT2
       .on('value', snapshot => {
         console.log('cha ching ... payload', snapshot.val());
+        const {
+          email,
+          firstName,
+          lastName,
+          logIns,
+          moreUsefulData,
+          phoneNumber,
+          userData,
+          zipCode
+        } = snapshot.val();
+
+        dispatch(updateFirstName(firstName));
+        dispatch(updateLastName(lastName));
+        dispatch(updatePhoneNumber(phoneNumber));
+        dispatch(updateZipCode(zipCode));
+        dispatch(updateEmail(email));
+        // maybes
+        dispatch(setFavorites(userData));
+        dispatch(setOther(email));
+        // I have validated that the this works as is
       },
       error => console.log('err', error));
   };
@@ -158,3 +196,4 @@ export const userInfoFetch = () => {
 //       })
 //   }
 // }
+
