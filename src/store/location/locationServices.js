@@ -32,6 +32,7 @@ export default handleActions({
 
 // should have one thunk package all the data i need for a users session and send it up, generator
 export const getinitialDelta = () => (dispatch, getState) => {
+// *** put a timeoout on the calls
   const Images = [
     { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
     { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
@@ -108,6 +109,8 @@ export const getinitialDelta = () => (dispatch, getState) => {
 };
 
 export const getActiveNailTechs = () => (dispatch, getState) => {
+  console.log('get active nail techs run');
+// *** put a timeoout on the calls bc theyre called every 4 seconds
   const Images = [
     { uri: 'https://i.imgur.com/sNam9iJ.jpg' },
     { uri: 'https://i.imgur.com/N7rlQYt.jpg' },
