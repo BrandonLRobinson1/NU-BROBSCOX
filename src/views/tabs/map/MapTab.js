@@ -55,166 +55,10 @@ class Maptab extends Component {
     this.timer();
   }
 
-  // async componentDidMount() {
-  //   // *******
-  //   this.timer();
+  async componentDidMount() {
+    // *******
+    this.timer();
 
-  //   let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj} = this.props; // eslint-disable-line
-  //   const markers = await getActiveNailTechs();
-  //   const init = getinitialDelta(); // depends on markers and must fire after markers complete
-
-
-  //   console.log('mawk', markers, init);
-  //   // *** above should be called before this component loads
-
-  //   const dt = new Date();
-  //   const utcDate = dt.toUTCString(); // unique timestamp with date
-
-  //   // if you come to the map with no address loaded it grabs current location *** TODO:// set cases for no location services
-  //   if (!regionObj) {
-  //     navigator.geolocation.getCurrentPosition(position => {
-  //       const latitude = parseFloat(position.coords.latitude);
-  //       const longitude = parseFloat(position.coords.longitude);
-
-  //       const initialRegion = {
-  //         latitude,
-  //         longitude,
-  //         latitudeDelta: latDelta,
-  //         longitudeDelta: longDelta,
-  //         timeStamp: utcDate // may want to assiociate timestamp with sessions
-  //       };
-
-  //       this.setState({
-  //         // initialPosition: init, // if you want ur stRTING POINT TO BE A central location beteen markers and not yourself
-  //         initialPosition: initialRegion,
-  //         markers
-  //       });
-
-  //       setCurrentLocation(initialRegion);
-  //     },
-  //     error => console.error(JSON.stringify(error)),
-  //     { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
-  //     )
-
-  //     this.watchID = navigator.geolocation.watchPosition(position=> {
-  //       const latitude = parseFloat(position.coords.latitude);
-  //       const longitude = parseFloat(position.coords.longitude);
-
-  //       const lastRegion = {
-  //         latitude,
-  //         longitude,
-  //         latitudeDelta: latDelta,
-  //         longitudeDelta: longDelta,
-  //         timeStamp: utcDate
-  //       }
-
-  //       this.setState({
-  //         initialPosition: lastRegion
-  //       });
-
-  //     });
-  //   } else {
-  //     // currently only works for address of home (skinner)
-  //     const initialRegion = {
-  //       latitude: regionObj.lat,
-  //       longitude: regionObj.lng,
-  //       latitudeDelta: 0.6622, // need to run something to actually get lat and long delta ( as well as markers )
-  //       longitudeDelta: 0.034317000000001485
-  //     };
-
-  //     this.setState({
-  //       initialPosition: initialRegion,
-  //       markers: [
-  //         {
-  //           coordinate: {
-  //             latitude: 30.293536,
-  //             longitude: -81.603096
-  //           },
-  //           title: 'Second xxxx Place',
-  //           description: 'This is the second best place in Portland',
-  //           image: Images[1]
-  //         },
-  //         {
-  //           coordinate: {
-  //             latitude: 30.393536,
-  //             longitude: -81.803096
-  //           },
-  //           title: '3rd',
-  //           description: 'This is it',
-  //           image: Images[2]
-  //         }
-  //       ]
-  //     });
-  //   }
-
-  //   // We should detect when scrolling has stopped then animate
-  //   // We should just debounce the event listener here
-  //   this.animation.addListener(({ value }) => {
-  //     let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-  //     if (index >= this.state.markers.length) {
-  //       index = this.state.markers.length - 1;
-  //     }
-  //     if (index <= 0) {
-  //       index = 0;
-  //     }
-
-  //     clearTimeout(this.regionTimeout);
-  //     this.regionTimeout = setTimeout(() => {
-  //       if (this.index !== index) {
-  //         this.index = index;
-  //         const { coordinate } = this.state.markers[index];
-  //         // changes the region you animate too and keeps your deltas *****
-  //         this.map.animateToRegion(
-  //           {
-  //             ...coordinate,
-  //             latitudeDelta: this.state.initialPosition.latitudeDelta,
-  //             longitudeDelta: this.state.initialPosition.longitudeDelta
-  //           },
-  //           350
-  //         );
-  //       }
-  //     }, 10);
-  //   });
-  // }
-  
-  // eslint-disable-next-line
-  customMarker() {
-    const {
-      customMarkerShell,
-      customMarker,
-      customMarkerText,
-      customMarkerTailShell,
-      customMarkerTail
-    } = styles; // eslint-disable-line
-
-    return (
-      <View style={customMarkerShell}>
-        <View style={customMarker}>
-          <Text style={customMarkerText}>
-            NU
-          </Text>
-        </View>
-        <View style={customMarkerTailShell}>
-          <View style={customMarkerTail}/>
-        </View>
-      </View>
-    );
-  }
-
-  componentWillUnmount() {
-    this.index = 0;
-    this.animation = new Animated.Value(0);
-    navigator.geolocation.clearWatch(this.watchID); // eslint-disable-line
-  }
-
-  // eslint-disable-next-line
-  onCardClick (person) {
-  // capture info for confirmed visit and details in the redux on they book apt, build big info obj
-    console.log('marker', person);
-  }
-
-  // need to run the same logic a componentwillmount to fetch information  
-  async getLocationInformation() {
     let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj} = this.props; // eslint-disable-line
     const markers = await getActiveNailTechs();
     const init = getinitialDelta(); // depends on markers and must fire after markers complete
@@ -262,7 +106,7 @@ class Maptab extends Component {
           latitudeDelta: latDelta,
           longitudeDelta: longDelta,
           timeStamp: utcDate
-        }
+        };
 
         this.setState({
           initialPosition: lastRegion
@@ -331,6 +175,164 @@ class Maptab extends Component {
         }
       }, 10);
     });
+  }
+  
+  // eslint-disable-next-line
+  customMarker() {
+    const {
+      customMarkerShell,
+      customMarker,
+      customMarkerText,
+      customMarkerTailShell,
+      customMarkerTail
+    } = styles; // eslint-disable-line
+
+    return (
+      <View style={customMarkerShell}>
+        <View style={customMarker}>
+          <Text style={customMarkerText}>
+            NU
+          </Text>
+        </View>
+        <View style={customMarkerTailShell}>
+          <View style={customMarkerTail}/>
+        </View>
+      </View>
+    );
+  }
+
+
+
+  componentWillUnmount() {
+    this.index = 0;
+    this.animation = new Animated.Value(0);
+    navigator.geolocation.clearWatch(this.watchID); // eslint-disable-line
+  }
+
+  // eslint-disable-next-line
+  onCardClick (person) {
+  // capture info for confirmed visit and details in the redux on they book apt, build big info obj
+    console.log('marker', person);
+  }
+
+  // need to run the same logic a componentwillmount to fetch information  
+  async getLocationInformation() {
+    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj} = this.props; // eslint-disable-line
+    const markers = await getActiveNailTechs();
+    const init = getinitialDelta(); // depends on markers and must fire after markers complete
+
+
+    // console.log('mawk', markers, init);
+    // // *** above should be called before this component loads
+
+    // const dt = new Date();
+    // const utcDate = dt.toUTCString(); // unique timestamp with date
+
+    // // if you come to the map with no address loaded it grabs current location *** TODO:// set cases for no location services
+    if (!regionObj) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const latitude = parseFloat(position.coords.latitude);
+        const longitude = parseFloat(position.coords.longitude);
+
+        const initialRegion = {
+          latitude,
+          longitude,
+          latitudeDelta: latDelta,
+          longitudeDelta: longDelta,
+          timeStamp: utcDate // may want to assiociate timestamp with sessions
+        };
+
+        this.setState({
+          // initialPosition: init, // if you want ur stRTING POINT TO BE A central location beteen markers and not yourself
+          initialPosition: initialRegion,
+          markers
+        });
+
+        setCurrentLocation(initialRegion);
+      },
+      error => console.error(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
+      )
+
+      // this.watchID = navigator.geolocation.watchPosition(position=> {
+      //   const latitude = parseFloat(position.coords.latitude);
+      //   const longitude = parseFloat(position.coords.longitude);
+
+      //   const lastRegion = {
+      //     latitude,
+      //     longitude,
+      //     latitudeDelta: latDelta,
+      //     longitudeDelta: longDelta,
+      //     timeStamp: utcDate
+      //   }
+
+      //   this.setState({
+      //     initialPosition: lastRegion
+      //   });
+
+      // });
+    } else {
+      // currently only works for address of home (skinner)
+      const initialRegion = {
+        latitude: regionObj.lat,
+        longitude: regionObj.lng,
+        latitudeDelta: 0.6622, // need to run something to actually get lat and long delta ( as well as markers )
+        longitudeDelta: 0.034317000000001485
+      };
+
+      this.setState({
+        initialPosition: initialRegion,
+        markers: [
+          {
+            coordinate: {
+              latitude: 30.293536,
+              longitude: -81.603096
+            },
+            title: 'Second xxxx Place',
+            description: 'This is the second best place in Portland',
+            image: Images[1]
+          },
+          {
+            coordinate: {
+              latitude: 30.393536,
+              longitude: -81.803096
+            },
+            title: '3rd',
+            description: 'This is it',
+            image: Images[2]
+          }
+        ]
+      });
+    }
+
+    // // We should detect when scrolling has stopped then animate
+    // // We should just debounce the event listener here
+    // this.animation.addListener(({ value }) => {
+    //   let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+    //   if (index >= this.state.markers.length) {
+    //     index = this.state.markers.length - 1;
+    //   }
+    //   if (index <= 0) {
+    //     index = 0;
+    //   }
+
+    //   clearTimeout(this.regionTimeout);
+    //   this.regionTimeout = setTimeout(() => {
+    //     if (this.index !== index) {
+    //       this.index = index;
+    //       const { coordinate } = this.state.markers[index];
+    //       // changes the region you animate too and keeps your deltas *****
+    //       this.map.animateToRegion(
+    //         {
+    //           ...coordinate,
+    //           latitudeDelta: this.state.initialPosition.latitudeDelta,
+    //           longitudeDelta: this.state.initialPosition.longitudeDelta
+    //         },
+    //         350
+    //       );
+    //     }
+    //   }, 10);
+    // });
   }
 
 
