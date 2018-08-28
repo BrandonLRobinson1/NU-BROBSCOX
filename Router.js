@@ -39,6 +39,7 @@ class RouterComponent extends Component {
   componentWillMount() {
     const { getinitialDelta, getActiveNailTechs, userInfoFetch } = this.props;
     userInfoFetch();
+    // need to iniate here then run checks to see if data is there if not render accirdingly
     // getActiveNailTechs(); seem to be in maptabs
     // getinitialDelta();
   }
@@ -187,17 +188,17 @@ export default connect(
   state => {
     console.log('state', state);
     return {
-      // regionObj: state.location.locationServices.regionObj,
-      // firstName: state.userInfo.user.firstName,
-      // lastName: state.userInfo.user.lastName,
-      // phoneNumber: state.userInfo.user.phoneNumber,
-      // password: state.userInfo.user.password,
-      // zipCode: state.userInfo.user.zipCode,
-      // email: state.userInfo.user.email,
-      // profilePic: state.userInfo.user.profilePic,
-      // bio: state.userInfo.user.bio,
-      // gender: state.userInfo.user.gender,
-      // dob: state.userInfo.user.dob
+      regionObj: state.location.locationServices.regionObj,
+      firstName: state.userInfo.user.firstName,
+      lastName: state.userInfo.user.lastName,
+      phoneNumber: state.userInfo.user.phoneNumber,
+      password: state.userInfo.user.password,
+      zipCode: state.userInfo.user.zipCode,
+      email: state.userInfo.user.email,
+      profilePic: state.userInfo.user.profilePic,
+      bio: state.userInfo.user.bio,
+      gender: state.userInfo.user.gender,
+      dob: state.userInfo.user.dob
     }
   },
   {

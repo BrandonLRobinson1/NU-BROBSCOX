@@ -1,5 +1,6 @@
 import { handleActions, createAction } from 'redux-actions';
 import firebase from 'firebase';
+import { setCurrentLocation } from '../location/locationServices';
 
 const defaultState = {
   firstName: '',
@@ -97,6 +98,7 @@ export default handleActions({
 export const signUserUp = passWord => (dispatch, getState) => {
   // const { currentUser } = firebase.auth();
   console.log('hit signuserup');
+
   const {
     userInfo: {
       user: {
@@ -138,7 +140,8 @@ export const addFormInfo = () => (dispatch, getState) => {
       zipCode,
       phoneNumber,
       logIns: 1,
-      moreUsefulData: 'goes here'
+      moreUsefulData: 'goes here',
+      userData: {}
     });
 };
 
@@ -155,9 +158,11 @@ export const clearAll = () => (dispatch, getState) => {
 // I assume this would work, load the info redux and have the app read from state
 export const userInfoFetch = () => {
   const { currentUser } = firebase.auth();
+
   return dispatch => {
     // **** this is assuming that getting info with the current used uid gives you full access to the information bc doing it with it doesnt!
-    firebase.database().ref('/users/testAccounts/dCpWn7CLu9bx3ZVEoBOx8bNdINT2/-LKJWP3gP_Tu3h0_IlSD') // dCpWn7CLu9bx3ZVEoBOx8bNdINT2
+    // firebase.database().ref('/users/testAccounts/dCpWn7CLu9bx3ZVEoBOx8bNdINT2/-LKJWP3gP_Tu3h0_IlSD') // dCpWn7CLu9bx3ZVEoBOx8bNdINT2
+    firebase.database().ref('/users/testAccounts/vdSfqJpFXidXXy9RAgyWqDxEx6I3/-LKy4WpC_8mhAKMaMkvo')
     // firebase.database().ref(`/users/testAccounts/${currentUser.uid}`) // dCpWn7CLu9bx3ZVEoBOx8bNdINT2
       .on('value', snapshot => {
         console.log('cha ching ... payload', snapshot.val());
@@ -177,6 +182,11 @@ export const userInfoFetch = () => {
         dispatch(updatePhoneNumber(phoneNumber));
         dispatch(updateZipCode(zipCode));
         dispatch(updateEmail(email));
+
+        // ** for tests only
+        console.log('userData[0].coordinate, setCurrentLocation', userData[0].coordinate, setCurrentLocation);
+        dispatch(setCurrentLocation( Object.assign({}, userData[0].coordinate)) );
+
         // maybes
         dispatch(setFavorites(userData));
         dispatch(setOther(email));
@@ -185,15 +195,4 @@ export const userInfoFetch = () => {
       error => console.log('err', error));
   };
 };
-
-// export const employeesFetch = () => {
-//   const { currentUser } = firebase.auth();
-//   return (dispatch) => {
-//     firebase.database().ref(`/users/${currentUser.uid}/employees`)
-//       .on('value', snapshot => {
-//         console.log('cha ching ... payload', snapshot)
-//         dispatch({ type: EMPLOYEES_FETCH_SUCCESS, payload: snapshot.val() })
-//       })
-//   }
-// }
 
