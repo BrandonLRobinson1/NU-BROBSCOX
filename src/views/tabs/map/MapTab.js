@@ -67,6 +67,10 @@ class Maptab extends Component {
 
     getinitialDelta(); // depends on markers and must fire after markers complete
 
+
+
+    // ****** if you have required info cancel timer and call function that renders map
+
   }
 
   // eslint-disable-next-line
@@ -97,6 +101,7 @@ class Maptab extends Component {
     this.index = 0;
     this.animation = new Animated.Value(0);
     navigator.geolocation.clearWatch(this.watchID); // eslint-disable-line
+    console.log('UNMOUNT');
   }
 
   // eslint-disable-next-line

@@ -31,6 +31,7 @@ class SearchAddress extends Component {
           const utcDate = dt.toUTCString();
           const locationToSearch = Object.assign({ timeStamp: utcDate }, details.geometry.location);
           await setCurrentLocation(locationToSearch);
+
           return Actions.mapTab();
         }}
         query={{
