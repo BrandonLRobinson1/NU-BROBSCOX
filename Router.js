@@ -38,10 +38,8 @@ class RouterComponent extends Component {
 
   componentWillMount() {
     const { getinitialDelta, getActiveNailTechs, userInfoFetch } = this.props;
-    userInfoFetch();
+    userInfoFetch(); // -> on app load preferably
     // need to iniate here then run checks to see if data is there if not render accirdingly
-    // getActiveNailTechs(); seem to be in maptabs
-    // getinitialDelta();
   }
 
   render() {
@@ -76,14 +74,14 @@ class RouterComponent extends Component {
             title="Phone Number"
             backTitle=" "
           />
-    
+
           <Scene
             key="Validate"
             component={Validate}
             title="Validate"
             backTitle=" "
           />
-    
+
           <Scene
             key="logIn"
             component={LogIn}
@@ -119,7 +117,7 @@ class RouterComponent extends Component {
                 }}
               />
             </Scene>
-    
+
             <Scene key="map" title="MAP" icon={tabIcon}>
               <Scene
                 key="mapTab"
@@ -140,8 +138,8 @@ class RouterComponent extends Component {
                 backTitle=" "
               />
               </Scene>
-           
-    
+
+
             <Scene key="profile" title="Profile" icon={tabIcon}>
               <Scene
                 key="userProfile"
@@ -164,9 +162,9 @@ class RouterComponent extends Component {
               />
               */}
             </Scene>
-    
+
           </Scene>
-    
+
         </Scene>
       </Router>
     )
@@ -186,20 +184,20 @@ class RouterComponent extends Component {
 
 export default connect(
   state => {
-    console.log('state', state);
+    // console.log('state', state);
     return {
-      regionObj: state.location.locationServices.regionObj,
-      firstName: state.userInfo.user.firstName,
-      lastName: state.userInfo.user.lastName,
-      phoneNumber: state.userInfo.user.phoneNumber,
-      password: state.userInfo.user.password,
-      zipCode: state.userInfo.user.zipCode,
-      email: state.userInfo.user.email,
-      profilePic: state.userInfo.user.profilePic,
-      bio: state.userInfo.user.bio,
-      gender: state.userInfo.user.gender,
-      dob: state.userInfo.user.dob
-    }
+      // regionObj: state.location.locationServices.regionObj,
+      // firstName: state.userInfo.user.firstName,
+      // lastName: state.userInfo.user.lastName,
+      // phoneNumber: state.userInfo.user.phoneNumber,
+      // password: state.userInfo.user.password,
+      // zipCode: state.userInfo.user.zipCode,
+      // email: state.userInfo.user.email,
+      // profilePic: state.userInfo.user.profilePic,
+      // bio: state.userInfo.user.bio,
+      // gender: state.userInfo.user.gender,
+      // dob: state.userInfo.user.dob
+    };
   },
   {
     // getinitialDelta,

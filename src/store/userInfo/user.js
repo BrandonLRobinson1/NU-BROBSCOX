@@ -88,9 +88,9 @@ export default handleActions({
     ...state,
     other: payload
   }),
-  
+
   [clearState]: (state, { payload }) => ({ // eslint-disable-line
-    defaultState
+    ...defaultState
   })
 
 }, defaultState);
@@ -112,7 +112,7 @@ export const signUserUp = passWord => (dispatch, getState) => {
 
 export const addFormInfo = () => (dispatch, getState) => {
   const { currentUser } = firebase.auth();
- 
+
   const {
     userInfo: {
       user: {
@@ -183,16 +183,23 @@ export const userInfoFetch = () => {
         dispatch(updateZipCode(zipCode));
         dispatch(updateEmail(email));
 
-        // ** for tests only
-        console.log('userData[0].coordinate, setCurrentLocation', userData[0].coordinate, setCurrentLocation);
-        dispatch(setCurrentLocation( Object.assign({}, userData[0].coordinate)) );
+        dispatch(setCurrentLocation( { ...userData[0].coordinate } ) );
+
+        // ** for tests only - a location not far from what this would actually pull
+        // dispatch( setCurrentLocation( { latitude: 37.377067, longitude: -122.631512 } ) );
 
         // maybes
-        dispatch(setFavorites(userData));
+
+        // so that the map really knows when its empty and call not comming - THIS IS SETTING HERE BECAUSE ITS WITHIN A SUCCESFUL CALL,
+        // OTHERWISE YOU CAN RUN INTO AN INFITE RENDER LOOP IN THE MAPTAB
+        const favorites = userData.length ? userData : [];
+        dispatch(setFavorites(favorites));
         dispatch(setOther(email));
         // I have validated that the this works as is
       },
-      error => console.log('err', error));
+      error => {
+        console.log('err', error);
+        dispatch(setFavorites(null));
+      });
   };
 };
-

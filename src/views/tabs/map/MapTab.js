@@ -56,17 +56,17 @@ class Maptab extends Component {
   }
 
   // maybe get it down to this .. will have to check and render info if it is available
-  async componentDidMount() {
-    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj } = this.props; // eslint-disable-line
-    await getActiveNailTechs();
-    const markers = this.props.savedTechs; // eslint-disable-line
+  componentDidMount() {
+    console.log('component will mount in maptab run')
+    const { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj } = this.props; // eslint-disable-line
+
+    // currently get active nailtechs run depends on a successful call to getuserinfo in router, so on final timer reset may need to call
+    // HUGE** get active nail techs is its OWN THING bc in the future itll have its own call to google to get active people,
+    // this for now will have to be recalled to be updated until we can run a watch on it
+    getActiveNailTechs();
+
     getinitialDelta(); // depends on markers and must fire after markers complete
 
-    if (markers.length) {
-      return this.setState({ markers });
-    }; 
-
-    return
   }
 
   // eslint-disable-next-line
@@ -105,10 +105,16 @@ class Maptab extends Component {
     console.log('marker', person);
   }
 
-  // need to run the same logic a componentwillmount to fetch information  
-  async getLocationInformation() {
-    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj } = this.props; 
-    await getActiveNailTechs();
+  // need to run the same logic a componentwillmount to fetch information
+  getLocationInformation() {
+    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj } = this.props;
+
+    console.log('location information run')
+    return
+
+    // HUGE** get active nail techs is its OWN THING bc in the future itll have its own call to google to get active people,
+    // this for now will have to be recalled to be updated until we can run a watch on it
+    getActiveNailTechs();
     const markers = this.props.savedTechs; // eslint-disable-line
     // await getinitialDelta(); // depends on markers and must fire after markers complete
     const init = getinitialDelta();
@@ -134,8 +140,7 @@ class Maptab extends Component {
     const utcDate = dt.toUTCString(); // unique timestamp with date
 
     // // if you come to the map with no address loaded it grabs current location *** TODO:// set cases for no location services
-    // if (!regionObj) {
-    if (false) {
+    if (!regionObj) { // need to check for private region info not FALSY
       console.log('fired 3 now with init', regionObj, init);
       navigator.geolocation.clearWatch(this.watchID);
 
@@ -320,16 +325,22 @@ class Maptab extends Component {
   }
 
   timer() {
+    const { savedTechs, regionObj, deltas } = this.props;
     const myInterval = setInterval(() => {
       console.log('started')
-      if (this.state.markers && this.state.initialPosition) {
+
+      console.log('savedTechs && regionObj && deltas', (this.props.savedTechs && this.props.regionObj && this.props.deltas), this.props.savedTechs, this.props.regionObj, this.props.deltas);
+      // console.log('savedTechs && regionObj && deltas', (savedTechs && regionObj && deltas), savedTechs, regionObj, deltas);
+      if (this.props.savedTechs && this.props.regionObj && this.props.deltas) {
         console.log('stoped');
-        return clearInterval(myInterval);
+        clearInterval(myInterval);
+        return this.getLocationInformation();
       }
       console.log('function has run agaiiin');
-      this.getLocationInformation();
+      this.props.getinitialDelta();
+      this.props.getActiveNailTechs();
     // }, 4000);
-    }, 1500);
+    }, 2000);
   }
 
   render() {
@@ -338,6 +349,9 @@ class Maptab extends Component {
     const { NU_White } = colors;
 
     console.log('maptab rerender');
+    console.log('maptab render listener regionObj -', this.props.regionObj); // should return region or 'no location services'
+    console.log('maptab render listener savedTechs -', this.props.savedTechs); // should return no active techs if non avail - should check response for is array
+    console.log('maptab render listener deltas -', this.props.deltas);
 
     if (!initialPosition || !markers) return ( // TODO write code to have option if you only have a zip code bc location is turned on
       <FullCard>
@@ -413,8 +427,8 @@ export default connect(
     return {
     regionObj: state.location.locationServices.regionObj,
     savedTechs: state.location.locationServices.savedTechs,
-    deltas: state.location.locationServices.deltas
-    // favorites: state.userInfo.user.favorites // be sure to change this where ever the markers are in the code so that it listens for the prop that gets the map info to renender when waiting
+    deltas: state.location.locationServices.deltas,
+    favorites: state.userInfo.user.favorites // be sure to change this where ever the markers are in the code so that it listens for the prop that gets the map info to renender when waiting
   }},
   {
     setCurrentLocation,
