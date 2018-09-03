@@ -26,7 +26,7 @@ class ProfilePage extends Component {
       customAppointmentButton,
       customAppointmentButtonText
     } = styles; // eslint-disable-line
-    
+
     const { title, description, address: { street } } = this.props.personData; // eslint-disable-line
 
     return (
@@ -43,7 +43,7 @@ class ProfilePage extends Component {
                   />
                 </View>
               </CardSection>
-        
+
               <CardSection>
                 <View style={horizontalFlex}>
                   <View>
@@ -51,7 +51,7 @@ class ProfilePage extends Component {
                       {title}
                     </Text>
                   </View>
-        
+
                   <View>
                     <Text style={NU_Paragraph_Text}>
                       {description}
@@ -59,7 +59,7 @@ class ProfilePage extends Component {
                   </View>
                 </View>
               </CardSection>
-        
+
               <CardSection>
                 <View style={horizontalFlex}>
                   <View>
@@ -79,7 +79,7 @@ class ProfilePage extends Component {
                   </View>
                 </View>
               </CardSection>
-        
+
               <CardSection>
                 <View style={horizontalFlex}>
                   <View>
@@ -99,7 +99,7 @@ class ProfilePage extends Component {
                   </View>
                 </View>
               </CardSection>
-        
+
               <CardSection>
                 <View style={horizontalFlex}>
                   <View>
@@ -132,7 +132,7 @@ class ProfilePage extends Component {
             </Card>
           </ScrollView>
         </View>
-        
+
         <View style={stickyBottom}>
           <TouchableOpacity style={customAppointmentButton}>
             <Text style={customAppointmentButtonText}>
@@ -144,33 +144,7 @@ class ProfilePage extends Component {
       </View>
     ); // TODO change if statements to if (!this.props.keyname)
   }
-}
-
-// <View style={{
-//   height: '10%',
-//   backgroundColor: 'red',
-  
-// }}>
-//   <Card>
-//     <CardSection>
-//     <Button
-//       buttonText="make appt"
-//       onPress={() => console.log("make apt")}
-//     />
-//     </CardSection>
-//   </Card>
-  
-// </View>
-
-
-// <Card>
-//   <CardSection>
-//     <Button
-//       buttonText="make appt"
-//       onPress={() => console.log("make apt")}
-//     />
-//   </CardSection>
-// </Card>
+};
 
 export default connect(
   state => ({

@@ -96,9 +96,7 @@ export default handleActions({
 }, defaultState);
 
 export const signUserUp = passWord => (dispatch, getState) => {
-  // const { currentUser } = firebase.auth();
   console.log('hit signuserup');
-
   const {
     userInfo: {
       user: {
@@ -124,11 +122,6 @@ export const addFormInfo = () => (dispatch, getState) => {
       }
     }
   } = getState();
-
-  // console.log('firebase.auth', firebase.auth());
-  // console.log('firebase database', firebase.database());
-  // console.log('firebase ref', firebase.database().ref());
-  // console.log('current user', currentUser);
 
   // TODO: SWITCH IT OFF TEST DATA FOLDER IN FIREBASE
   // return firebase.database().ref(`/users/${currentUser.uid}/testAccounts`)
@@ -183,14 +176,13 @@ export const userInfoFetch = () => {
         dispatch(updateZipCode(zipCode));
         dispatch(updateEmail(email));
 
-        dispatch(setCurrentLocation( { ...userData[0].coordinate } ) );
+        // ** for tests only - a location not far from what this would actually pull
+        dispatch( setCurrentLocation( { latitude: 37.767, longitude: -122.421 } ) );
+        // dispatch(setCurrentLocation( { ...userData[0].coordinate } ) );
         // dispatch(setCurrentLocation( "PRIVATE_LOCATION" ) );
 
-        // ** for tests only - a location not far from what this would actually pull
-        // dispatch( setCurrentLocation( { latitude: 37.377067, longitude: -122.631512 } ) );
 
         // maybes
-
         // so that the map really knows when its empty and call not comming - THIS IS SETTING HERE BECAUSE ITS WITHIN A SUCCESFUL CALL,
         // OTHERWISE YOU CAN RUN INTO AN INFITE RENDER LOOP IN THE MAPTAB
         const favorites = userData.length ? userData : [];
@@ -200,7 +192,6 @@ export const userInfoFetch = () => {
       },
       error => {
         console.log('err', error);
-        dispatch(setFavorites(null));
       });
   };
 };

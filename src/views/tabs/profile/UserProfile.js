@@ -27,7 +27,7 @@ class UserProfile extends Component {
           <Favorites />
         </ScrollView>
       )
-      : ( 
+      : (
         <Text>
             you dont have any favorites yet
         </Text>
@@ -40,7 +40,6 @@ class UserProfile extends Component {
 
   // should pull a fresh copy everytime you land on this page so on will mount might bee
   // overide sectional styles for some of these so like there isnt a line between the name and the picture
-
   render() {
     const {
       NU_Header_Text,
@@ -61,14 +60,14 @@ class UserProfile extends Component {
       stickyBottom,
       customAppointmentButton,
       customAppointmentButtonText
-    } = styles; // eslint-disable-line 
+    } = styles; // eslint-disable-line
 
     const { tabSelected } = this.state;
 
     const favSelectHistory = tabSelected === 'history' ? tabOn : tabOff;
     const favSelectFavorites = tabSelected === 'favorites' ? tabOn : tabOff;
     // console.log('favSelectHistory', typeof favSelectHistory, typeof imageContainer);
-    
+
     // const { title, description, address: { street } } = this.props.personData; // eslint-disable-line
 
     return (
@@ -84,7 +83,7 @@ class UserProfile extends Component {
                   />
                 </View>
               </CardSection>
-        
+
               <CardSection>
                 <View style={horizontalFlex}>
                   <View style={flexCenter}>
@@ -97,7 +96,7 @@ class UserProfile extends Component {
                   </View>
                 </View>
               </CardSection>
-        
+
               <CardSection>
                 <View style={[horizontalFlex, flexCenter]}>
                   <View>
@@ -148,7 +147,7 @@ class UserProfile extends Component {
               <CardSection>
                 {this.renderFavsAndHistory()}
               </CardSection>
-    
+
             </Card>
 
 
@@ -157,35 +156,7 @@ class UserProfile extends Component {
       </View>
     ); // TODO change if statements to if (!this.props.keyname)
   }
-}
-
-// `${tabSelected === 'favorites' ? tabOn : tabOff}`
-
-// <View style={{
-//   height: '10%',
-//   backgroundColor: 'red',
-  
-// }}>
-//   <Card>
-//     <CardSection>
-//     <Button
-//       buttonText="make appt"
-//       onPress={() => console.log("make apt")}
-//     />
-//     </CardSection>
-//   </Card>
-  
-// </View>
-
-
-// <Card>
-//   <CardSection>
-//     <Button
-//       buttonText="make appt"
-//       onPress={() => console.log("make apt")}
-//     />
-//   </CardSection>
-// </Card>
+};
 
 export default connect(
   state => ({

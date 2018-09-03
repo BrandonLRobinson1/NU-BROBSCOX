@@ -26,10 +26,10 @@ const { width, height } = Dimensions.get('window');
 const aspectRatio = width / height;
 const latDelta = 0.0622; // .0922
 const longDelta = aspectRatio * latDelta;
-// *****
 
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
+// *****
 
 // TODO need to add a button over map to take you to current or zip code saved location
 class Maptab extends Component {
@@ -66,11 +66,8 @@ class Maptab extends Component {
     // this for now will have to be recalled to be updated until we can run a watch on it
     if (!Array.isArray(this.props.savedTechs)) this.props.getActiveNailTechs();
 
-    // getinitialDelta(); // depends on markers and must fire after markers complete
-
-
     // ****** if you have required info cancel timer and call function that renders map
-
+    return;
   }
 
   // eslint-disable-next-line
@@ -81,7 +78,7 @@ class Maptab extends Component {
       customMarkerText,
       customMarkerTailShell,
       customMarkerTail
-    } = styles; // eslint-disable-line
+    } = styles;
 
     return (
       <View style={customMarkerShell}>
@@ -112,44 +109,18 @@ class Maptab extends Component {
 
   // need to run the same logic a componentwillmount to fetch information
   getLocationInformation() {
-    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj, deltas } = this.props;
+    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj, deltas, savedTechs } = this.props;
 
-    console.log('location information run')
-    const markers = this.props.savedTechs; // eslint-disable-line
-    // await getinitialDelta(); // depends on markers and must fire after markers complete
+    const markers = savedTechs;
     const init = deltas;
-    // const init = this.props.delta;
 
-    console.log('mawk', markers);
-    console.log('in-it', deltas, deltas.latitudeDelta, deltas.longitudeDelta);
-    console.log('regionObj', regionObj);
-    console.log('state initialPosition markers', this.state.initialPosition, this.state.markers);
     // *** above should be called before this component loads
-
-    // let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj } = this.props; // eslint-disable-line
-    // await getActiveNailTechs();
-    // const markers = this.props.savedTechs; // eslint-disable-line
-    // console.log('saved techs', markers, this.props);
-    // const init = getinitialDelta(); // depends on markers and must fire after markers complete
-
-
-    // // console.log('mawk', markers, init);
-    // // // *** above should be called before this component loads
 
     const dt = new Date();
     const utcDate = dt.toUTCString(); // unique timestamp with date
 
-    // // if you come to the map with no address loaded it grabs current location *** TODO:// set cases for no location services
-    // if (!regionObj) { // need to check for private region info not FALSY
     if (regionObj !== 'PRIVATE_LOCATION') { // need to check for private region info not FALSY
-      console.log('fired 4 now with init', regionObj, init, markers);
-      // currently only works for address of home (skinner)
-      // const initialRegion = {
-      //   latitude: regionObj.latitude,
-      //   longitude: regionObj.longitude,
-      //   latitudeDelta: 0.6622, // need to run something to actually get lat and long delta ( as well as markers )
-      //   longitudeDelta: 0.034317000000001485
-      // };
+      console.log('fired 4 - location isnt private', regionObj, init, markers);
 
       const initialRegion = {
         latitude: regionObj.latitude,
@@ -164,7 +135,6 @@ class Maptab extends Component {
         initialPosition: initialRegion,
         markers
       });
-      console.log('initial Region and markers 4', initialRegion, markers);
 
     } else {
       console.log('fired 3 now with init', regionObj, init, markers);
@@ -184,12 +154,10 @@ class Maptab extends Component {
 
         this.setState({
           initialPosition: initialRegion, // if you want ur stRTING POINT TO BE A central location beteen markers and not yourself
-          // initialPosition: initialRegion,
           markers
         });
 
         setCurrentLocation(initialRegion);
-        console.log('initial Region and markers 3', initialRegion, markers);
       },
       error => console.error(JSON.stringify(error)),
       { enableHighAccuracy: true, timeout: 40000, maximumAge: 2000 }
@@ -202,8 +170,6 @@ class Maptab extends Component {
         const lastRegion = {
           latitude,
           longitude,
-          // latitudeDelta: latDelta,
-          // longitudeDelta: longDelta,
           latitudeDelta: init.latitudeDelta || latDelta,
           longitudeDelta: init.longitudeDelta || longDelta,
           timeStamp: utcDate
@@ -219,7 +185,6 @@ class Maptab extends Component {
 
     // // We should detect when scrolling has stopped then animate
     // // We should just debounce the event listener here
-
     this.animation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
       if (index >= this.state.markers.length) {

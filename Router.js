@@ -10,7 +10,7 @@ import LogIn from './src/views/getCredentials/LogIn';
 import GetCredentials from './src/views/getCredentials/GetCredentials';
 import Validate from './src/views/getCredentials/Validate';
 
-import { getinitialDelta, getActiveNailTechs } from './src/store/location/locationServices';
+// import { getinitialDelta, getActiveNailTechs } from './src/store/location/locationServices';
 import { userInfoFetch } from './src/store/userInfo/user';
 
 import Favorites from './src/views/tabs/favTab/Favorites';

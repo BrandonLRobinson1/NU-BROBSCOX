@@ -8,15 +8,30 @@ import data from '../../../store/dummyMembers.json';
 // import { updateFirstName, updateLastName, updateZipCode } from '../../store/userInfo.user';
 
 class Favorites extends Component {
-  componentWillMount() {
+  constructor() {
+    super();
+
+    this.state = {
+      noDoubleRender: false
+    };
+
+    this.getRows = this.getRows.bind(this);
+  }
+  getRows() {
   // will AUTOMATICALLY pull info from redux, sfetched as app loads
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2 // eslint-disable-line
     });
     this.dataSource = ds.cloneWithRows(data); // **  data pulled from sample json!! WILL PULL FROM REDUX ON APP MOUNT => this.props.markerData
+    // this.dataSource = ds.cloneWithRows(this.props.favorites); // **  data pulled from sample json!! WILL PULL FROM REDUX ON APP MOUNT => this.props.markerData
   }
 
   render() {
+    console.log('FLAVOR FAAAVS', this.props.favorites)
+    if (this.props.favorites && !this.state.noDoubleRender) {
+      this.setState({ noDoubleRender: true });
+      this.getRows();
+    }
     if (!this.dataSource /* !this.props.markerData */) return ( // eslint-disable-line
       <FullCard>
         <Spinner />
@@ -33,7 +48,7 @@ class Favorites extends Component {
 
 export default connect(
   state => ({
-    // firstName: state.userInfo.user.firstName,
+    favorites: state.userInfo.user.favorites,
   }),
   {
     // updateFirstName,

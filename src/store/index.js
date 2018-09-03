@@ -5,28 +5,11 @@ import logIn from './logIn';
 import userInfo from './userInfo';
 import location from './location';
 
-// // import {
-// //   createStore,
-// //   combineReducers,
-// //   applyMiddleware,
-// //   compose,
-// // } from 'redux';
-// import thunk from 'redux-thunk';
-// import signUp from './user';
-// import logIn from './logIn';
-// import location from './location';
-
 const rootReducer = combineReducers({
   logIn,
   location,
   userInfo
 });
-
-// // eslint-disable-next-line
-// export const store = createStore(
-//   rootReducer,
-//   // compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
-// );
 
 console.log('winder', window);
 
@@ -36,9 +19,3 @@ export const store = createStore(rootReducer, /* preloadedState, */ // eslint-di
     applyMiddleware(thunk),
   // other store enhancers if any
 ));
-
-// export const store = createStore(rootReducer, /* preloadedState, */ composeWithDevTools( // eslint-disable-line
-//   applyMiddleware(thunk),
-  
-//   // other store enhancers if any
-// ));
