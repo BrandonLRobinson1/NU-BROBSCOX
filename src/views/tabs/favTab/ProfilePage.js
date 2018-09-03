@@ -156,7 +156,7 @@ export default connect(
   }
 )(ProfilePage);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey, NU_Card_Border } = colors; // eslint-disable-line
+const { NU_Red , NU_Blue, NU_White, NU_Grey, NU_Border_Grey } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   container: {
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     // marginBottom: 5
   },
   stickyBottom: {
-    flex: 1,
+    flex: 1.5,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 5
@@ -198,15 +198,19 @@ const styles = StyleSheet.create({
     height: '100%',
     alignSelf: 'center',
     backgroundColor: NU_White,
+    // shadowColor: NU_Border_Grey,
+    // shadowOffset: { width: 0, height: 2 },
   },
   imageCardSectionContainer: {
     padding: 0,
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,
     overflow: 'hidden',
-    shadowColor: NU_Card_Border,
+    shadowColor: NU_Border_Grey,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.5,
+    // borderWidth: 1,
+    // borderColor: NU_Border_Grey
   },
   imageStyle: {
     flex: 1,

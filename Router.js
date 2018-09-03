@@ -111,10 +111,10 @@ class RouterComponent extends Component {
                 title=""
                 backTitle=" "
                 hideTabBar
-                onRight={() => {
-                  Actions.pop();
-                  Actions.FavoritesTab();
-                }}
+                // onRight={() => {
+                //   Actions.pop();
+                //   Actions.FavoritesTab();
+                // }}
               />
             </Scene>
 
