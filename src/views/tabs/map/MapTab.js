@@ -31,6 +31,7 @@ const longDelta = aspectRatio * latDelta;
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
+// TODO need to add a button over map to take you to current or zip code saved location
 class Maptab extends Component {
   constructor() {
     super();
@@ -63,10 +64,9 @@ class Maptab extends Component {
     // currently get active nailtechs run depends on a successful call to getuserinfo in router, so on final timer reset may need to call
     // HUGE** get active nail techs is its OWN THING bc in the future itll have its own call to google to get active people,
     // this for now will have to be recalled to be updated until we can run a watch on it
-    getActiveNailTechs();
+    if (!Array.isArray(this.props.savedTechs)) this.props.getActiveNailTechs();
 
-    getinitialDelta(); // depends on markers and must fire after markers complete
-
+    // getinitialDelta(); // depends on markers and must fire after markers complete
 
 
     // ****** if you have required info cancel timer and call function that renders map
@@ -335,8 +335,8 @@ class Maptab extends Component {
         return this.getLocationInformation();
       }
       console.log('function has run agaiiin');
+      if (!Array.isArray(this.props.savedTechs)) this.props.getActiveNailTechs();
       this.props.getinitialDelta();
-      if (!this.props.savedTechs) this.props.getActiveNailTechs();
     // }, 4000);
     }, 1000);
   }
