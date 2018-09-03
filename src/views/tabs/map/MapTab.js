@@ -199,8 +199,6 @@ class Maptab extends Component {
           this.index = index;
           const { coordinate } = this.state.markers[index];
           // changes the region you animate too and keeps your deltas *****
-          console.log('deltas at render', this.state.initialPosition.latitudeDelta)
-          console.log('deltas at render', this.state.initialPosition.longitudeDelta)
           this.map.animateToRegion(
             {
               ...coordinate,
@@ -302,8 +300,8 @@ class Maptab extends Component {
       console.log('function has run agaiiin');
       if (!Array.isArray(this.props.savedTechs)) this.props.getActiveNailTechs();
       this.props.getinitialDelta();
-    // }, 4000);
-    }, 1000);
+    // }, 1500);
+    }, 500);
   }
 
   render() {
@@ -311,10 +309,7 @@ class Maptab extends Component {
     const { initialPosition, markers } = this.state;
     const { NU_White } = colors;
 
-    console.log('maptab rerender');
-    console.log('maptab render listener regionObj -', this.props.regionObj); // should return region or 'no location services'
-    console.log('maptab render listener savedTechs -', this.props.savedTechs); // should return no active techs if non avail - should check response for is array
-    console.log('maptab render listener deltas -', this.props.deltas);
+    console.log('maptab rerender - render amount direct affected by timer');
 
     if (!initialPosition || !markers) return ( // TODO write code to have option if you only have a zip code bc location is turned on
       <FullCard>
