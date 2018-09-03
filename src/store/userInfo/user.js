@@ -184,6 +184,7 @@ export const userInfoFetch = () => {
         dispatch(updateEmail(email));
 
         dispatch(setCurrentLocation( { ...userData[0].coordinate } ) );
+        // dispatch(setCurrentLocation( "PRIVATE_LOCATION" ) );
 
         // ** for tests only - a location not far from what this would actually pull
         // dispatch( setCurrentLocation( { latitude: 37.377067, longitude: -122.631512 } ) );

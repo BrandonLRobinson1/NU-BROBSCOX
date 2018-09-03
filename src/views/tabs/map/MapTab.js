@@ -107,21 +107,16 @@ class Maptab extends Component {
 
   // need to run the same logic a componentwillmount to fetch information
   getLocationInformation() {
-    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj } = this.props;
+    let { getActiveNailTechs, getinitialDelta, setCurrentLocation, regionObj, deltas } = this.props;
 
     console.log('location information run')
-    return
-
-    // HUGE** get active nail techs is its OWN THING bc in the future itll have its own call to google to get active people,
-    // this for now will have to be recalled to be updated until we can run a watch on it
-    getActiveNailTechs();
     const markers = this.props.savedTechs; // eslint-disable-line
     // await getinitialDelta(); // depends on markers and must fire after markers complete
-    const init = getinitialDelta();
+    const init = deltas;
     // const init = this.props.delta;
 
     console.log('mawk', markers);
-    console.log('in-it', init, init.latitudeDelta, init.longitudeDelta);
+    console.log('in-it', deltas, deltas.latitudeDelta, deltas.longitudeDelta);
     console.log('regionObj', regionObj);
     console.log('state initialPosition markers', this.state.initialPosition, this.state.markers);
     // *** above should be called before this component loads
@@ -140,8 +135,34 @@ class Maptab extends Component {
     const utcDate = dt.toUTCString(); // unique timestamp with date
 
     // // if you come to the map with no address loaded it grabs current location *** TODO:// set cases for no location services
-    if (!regionObj) { // need to check for private region info not FALSY
-      console.log('fired 3 now with init', regionObj, init);
+    // if (!regionObj) { // need to check for private region info not FALSY
+    if (regionObj !== 'PRIVATE_LOCATION') { // need to check for private region info not FALSY
+      console.log('fired 4 now with init', regionObj, init, markers);
+      // currently only works for address of home (skinner)
+      // const initialRegion = {
+      //   latitude: regionObj.latitude,
+      //   longitude: regionObj.longitude,
+      //   latitudeDelta: 0.6622, // need to run something to actually get lat and long delta ( as well as markers )
+      //   longitudeDelta: 0.034317000000001485
+      // };
+
+      const initialRegion = {
+        latitude: regionObj.latitude,
+        longitude: regionObj.longitude,
+        latitudeDelta: init.latitudeDelta || latDelta,
+        longitudeDelta: init.longitudeDelta || longDelta
+      };
+
+      console.log('initialRegion', initialRegion)
+
+      this.setState({
+        initialPosition: initialRegion,
+        markers
+      });
+      console.log('initial Region and markers 4', initialRegion, markers);
+
+    } else {
+      console.log('fired 3 now with init', regionObj, init, markers);
       navigator.geolocation.clearWatch(this.watchID);
 
       navigator.geolocation.getCurrentPosition(position => {
@@ -188,34 +209,11 @@ class Maptab extends Component {
         });
 
       });
-    } else {
-      console.log('fired 4 now with init', regionObj, init);
-      // currently only works for address of home (skinner)
-      // const initialRegion = {
-      //   latitude: regionObj.latitude,
-      //   longitude: regionObj.longitude,
-      //   latitudeDelta: 0.6622, // need to run something to actually get lat and long delta ( as well as markers )
-      //   longitudeDelta: 0.034317000000001485
-      // };
-
-      const initialRegion = {
-        latitude: regionObj.latitude,
-        longitude: regionObj.longitude,
-        latitudeDelta: init.latitudeDelta || latDelta,
-        longitudeDelta: init.longitudeDelta || longDelta
-      };
-
-      this.setState({
-        initialPosition: initialRegion,
-        markers
-      });
-      console.log('initial Region and markers 4', initialRegion, markers);
     }
 
 
     // // We should detect when scrolling has stopped then animate
     // // We should just debounce the event listener here
-    this.animation = new Animated.Value(0);
 
     this.animation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
@@ -226,7 +224,6 @@ class Maptab extends Component {
         index = 0;
       }
 
-      clearTimeout(this.regionTimeout);
       this.regionTimeout = setTimeout(() => {
         if (this.index !== index) {
           this.index = index;
@@ -325,22 +322,18 @@ class Maptab extends Component {
   }
 
   timer() {
-    const { savedTechs, regionObj, deltas } = this.props;
     const myInterval = setInterval(() => {
       console.log('started')
-
-      console.log('savedTechs && regionObj && deltas', (this.props.savedTechs && this.props.regionObj && this.props.deltas), this.props.savedTechs, this.props.regionObj, this.props.deltas);
-      // console.log('savedTechs && regionObj && deltas', (savedTechs && regionObj && deltas), savedTechs, regionObj, deltas);
       if (this.props.savedTechs && this.props.regionObj && this.props.deltas) {
-        console.log('stoped');
+        console.log('stopped');
         clearInterval(myInterval);
         return this.getLocationInformation();
       }
       console.log('function has run agaiiin');
       this.props.getinitialDelta();
-      this.props.getActiveNailTechs();
+      if (!this.props.savedTechs) this.props.getActiveNailTechs();
     // }, 4000);
-    }, 2000);
+    }, 1000);
   }
 
   render() {
@@ -533,3 +526,6 @@ const styles = StyleSheet.create({
     height: 40
   }
 });
+
+
+
