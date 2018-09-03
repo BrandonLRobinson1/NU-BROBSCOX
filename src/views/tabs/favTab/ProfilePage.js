@@ -24,7 +24,8 @@ class ProfilePage extends Component {
       scrollableBody,
       stickyBottom,
       customAppointmentButton,
-      customAppointmentButtonText
+      customAppointmentButtonText,
+      imageCardSectionContainer
     } = styles; // eslint-disable-line
 
     const { title, description, address: { street } } = this.props.personData; // eslint-disable-line
@@ -35,7 +36,7 @@ class ProfilePage extends Component {
         <View style={scrollableBody}>
           <ScrollView>
             <Card>
-              <CardSection>
+              <CardSection style={[imageCardSectionContainer]}>
                 <View style={imageContainer}>
                   <Image
                     source={{uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
@@ -155,7 +156,7 @@ export default connect(
   }
 )(ProfilePage);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
+const { NU_Red , NU_Blue, NU_White, NU_Grey, NU_Card_Border } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   container: {
@@ -188,18 +189,31 @@ const styles = StyleSheet.create({
     color: NU_Blue,
     fontSize: 16,
     fontWeight: '600',
-    padding: 12,
+    padding: 12
   },
   imageContainer: {
-    height: 250,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden'
+    minHeight: 250,
+    flex: 2,
+    width: '100%',
+    height: '100%',
+    alignSelf: 'center',
+    backgroundColor: NU_White,
+  },
+  imageCardSectionContainer: {
+    padding: 0,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
+    overflow: 'hidden',
+    shadowColor: NU_Card_Border,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
   },
   imageStyle: {
-    width: 'auto',
-    height: 'auto',
-    minWidth: '100%',
-    minHeight: '100%'
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignSelf: 'center',
+    backgroundColor: NU_White,
+    resizeMode: 'cover'
   }
 });

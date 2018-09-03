@@ -48,7 +48,7 @@ class Favorites extends Component {
 
 export default connect(
   state => ({
-    favorites: state.userInfo.user.favorites,
+    favorites: state.userInfo.user.favorites
   }),
   {
     // updateFirstName,

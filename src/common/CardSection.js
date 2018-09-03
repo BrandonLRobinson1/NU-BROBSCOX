@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     position: 'relative',
     }
-}); 
+});
 
 export { CardSection };

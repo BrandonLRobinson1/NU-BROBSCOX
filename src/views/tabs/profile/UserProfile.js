@@ -19,23 +19,17 @@ class UserProfile extends Component {
 
   // eslint-disable-next-line
   renderFavsAndHistory () {
-    // const thing = [];
-    const thing = [1, 2, 3];
-    return thing.length > 0
-      ? (
+    // can conditionally send props based upon what is selected - send history or favorites and when the info is ready itll load
+    return (
         <ScrollView>
           <Favorites />
         </ScrollView>
-      )
-      : (
-        <Text>
-            you dont have any favorites yet
-        </Text>
-      );
+    );
   }
 
   tabSelect(selected) {
-    return this.setState({ tabSelected: selected });
+    if (this.state.tabSelected !== selected) return this.setState({ tabSelected: selected });
+    return;
   }
 
   // should pull a fresh copy everytime you land on this page so on will mount might bee
@@ -160,7 +154,7 @@ class UserProfile extends Component {
 
 export default connect(
   state => ({
-    // firstName: state.userInfo.user.firstName,
+    favorites: state.userInfo.user.favorites,
   }),
   {
     // updateFirstName,
