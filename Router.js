@@ -10,6 +10,8 @@ import LogIn from './src/views/getCredentials/LogIn';
 import GetCredentials from './src/views/getCredentials/GetCredentials';
 import Validate from './src/views/getCredentials/Validate';
 
+import ApptHome from './src/views/tabs/appointment/ApptHome';
+
 // import { getinitialDelta, getActiveNailTechs } from './src/store/location/locationServices';
 import { userInfoFetch } from './src/store/userInfo/user';
 
@@ -98,7 +100,8 @@ class RouterComponent extends Component {
             pressOpacity={1}
             default="mapTab"
           >
-            <Scene key="favorites" title="Favorites" icon={tabIcon} >
+
+            <Scene key="favorites" title="BrowseOrInfo" icon={tabIcon}>
               <Scene
                 key="FavoritesTab"
                 component={Favorites}
@@ -137,7 +140,7 @@ class RouterComponent extends Component {
                 title="Address Search"
                 backTitle=" "
               />
-              </Scene>
+            </Scene>
 
 
             <Scene key="profile" title="Profile" icon={tabIcon}>
@@ -147,7 +150,8 @@ class RouterComponent extends Component {
                 title="profile"
                 backTitle=" "
                 initial
-                rightTitle="Edit"
+                //  setting has to include a edit profile
+                rightTitle="Settings"
                 onRight={() => {
                   // Actions.pop();
                   // Actions.EditProfile();
@@ -163,11 +167,21 @@ class RouterComponent extends Component {
               */}
             </Scene>
 
+            <Scene key="Appointment" title="Appointment" icon={tabIcon}>
+              <Scene
+                key="ApptHome"
+                component={ApptHome}
+                title=" "
+                backTitle=" "
+                initial
+              />
+            </Scene>
+
           </Scene>
 
         </Scene>
       </Router>
-    )
+    );
   }
 };
 

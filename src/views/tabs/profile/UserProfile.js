@@ -41,6 +41,7 @@ class UserProfile extends Component {
       NU_Paragraph_Text,
       NU_Small_Header_Text
     } = commonStyles;
+
     const {
       imageStyle,
       imageContainer,
