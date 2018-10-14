@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RN, { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity, Settings } from 'react-native';
+import SettingsList from './settingsItems/SettingsList';
 // import Favorites from '../favTab/Favorites';
 import { CardSection, Spinner, Card } from '../../../common';
 import { colors, commonStyles } from '../../../Colors';
@@ -27,9 +28,9 @@ class Setting extends Component {
 
     const {
       imageStyle,
-      container
+      container,
+      scrollableBody,
       // imageContainer,
-      // scrollableBody,
       // flexCenter,
       // sectionalButtonStyle,
       // dividerStyle,
@@ -40,13 +41,6 @@ class Setting extends Component {
       // customAppointmentButtonText
     } = styles; // eslint-disable-line
 
-    // const { tabSelected } = this.state;
-
-    // console.log('favSelectHistory', typeof favSelectHistory, typeof imageContainer);
-
-
-    // const { title, description, address: { street } } = this.props.personData; // eslint-disable-line
-
     console.log('yooo');
     console.log('Settings ', Settings);
     var value = Settings.get();
@@ -55,24 +49,30 @@ class Setting extends Component {
     return (
       <View style={container}>
 
-        <View style={{}}>
-          <Card>
-            <CardSection>
-              <View style={{}}>
-                <Image
-                  source={{uri: 'https://i.imgur.com/K3KJ3w4h.jpg'}}
-                  style={imageStyle}
-                />
-              </View>
-            </CardSection>
+        <View style={{}/*scrollableBody*/}>
+          <ScrollView>
 
-          </Card>
+          <SettingsList />
+          <SettingsList />
+          {/*
+            <Card>
+              <CardSection>
+                <View style={{}}>
+                  <Image
+                    source={{uri: 'https://i.imgur.com/K3KJ3w4h.jpg'}}
+                    style={imageStyle}
+                  />
+                </View>
+              </CardSection>
+            </Card>
 
+          */}
+          </ScrollView>
 
         </View>
 
       </View>
-    ); // TODO change if statements to if (!this.props.keyname)
+    );
   }
 };
 
