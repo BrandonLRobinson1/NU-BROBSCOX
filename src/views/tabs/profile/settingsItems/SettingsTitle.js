@@ -2,16 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet} from 'react-native';
 
 
-const SettingsList = ({name, actionLocation, redirect}) => {
+const SettingsTitle = ({name}) => {
 
   const { row, itemName, icon } = styles;
   return (
     <View style={row}>
       <View style={itemName}>
         <Text>itemName</Text>
-      </View>
-      <View style={icon} onClick={() => redirect(actionLocation)}>
-        <Text>icon</Text>
       </View>
     </View>
   );
@@ -20,24 +17,17 @@ const SettingsList = ({name, actionLocation, redirect}) => {
 const styles = StyleSheet.create({
   row: {
     flex: 1,
-    height: 30,
+    height: 40,
     fontSize: 14,
     backgroundColor: 'green',
-    display: 'flex',
-    flexDirection: 'row'
+    justifyContent: 'center',
+    alignItems: 'flex-start'
   },
   itemName: {
-    flex: 5,
     backgroundColor: 'blue',
-    justifyContent: 'center',
     paddingLeft: 10
   },
-  icon: {
-    flex: 1,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+
 });
 
-export default SettingsList;
+export default SettingsTitle;
