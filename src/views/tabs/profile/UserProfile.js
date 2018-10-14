@@ -21,9 +21,9 @@ class UserProfile extends Component {
   renderFavsAndHistory () {
     // can conditionally send props based upon what is selected - send history or favorites and when the info is ready itll load
     return (
-        <ScrollView>
-          <Favorites />
-        </ScrollView>
+      <ScrollView>
+        <Favorites />
+      </ScrollView>
     );
   }
 
@@ -62,8 +62,6 @@ class UserProfile extends Component {
     const favSelectHistory = tabSelected === 'history' ? tabOn : tabOff;
     const favSelectFavorites = tabSelected === 'favorites' ? tabOn : tabOff;
     // console.log('favSelectHistory', typeof favSelectHistory, typeof imageContainer);
-
-    // const { title, description, address: { street } } = this.props.personData; // eslint-disable-line
 
     return (
       <View style={container}>
@@ -144,7 +142,6 @@ class UserProfile extends Component {
               </CardSection>
 
             </Card>
-
 
         </View>
 

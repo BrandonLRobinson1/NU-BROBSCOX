@@ -22,7 +22,7 @@ import MapTab from './src/views/tabs/map/MapTab';
 import SearchAddress from './src/views/tabs/map/SearchAddress';
 
 import UserProfile from './src/views/tabs/profile/UserProfile';
-// import EditProfile from './src/views/tabs/profile/EditProfile';
+import Settings from './src/views/tabs/profile/Settings';
 
 import { colors } from './src/Colors';
 // import CredentialsRouter from './src/views/getCredentials/index';
@@ -100,7 +100,7 @@ class RouterComponent extends Component {
             pressOpacity={1}
             default="mapTab"
           >
-
+{/*
             <Scene key="favorites" title="BrowseOrInfo" icon={tabIcon}>
               <Scene
                 key="FavoritesTab"
@@ -142,7 +142,7 @@ class RouterComponent extends Component {
               />
             </Scene>
 
-
+*/}
             <Scene key="profile" title="Profile" icon={tabIcon}>
               <Scene
                 key="userProfile"
@@ -154,17 +154,17 @@ class RouterComponent extends Component {
                 rightTitle="Settings"
                 onRight={() => {
                   // Actions.pop();
-                  // Actions.EditProfile();
+                  Actions.Settings();
                 }}
               />
-              {/*
+
               <Scene
-                key="EditProfile"
-                component={EditProfile}
-                title="Edit Profile"
+                key="Settings"
+                component={Settings}
+                title="Settings"
                 backTitle=" "
               />
-              */}
+
             </Scene>
 
             <Scene key="Appointment" title="Appointment" icon={tabIcon}>
