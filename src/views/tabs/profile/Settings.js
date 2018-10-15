@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import RN, { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity, Settings } from 'react-native';
+import /*RN,*/ { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity/*, Settings*/ } from 'react-native';
 import SettingsTitle from './settingsItems/SettingsTitle';
 import SettingsList from './settingsItems/SettingsList';
 // import Favorites from '../favTab/Favorites';
@@ -51,9 +51,6 @@ class Setting extends Component {
     } = styles; // eslint-disable-line
 
     console.log('yooo');
-    console.log('Settings ', Settings);
-    var value = Settings.get();
-    console.log('value', value)
 
     return (
       <View style={container}>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet} from 'react-native';
+import { colors } from '../../../../Colors';
+
 
 
 const SettingsList = ({name, actionLocation, redirect}) => {
@@ -10,33 +12,36 @@ const SettingsList = ({name, actionLocation, redirect}) => {
       <View style={itemName}>
         <Text>itemName</Text>
       </View>
-      <View style={icon} onClick={() => redirect(actionLocation)}>
+      <View style={icon} onClick={() => {}/*redirect(actionLocation)*/}>
         <Text>icon</Text>
       </View>
     </View>
   );
 };
 
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
+
 const styles = StyleSheet.create({
   row: {
     flex: 1,
-    height: 30,
+    height: 35,
     fontSize: 14,
-    backgroundColor: 'green',
+    backgroundColor: NU_Grey,
     display: 'flex',
     flexDirection: 'row'
   },
   itemName: {
     flex: 5,
-    backgroundColor: 'blue',
+    backgroundColor: NU_Blue,
     justifyContent: 'center',
     paddingLeft: 10
   },
   icon: {
     flex: 1,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: NU_Red,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 10
   }
 });
 
