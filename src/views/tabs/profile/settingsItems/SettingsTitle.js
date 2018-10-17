@@ -8,7 +8,7 @@ const SettingsTitle = ({name}) => {
   return (
     <View style={row}>
       <View style={itemName}>
-        <Text>itemName</Text>
+        <Text>{name}</Text>
       </View>
     </View>
   );

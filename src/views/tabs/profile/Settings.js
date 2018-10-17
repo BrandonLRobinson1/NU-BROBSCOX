@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import /*RN,*/ { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity/*, Settings*/ } from 'react-native';
+import RN, { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity/*, Settings*/ } from 'react-native';
 import SettingsTitle from './settingsItems/SettingsTitle';
 import SettingsList from './settingsItems/SettingsList';
 // import Favorites from '../favTab/Favorites';
@@ -18,6 +17,7 @@ class Setting extends Component {
     };
 
     this.redirect = this.redirect.bind(this);
+    this.buildSettings = this.buildSettings.bind(this);
   }
 
   // eslint-disable-next-line
@@ -25,8 +25,19 @@ class Setting extends Component {
     return Actions[location] ? Actions[location]() : console.log('not a destination');
   }
 
-  // should pull a fresh copy everytime you land on this page so on will mount might bee
-  // overide sectional styles for some of these so like there isnt a line between the name and the picture
+  buildSettings(title, settingsArr) {
+    console.log('buildSettings Activated')
+    return (
+      <View>
+        <SettingsTitle name={title} />
+          {settingsArr.map((setting, i) => {
+            const { name, sceneLocation } = setting;
+            return <SettingsList name={name} sceneLocation={sceneLocation} key={`${name}-${i}`}/>
+          })}
+      </View>
+    );
+  }
+
   render() {
     const {
       NU_Header_Text,
@@ -51,6 +62,13 @@ class Setting extends Component {
     } = styles; // eslint-disable-line
 
     console.log('yooo');
+    console.log('RN', RN);
+
+    const nameSettings = [
+      {name: 'name', sceneLocation: 'name'},
+      {name: 'thingA', sceneLocation: 'thingA'},
+      {name: 'thingB', sceneLocation: 'thingB'},
+    ];
 
     return (
       <View style={container}>
@@ -58,9 +76,7 @@ class Setting extends Component {
         <View style={{}/*scrollableBody*/}>
           <ScrollView>
 
-          <SettingsTitle />
-          <SettingsList />
-          <SettingsList />
+            {this.buildSettings('the titleington', nameSettings)}
 
           </ScrollView>
         </View>

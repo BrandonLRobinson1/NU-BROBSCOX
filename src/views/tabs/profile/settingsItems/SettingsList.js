@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { colors } from '../../../../Colors';
 
 
 
-const SettingsList = ({name, actionLocation, redirect}) => {
+const SettingsList = ({name, sceneLocation}) => {
 
-  const { row, itemName, icon } = styles;
+  const { row, itemName, icon, font } = styles;
   return (
     <View style={row}>
       <View style={itemName}>
-        <Text>itemName</Text>
+        <Text style={font}>{name}</Text>
       </View>
-      <View style={icon} onClick={() => {}/*redirect(actionLocation)*/}>
-        <Text>icon</Text>
+      <View style={icon}>
+        <Text onPress={() => { Actions[sceneLocation]() }}> > icon </Text>
       </View>
     </View>
   );
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     height: 35,
-    fontSize: 14,
     backgroundColor: NU_Grey,
     display: 'flex',
     flexDirection: 'row'
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     paddingRight: 10
+  },
+  font: {
+    fontSize: 14,
   }
 });
 
