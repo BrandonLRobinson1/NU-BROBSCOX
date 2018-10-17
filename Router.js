@@ -23,6 +23,8 @@ import SearchAddress from './src/views/tabs/map/SearchAddress';
 
 import UserProfile from './src/views/tabs/profile/UserProfile';
 import Settings from './src/views/tabs/profile/Settings';
+import EditAccount from './src/views/tabs/profile/settingsItems/account/EditAccount';
+import ChangeEmail from './src/views/tabs/profile/settingsItems/account/ChangeEmail';
 
 import { colors } from './src/Colors';
 // import CredentialsRouter from './src/views/getCredentials/index';
@@ -155,6 +157,32 @@ class RouterComponent extends Component {
                 onRight={() => {
                   // Actions.pop();
                   Actions.Settings();
+                }}
+              />
+
+              <Scene
+                key="EditAccount"
+                component={EditAccount}
+                title="Edit Account"
+                backTitle=" "
+                //  setting has to include a edit profile
+                rightTitle="Edit"
+                onRight={() => {
+                  // Actions.pop();
+                  // Actions.Settings();
+                }}
+              />
+
+              <Scene
+                key="ChangeEmail"
+                component={ChangeEmail}
+                title="Edit Email"
+                backTitle=" "
+                //  setting has to include a edit profile
+                rightTitle=""
+                onRight={() => {
+                  // Actions.pop();
+                  // Actions.Settings();
                 }}
               />
 

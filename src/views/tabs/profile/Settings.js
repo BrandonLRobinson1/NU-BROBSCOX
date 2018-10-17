@@ -25,15 +25,15 @@ class Setting extends Component {
     return Actions[location] ? Actions[location]() : console.log('not a destination');
   }
 
+  // eslint-disable-next-line
   buildSettings(title, settingsArr) {
-    console.log('buildSettings Activated')
     return (
       <View>
         <SettingsTitle name={title} />
-          {settingsArr.map((setting, i) => {
-            const { name, sceneLocation } = setting;
-            return <SettingsList name={name} sceneLocation={sceneLocation} key={`${name}-${i}`}/>
-          })}
+        {settingsArr.map((setting, i) => {
+          const { name, sceneLocation } = setting;
+          return <SettingsList name={name} sceneLocation={sceneLocation} key={`${name}-${i}`}/>
+        })}
       </View>
     );
   }
@@ -49,7 +49,7 @@ class Setting extends Component {
     const {
       imageStyle,
       container,
-      scrollableBody,
+      body,
       // imageContainer,
       // flexCenter,
       // sectionalButtonStyle,
@@ -64,20 +64,46 @@ class Setting extends Component {
     console.log('yooo');
     console.log('RN', RN);
 
+    // const nameSettings = [
+    //   {name: 'name', sceneLocation: 'name'},
+    //   {name: 'location', sceneLocation: 'thingA'},
+    //   {name: 'aboutMe', sceneLocation: 'thingB'},
+    //   {name: 'contact', sceneLocation: 'thingB'}
+    // ];
+
     const nameSettings = [
-      {name: 'name', sceneLocation: 'name'},
-      {name: 'thingA', sceneLocation: 'thingA'},
-      {name: 'thingB', sceneLocation: 'thingB'},
+      { name: 'Account Info', sceneLocation: 'EditAccount' },
+      { name: 'Change Email', sceneLocation: 'ChangeEmail' },
+      { name: 'Reset Password', sceneLocation: 'EditAccount' },
+    ];
+
+    const privacySettings = [
+      { name: 'Privacy', sceneLocation: 'name' }
+    ];
+
+    const paymentSettings = [
+      { name: 'CardInfo', sceneLocation: 'name' },
+      { name: 'Plan', sceneLocation: 'name' }
+    ];
+
+    const support = [
+      { name: 'Help Center', sceneLocation: 'name'},
+      { name: 'Terms and Conditions', sceneLocation: 'thingA' },
+      { name: 'Privacy Policy', sceneLocation: 'thingB' },
+      { name: 'Email Us', sceneLocation: 'thingB' }
     ];
 
     return (
       <View style={container}>
 
-        <View style={{}/*scrollableBody*/}>
+        <View style={body}>
           <ScrollView>
-
-            {this.buildSettings('the titleington', nameSettings)}
-
+            {this.buildSettings('Account', nameSettings)}
+            {this.buildSettings('Privacy', privacySettings)}
+            {this.buildSettings('Payment Info', paymentSettings)}
+            {this.buildSettings('Support', support)}
+            <Text>Log Out</Text>
+            <Text>Version</Text>
           </ScrollView>
         </View>
 
@@ -102,9 +128,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: '100%'
   },
-  scrollableBody: {
-    flex: 9
-    // marginBottom: 5
+  body: {
+    flex: 1,
+    marginBottom: 5
   },
   imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
     flex: 1,

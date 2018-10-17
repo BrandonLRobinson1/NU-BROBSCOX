@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 
 const SettingsTitle = ({name}) => {
 
-  const { row, itemName, icon } = styles;
+  const { row, itemName } = styles;
   return (
     <View style={row}>
       <View style={itemName}>
