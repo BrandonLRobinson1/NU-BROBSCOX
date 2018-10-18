@@ -14,6 +14,7 @@ import {
   updateZipCode,
   setBio
 } from '../../../../../store/userInfo/user';
+import { colors } from '../../../../../Colors';
 
 class EditAccouunt extends Component {
   constructor() {
@@ -137,7 +138,7 @@ class EditAccouunt extends Component {
           </Text>
         </CardSection>
       </Card>
-    )
+    );
   }
 }
 
@@ -157,11 +158,11 @@ export default connect(
   },
 )(EditAccouunt);
 
-// const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
+const { NU_Red } = colors;
 
 const styles = StyleSheet.create({
   errorText: {
-    // color: NU_Red,
+    color: NU_Red,
     width: '100%',
     display: 'flex',
     textAlign: 'center'

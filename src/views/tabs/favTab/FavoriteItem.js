@@ -9,18 +9,14 @@ import { colors } from '../../../Colors';
 class FavoriteItem extends Component {
   constructor() {
     super();
-
     this.state = {};
-
-    this.thing = this.thing.bind(this);
   }
 
   componentWillMount() {}
 
-  thing() {}
-
   render() {
-    const { imageStyle, horizontalFlex, imageContainer, horizontalText, headerStyle } = styles; // eslint-disable-line
+    // eslint-disable-next-line
+    const { imageStyle, horizontalFlex, imageContainer, horizontalText, headerStyle } = styles;
     // const { name, description, title, address: { city, state } } = this.props.personData; // eslint-disable-line
 
     // currently only has {coordinate: {…}, description: "This is the best place in Portland", image: {…}, title: "Best Place"}
@@ -43,7 +39,6 @@ class FavoriteItem extends Component {
 
     // const { name , description, title, address = { city: 'seattle', state: 'wa' } } = this.props.personData; // eslint-disable-line
 
-
     // ********** test filler
     // IMPORTANT THIS BREAKS MAP BC IT RESETS VALUES
     // this.props.personData.address = {street : "8649 A C Skinner Parkway", details : "App 922", city : "Jacksonville", state : "FL", zip : "33256"}
@@ -62,16 +57,15 @@ class FavoriteItem extends Component {
     // this.props.personData.servicesOffered = ["stuff", "stuffy"]
     // this.props.personData.title = "Best 2"
 
+    // eslint-disable-next-line
     const { title, description } = this.props.personData;
-
-    console.log('fav item props', this.props);
 
     return (
       <Card>
         <CardSection>
           <View style={imageContainer}>
             <Image
-              source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg"}}
+              source={{ uri: "https://i.imgur.com/K3KJ3w4h.jpg" }}
               style={imageStyle}
             />
           </View>
@@ -98,7 +92,7 @@ class FavoriteItem extends Component {
             onPress={() => {
               // console.log('Actions', Actions)
               // Actions.pop();
-              Actions.ProfilePage({ personData: this.props.personData });
+              Actions.ProfilePage({ personData: this.props.personData }); // eslint-disable-line
             }}
           />
         </CardSection>
@@ -109,18 +103,14 @@ class FavoriteItem extends Component {
 
 export default connect(
   state => ({
-    // firstName: state.userInfo.user.firstName,
-    // lastName: state.userInfo.user.lastName,
-    // zipCode: state.userInfo.user.zipCode
+    // firstName: state.userInfo.user.firstName
   }),
   {
     // updateFirstName,
-    // updateLastName,
-    // updateZipCode
   }
 )(FavoriteItem);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey, NU_Pink } = colors; // eslint-disable-line
+const { NU_White, NU_Grey, NU_Pink } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   circleContainer: {
