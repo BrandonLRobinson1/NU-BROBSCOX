@@ -3,32 +3,48 @@ import { Actions } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; // https://www.npmjs.com/package/react-native-google-places-autocomplete
-import { setCurrentLocation } from '../../../store/location/locationServices';
+import { setCurrentLocation, setSavedTechs } from '../../../store/location/locationServices';
 
 import { placesKey } from '../../../../private';
 import { colors } from '../../../Colors';
- 
+
+// eslint-disable-next-line
 class SearchAddress extends Component {
   // THIS COMPONENT WILL ALSO BE USED FOR TECHS TO SAVE THIER CORRECT ADDRESS IN THE SYSTEM
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+  componentWillMount() {
+    // cache currernt map data, markers, poistion etc
+  }
   render() {
-    const { textInputContainer, textInput, predefinedPlacesDescription } = styles;
+    // const { textInputContainer, textInput, predefinedPlacesDescription } = styles;
+    const { setCurrentLocation , setSavedTechs} = this.props; // eslint-disable-line
     return (
       <GooglePlacesAutocomplete
-        placeholder='Enter Address'
+        placeholder="Enter Address"
         minLength={2}
         autoFocus={false}
-        returnKeyType={'search'}
-        fetchDetails={true}
+        returnKeyType="search"
+        fetchDetails
         currentLocation={false}
         currentLocationLabel="Current location"
         debounce={200}
-        renderDescription={(row) => row.description}
-        onPress={async (data, details = null) => { 
+        renderDescription={row => row.description}
+        onPress={async (data, details = null) => {
           // 'details' is provided when fetchDetails = true
           const dt = new Date();
           const utcDate = dt.toUTCString();
-          const locationToSearch = Object.assign({timeStamp: utcDate}, details.geometry.location);
-          await this.props.setCurrentLocation(locationToSearch);
+          const locationToSearch = {
+            latitude: details.geometry.location.lat,
+            longitude: details.geometry.location.lng,
+            timeStamp: utcDate
+          };
+          console.log('locationToSearch', locationToSearch, details.geometry.location)
+          await setCurrentLocation(locationToSearch);
+          // TODO: rerun and await new get markers function for fresh refresh
+          await setSavedTechs([]);
+
           return Actions.mapTab();
         }}
         query={{
@@ -36,12 +52,7 @@ class SearchAddress extends Component {
           key: placesKey,
           types: 'address' // ** reponsible for filtering results
         }}
-        styles={[textInputContainer,textInput, predefinedPlacesDescription]}
-        renderDescription={(row) => { 
-          // console.log('row desc', row.description)
-          return row.description
-        }}
-
+        styles={styles}
       />
     );
   }
@@ -49,19 +60,20 @@ class SearchAddress extends Component {
 
 export default connect(
   state => ({
-    
+
   }),
   {
-    setCurrentLocation
+    setCurrentLocation,
+    setSavedTechs
   }
 )(SearchAddress);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors;
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
 const styles = StyleSheet.create({
   textInputContainer: {
     backgroundColor: 'rgba(0,0,0,0)',
     borderTopWidth: 0,
-    borderBottomWidth:0,
+    borderBottomWidth: 0
   },
   textInput: {
     marginLeft: 0,
@@ -72,5 +84,5 @@ const styles = StyleSheet.create({
   },
   predefinedPlacesDescription: {
     color: '#1faadb'
-  },
+  }
 });

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import SignUp from './SignUp';
+import user from './user';
 
 export default combineReducers({
-  SignUp
+  user
 });

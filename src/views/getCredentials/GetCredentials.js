@@ -1,56 +1,63 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Button, CardSection, Card, FullCard, SectionSmall, SectionMedium } from '../../common';
-import { colors } from '../../Colors'
+import {
+  Button,
+  CardSection,
+  FullCard,
+  SectionSmall
+} from '../../common';
+import { colors } from '../../Colors';
 
-class GetCredentials extends Component {
-  render () {
-    const { align, buttonSection, buttonPadding, buttonPlacement, textStyle } = styles;
-    return (
-      <FullCard>
+const GetCredentials = () => {
+  // eslint-disable-next-line
+  const { align, buttonSection, buttonPadding, buttonPlacement, textStyle } = styles;
+  return (
+    <FullCard>
 
-        <SectionSmall style={align}>
-          <Text style={textStyle}>fill in later</Text>
-        </SectionSmall>
+      <SectionSmall style={align}>
+        <Text style={textStyle}>
+          fill in later
+        </Text>
+      </SectionSmall>
 
-        <SectionSmall style={align}>
-          <Text style={textStyle}>fill in later</Text>
-        </SectionSmall>
+      <SectionSmall style={align}>
+        <Text style={textStyle}>
+          fill in later
+        </Text>
+      </SectionSmall>
 
-        <SectionSmall style={buttonSection}>
+      <SectionSmall style={buttonSection}>
+        <View style={buttonPadding} />
+        <View style={buttonPlacement}>
+          <CardSection>
+            <Button
+              buttonText="Log In"
+              onPress={() => Actions.logIn()}
+            />
+          </CardSection>
+          <CardSection>
+            <Button
+              buttonText="Sign Up"
+              onPress={() => Actions["Email and Password"]()}
+            />
+          </CardSection>
+        </View>
+      </SectionSmall>
 
-          <View style={buttonPadding} />
-          <View style={buttonPlacement}>
-            <CardSection>
-              <Button
-                buttonText="Log In"
-                onPress={() => Actions.logIn()}
-              />
-            </CardSection>
-            <CardSection>
-              <Button
-                buttonText="Sign Up"
-                onPress={() => Actions["Email and Password"]()}
-              />
-            </CardSection>
-          </View>
-
-        </SectionSmall>
-
-      </FullCard>
-    )
-  }
-}
+    </FullCard>
+  );
+};
 
 export default GetCredentials;
 
-const { NU_Red , NU_Blue, NU_White } = colors
+// eslint-disable-next-line
+const { NU_Red , NU_Blue, NU_White } = colors;
 
 const styles = StyleSheet.create({
-  textStyle:{
+  textStyle: {
     fontSize: 18,
-    color: NU_White,
+    color: NU_White
   },
   align: {
     justifyContent: 'center',
@@ -65,9 +72,9 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   buttonPadding: {
-    flex: 2,
+    flex: 2
   },
   buttonPlacement: {
-    flex: 3,
+    flex: 3
   }
 });

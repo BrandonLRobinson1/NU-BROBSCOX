@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     borderColor: NU_Border_Grey,
     flexDirection: 'row',
-    position: 'relative',
+    position: 'relative'
     }
-}); 
+});
 
 export { CardSection };

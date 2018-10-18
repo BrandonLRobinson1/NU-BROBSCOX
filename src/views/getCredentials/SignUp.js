@@ -3,28 +3,32 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input } from '../../common';
-import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
-import { allLettersRegEx , allNumbersRegEx, specialCharacterValidation} from '../../helpers/helpersFunctions';
+import { updateFirstName, updateLastName, updateZipCode } from '../../store/userInfo/user';
+import { allLettersRegEx, allNumbersRegEx, specialCharacterValidation} from '../../helpers/helpersFunctions';
 import { colors } from '../../Colors';
 
 class SignUp extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      errorMessage: ' '
-    }
+      errorMessage: ''
+    };
     this.onButtonPress = this.onButtonPress.bind(this);
   }
 
   onButtonPress() {
-    if (!allLettersRegEx(this.props.firstName)) return this.setState({errorMessage: 'Please Enter Valid First Name '});
-    if (!allLettersRegEx(this.props.lastName)) return this.setState({errorMessage: 'Please Enter Valid Last Name '});
-    if (!allNumbersRegEx(this.props.zipCode)) return this.setState({errorMessage: 'Please Enter Valid Zip Code '});
-    return Actions["Phone Number"]();
+    const { firstName, lastName, zipCode } = this.props;
+    if (!allLettersRegEx(firstName)) return this.setState({ errorMessage: 'Please Enter Valid First Name' });
+    if (!allLettersRegEx(lastName)) return this.setState({ errorMessage: 'Please Enter Valid Last Name' });
+    if (!allNumbersRegEx(zipCode)) return this.setState({ errorMessage: 'Please Enter Valid Zip Code' });
+    return Actions['Phone Number']();
   }
 
   render() {
-    const { circle, circleContainer, circleSelected, errorText } = styles
+    const { circle, circleContainer, circleSelected, errorText } = styles;
+    const { updateFirstName, updateLastName, firstName, lastName, updateZipCode, zipCode } = this.props;
+    const { errorMessage } = this.state;
+
     return (
       <Card>
 
@@ -38,10 +42,10 @@ class SignUp extends Component {
           <Input
             label="First Name"
             placeholder="First Name"
-            value={this.props.firstName}
+            value={firstName}
             onChangeText={text => {
-              this.setState({errorMessage: ''});
-              this.props.updateFirstName(text);
+              this.setState({ errorMessage: '' });
+              updateFirstName(text);
             }}
           />
         </CardSection>
@@ -50,10 +54,10 @@ class SignUp extends Component {
           <Input
             label="Last Name"
             placeholder="Last Name"
-            value={this.props.fastName}
+            value={lastName}
             onChangeText={text => {
-              this.setState({errorMessage: ''});
-              this.props.updateLastName(text);
+              this.setState({ errorMessage: '' });
+              updateLastName(text);
             }}
           />
         </CardSection>
@@ -62,11 +66,11 @@ class SignUp extends Component {
           <Input
             label="Zip Code"
             placeholder="Zip Code"
-            value={this.props.zipCode}
-            keyboardType={'numeric'}
+            value={zipCode}
+            keyboardType="numeric"
             onChangeText={text => {
-              this.setState({errorMessage: ''});
-              this.props.updateZipCode(text);
+              this.setState({ errorMessage: '' });
+              updateZipCode(text);
             }}
             maxLength={5}
           />
@@ -78,23 +82,23 @@ class SignUp extends Component {
             onPress={() => this.onButtonPress()}
           />
         </CardSection>
-        
+
         <CardSection>
           <Text style={errorText}>
-            {this.state.errorMessage}
+            {errorMessage}
           </Text>
         </CardSection>
 
       </Card>
-    )
+    );
   }
 }
 
 export default connect(
   state => ({
-    firstName: state.signUp.SignUp.firstName,
-    lastName: state.signUp.SignUp.lastName,
-    zipCode: state.signUp.SignUp.zipCode
+    firstName: state.userInfo.user.firstName,
+    lastName: state.userInfo.user.lastName,
+    zipCode: state.userInfo.user.zipCode
   }),
   {
     updateFirstName,

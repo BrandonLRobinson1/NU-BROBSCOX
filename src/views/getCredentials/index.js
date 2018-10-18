@@ -1,7 +1,7 @@
 // import React from 'react';
 // import { Scene, Router, Actions } from 'react-native-router-flux';
-// import SignUp from './SignUp';
-// import SignUpEmail from './SignUpEmail';
+// import SignUp from './user';
+// import SignUpEmail from './userEmail';
 // import GetCredentials from './GetCredentials';
 
 // const CredentialsRouter = () => (

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input, EnterPhone } from '../../common';
 import { allNumbersRegEx } from '../../helpers/helpersFunctions';
-import { updatePhoneNumber, clearAll, addFormInfo } from '../../store/signUp/SignUp';
-import { colors } from '../../Colors'
+import { updatePhoneNumber, clearAll, addFormInfo } from '../../store/userInfo/user';
+import { colors } from '../../Colors';
 
 class PhoneNumber extends Component {
   constructor() {
@@ -23,34 +23,27 @@ class PhoneNumber extends Component {
 
   async onButtonPress() {
     const { phoneNumber1, phoneNumber2, phoneNumber3 } = this.state;
+    const { updatePhoneNumber, clearAll, addFormInfo } = this.props;
     const number = `${phoneNumber1}${phoneNumber2}${phoneNumber3}`;
-    // if (!allNumbersRegEx(this.props.phoneNumber) || this.props.phoneNumber.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
-    if (!allNumbersRegEx(number) || number.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
-  
-    await this.props.updatePhoneNumber(`${phoneNumber1}${phoneNumber2}${phoneNumber3}`);
-    
+    // if (!allNumbersRegEx(phoneNumber) || phoneNumber.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
+    if (!allNumbersRegEx(number) || number.length < 10) return this.setState({ errorMessage: 'Please Enter Valid Phone Number' });
+
+    await updatePhoneNumber(`${phoneNumber1}${phoneNumber2}${phoneNumber3}`);
+
     this.setState({ loading: true });
-    this.props.addFormInfo()
+
+    addFormInfo()
       .then(() => {
-        this.props.clearAll();
+        clearAll();
         Actions.Validate();
         this.setState({ loading: false });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         this.setState({ loading: false });
       });
-
-      // console.log(
-      //   'await in function before this log -->',
-      //   this.props.firstName,
-      //   this.props.lastName,
-      //   this.props.phoneNumber,
-      //   this.props.password,
-      //   this.props.zipCode,
-      //   this.props.email
-      // )
   }
+
 
   textInputRender(maxLength, placeholder, stateNum) {
     const { inputStyle } = styles;
@@ -67,16 +60,27 @@ class PhoneNumber extends Component {
         value={valueVar}
         onChangeText={text => {
           this.setState({
-            errorMessage: "",
-            [setStateVar]: text,
+            errorMessage: '',
+            [setStateVar]: text
           });
         }}
       />
-    )
+    );
   }
 
+
   render() {
-    const { circle, circleContainer, circleSelected, errorText, containerStyle, labelStyle } = styles;
+    const {
+      circle,
+      circleContainer,
+      circleSelected,
+      errorText,
+      containerStyle,
+      labelStyle
+    } = styles;
+
+    const { errorMessage } = this.state;
+
     return (
       <Card>
 
@@ -85,15 +89,19 @@ class PhoneNumber extends Component {
           <View style={circle} />
           <View style={circleSelected} />
         </View>
-       
+
         <CardSection>
           <View style={containerStyle}>
-            <Text style={labelStyle}>Phone Number</Text>
+            <Text style={labelStyle}>
+              Phone Number
+            </Text>
             <Text>(</Text>
             {this.textInputRender(3, '555', '1')}
             <Text>)</Text>
             {this.textInputRender(3, '555', '2')}
-            <Text>-</Text>
+            <Text>
+              -
+            </Text>
             {this.textInputRender(4, '5555', '3')}
           </View>
         </CardSection>
@@ -114,7 +122,7 @@ class PhoneNumber extends Component {
 
         <CardSection>
           <Text style={errorText}>
-            {this.state.errorMessage}
+            {errorMessage}
           </Text>
         </CardSection>
 
@@ -125,15 +133,15 @@ class PhoneNumber extends Component {
 
 export default connect(
   state => ({
-    // phoneNumber: state.signUp.SignUp.phoneNumber
+    // phoneNumber: state.userInfo.user.phoneNumber
 
     // HAVE THESE ALL HERE FOR TESTING PURPOSES
-    firstName: state.signUp.SignUp.firstName,
-    lastName: state.signUp.SignUp.lastName,
-    phoneNumber: state.signUp.SignUp.phoneNumber,
-    password: state.signUp.SignUp.password,
-    zipCode: state.signUp.SignUp.zipCode,
-    email: state.signUp.SignUp.email
+    firstName: state.userInfo.user.firstName,
+    lastName: state.userInfo.user.lastName,
+    phoneNumber: state.userInfo.user.phoneNumber,
+    password: state.userInfo.user.password,
+    zipCode: state.userInfo.user.zipCode,
+    email: state.userInfo.user.email
   }),
   {
     updatePhoneNumber,
@@ -194,7 +202,6 @@ const styles = StyleSheet.create({
     height: 40,
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   }
 });
-

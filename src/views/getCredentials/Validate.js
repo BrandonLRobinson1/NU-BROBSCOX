@@ -3,30 +3,26 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card } from '../../common';
-// import { updateFirstName, updateLastName, updateZipCode } from '../../store/signUp/SignUp'; 
-
 import { colors } from '../../Colors';
 
 class Validate extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.state = {
-      errorMessage: ' '
-    }
+    // this.state = {
+    //   errorMessage: '',
+    // }
     this.onButtonPress = this.onButtonPress.bind(this);
   }
 
-  onButtonPress() {
-
-  }
-
   render() {
-    const {  circleContainer } = styles
+    const { circleContainer } = styles; // eslint-disable-line
     return (
       <Card>
 
         <View style={circleContainer}>
-          <Text>Validate text</Text>
+          <Text>
+            Validate text
+          </Text>
         </View>
 
         <CardSection>
@@ -37,24 +33,20 @@ class Validate extends Component {
         </CardSection>
 
       </Card>
-    )
+    );
   }
 }
 
 export default connect(
   state => ({
-    // firstName: state.signUp.SignUp.firstName,
-    // lastName: state.signUp.SignUp.lastName,
-    // zipCode: state.signUp.SignUp.zipCode
+    // firstName: state.userInfo.user.firstName,
   }),
   {
     // updateFirstName,
-    // updateLastName,
-    // updateZipCode
   }
 )(Validate);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
+const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   circleContainer: {

@@ -19,7 +19,7 @@ export default handleActions({
   [updateLogInPassword]: (state, { payload }) => ({
     ...state,
     password: payload
-  }),
+  })
 }, defaultState);
 
 export const logUserIn = () => (dispatch, getState) => {
@@ -36,4 +36,3 @@ export const logUserIn = () => (dispatch, getState) => {
   console.log('email, password ', email, password);
   return firebase.auth().signInWithEmailAndPassword(email.toLowerCase(), password);
 };
-

@@ -8,61 +8,64 @@ import { emailRegEx, specialCharacterValidation } from '../../helpers/helpersFun
 import { colors } from '../../Colors';
 
 class LogIn extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       errorMessage: '',
       clearTextOnFocus: false,
       password: '',
       loading: null
-    }
+    };
     this.onButtonPress = this.onButtonPress.bind(this);
     this.renderButton = this.renderButton.bind(this);
   }
 
   async onButtonPress() {
-    const { password, clearTextOnFocus } = this.state;
-    if (!emailRegEx(this.props.email)) return this.setState({errorMessage: 'The email address is badly formatted.'});
-    
-    this.props.updateLogInPassword(`findout how to encrypt in front end ${password}`);
+    const { password } = this.state;
+    const { email, updateLogInPassword, logUserIn } = this.props; // eslint-disable-line
+    if (!emailRegEx(email)) return this.setState({ errorMessage: 'The email address is badly formatted.' });
+
+    updateLogInPassword(`findout how to encrypt in front end ${password}`);
 
     this.setState({ loading: true });
 
-    await this.props.logUserIn()
+    await logUserIn()
       .then(() => {
         this.setState({
           password: ''
         });
-        this.props.updateLogInPassword(null);
-        // Actions["Phone Number"]();    
+        updateLogInPassword(null);
         this.setState({ loading: false });
         console.log('logged in');
       })
-      .catch( (err) => {
+      .catch(err => {
         console.log('email sign in error', err);
-        this.setState({ 
+        this.setState({
           errorMessage: err.message,
           clearTextOnFocus: true,
           loading: false
         });
         console.log('not logged in');        
-      })
+      });
+    // return 1
   }
 
   renderButton() {
-    if (this.state.loading) {
-      return <Spinner size='large' />
+    if (this.state.loading) { // eslint-disable-line
+      return <Spinner size="large" />;
     }
     return (
       <Button
         buttonText="Submit"
         onPress={() => this.onButtonPress()}
       />
-    )
+    );
   }
 
   render() {
-    const { errorText  } = styles;
+    const { errorText } = styles; // eslint-disable-line
+    const { password, clearTextOnFocus, errorMessage } = this.state;
+    const { email, updateLogInEmail } = this.props;
 
     return (
       <Card>
@@ -71,10 +74,10 @@ class LogIn extends Component {
           <Input
             label="Email"
             placeholder="Email Address"
-            value={this.props.email}
+            value={email}
             onChangeText={text => {
-              this.setState({errorMessage: ''});
-              this.props.updateLogInEmail(text);
+              this.setState({ errorMessage: '' });
+              updateLogInEmail(text);
             }}
           />
         </CardSection>
@@ -84,8 +87,8 @@ class LogIn extends Component {
             secureTextEntry
             label="Password"
             placeholder="Password"
-            value={this.state.password}
-            clearTextOnFocus={this.state.clearTextOnFocus}
+            value={password}
+            clearTextOnFocus={clearTextOnFocus}
             onChangeText={text => {
               this.setState({
                 errorMessage: '',
@@ -96,13 +99,13 @@ class LogIn extends Component {
           />
         </CardSection>
 
-        <CardSection>    
+        <CardSection>
           {this.renderButton()}
         </CardSection>
-        
+
         <CardSection>
           <Text style={errorText}>
-            {this.state.errorMessage}
+            {errorMessage}
           </Text>
         </CardSection>
 
@@ -120,13 +123,12 @@ export default connect(
     updateLogInEmail,
     updateLogInPassword,
     logUserIn
-  }
+  },
 )(LogIn);
 
 const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
 
 const styles = StyleSheet.create({
-
   errorText: {
     color: NU_Red,
     width: '100%',
