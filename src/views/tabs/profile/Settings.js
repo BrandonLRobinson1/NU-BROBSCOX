@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import RN, { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity/*, Settings*/ } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView
+} from 'react-native';
 import SettingsTitle from './settingsItems/SettingsTitle';
 import SettingsList from './settingsItems/SettingsList';
-// import Favorites from '../favTab/Favorites';
-import { CardSection, Spinner, Card } from '../../../common';
-import { colors, commonStyles } from '../../../Colors';
-
+import { colors } from '../../../Colors';
 // maybe favorites and available
 
 // eslint-disable-next-line
 class Setting extends Component {
   constructor() {
-    super()
-    this.state = {
-    };
-
-    this.redirect = this.redirect.bind(this);
+    super();
+    // this.state = {};
     this.buildSettings = this.buildSettings.bind(this);
-  }
-
-  // eslint-disable-next-line
-  redirect(location) {
-    return Actions[location] ? Actions[location]() : console.log('not a destination');
   }
 
   // eslint-disable-next-line
@@ -32,7 +26,7 @@ class Setting extends Component {
         <SettingsTitle name={title} />
         {settingsArr.map((setting, i) => {
           const { name, sceneLocation } = setting;
-          return <SettingsList name={name} sceneLocation={sceneLocation} key={`${name}-${i}`}/>
+          return <SettingsList name={name} sceneLocation={sceneLocation} key={`${name}-${i}`} />
         })}
       </View>
     );
@@ -40,36 +34,10 @@ class Setting extends Component {
 
   render() {
     const {
-      NU_Header_Text,
-      horizontalFlex,
-      NU_Paragraph_Text,
-      NU_Small_Header_Text
-    } = commonStyles;
-
-    const {
-      imageStyle,
       container,
       body,
-      // imageContainer,
-      // flexCenter,
-      // sectionalButtonStyle,
-      // dividerStyle,
-      // tabOff,
-      // tabOn,
-      // stickyBottom,
-      // customAppointmentButton,
-      // customAppointmentButtonText
+      logOut
     } = styles; // eslint-disable-line
-
-    console.log('yooo');
-    console.log('RN', RN);
-
-    // const nameSettings = [
-    //   {name: 'name', sceneLocation: 'name'},
-    //   {name: 'location', sceneLocation: 'thingA'},
-    //   {name: 'aboutMe', sceneLocation: 'thingB'},
-    //   {name: 'contact', sceneLocation: 'thingB'}
-    // ];
 
     const nameSettings = [
       { name: 'Account Info', sceneLocation: 'EditAccount' },
@@ -103,7 +71,7 @@ class Setting extends Component {
             {this.buildSettings('Privacy', privacySettings)}
             {this.buildSettings('Payment Info', paymentSettings)}
             {this.buildSettings('Support', support)}
-            <Text>Log Out</Text>
+            <Text style={logOut}>Log Out</Text>
             <Text>Version</Text>
           </ScrollView>
         </View>
@@ -122,7 +90,7 @@ export default connect(
   }
 )(Setting);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
+const { NU_Red } = colors;
 
 const styles = StyleSheet.create({
   container: {
@@ -133,35 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 5
   },
-  imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
-    flex: 1,
-    backgroundColor: NU_White,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  imageStyle: { // this is how you would full screen an image **ORDER MATTERS****************************
-    height: 90,
-    width: 90,
-    borderRadius: 45,
-    margin: 2
-  },
-  flexCenter: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  dividerStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
-  sectionalButtonStyle: {
-    flex: 1,
-    textAlign: 'center'
-  },
-  tabOff: {
-    color: NU_Grey
-  },
-  tabOn: {
-    color: NU_Blue
+  logOut: {
+    color: NU_Red
   }
 });

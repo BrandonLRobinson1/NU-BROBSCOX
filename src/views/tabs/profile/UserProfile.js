@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, View, Text, StyleSheet, Dimensions, ScrollView, ListView, TouchableOpacity } from 'react-native';
+import { Image, View, Text, StyleSheet, ScrollView } from 'react-native';
 import Favorites from '../favTab/Favorites';
-import { CardSection, Spinner, Card } from '../../../common';
+import { CardSection, Card } from '../../../common';
 import { colors, commonStyles } from '../../../Colors';
 
 // maybe favorites and available
@@ -10,7 +10,7 @@ import { colors, commonStyles } from '../../../Colors';
 // eslint-disable-next-line
 class UserProfile extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       tabSelected: 'favorites'
     };
@@ -28,15 +28,15 @@ class UserProfile extends Component {
   }
 
   tabSelect(selected) {
-    if (this.state.tabSelected !== selected) return this.setState({ tabSelected: selected });
-    return;
+    const { tabSelected } = this.state;
+    return tabSelected !== selected ? this.setState({ tabSelected: selected }) : null;
   }
 
-  // should pull a fresh copy everytime you land on this page so on will mount might bee
+  // should pull a fresh copy everytime you land on this page so on willmount might handle
+
   // overide sectional styles for some of these so like there isnt a line between the name and the picture
   render() {
     const {
-      NU_Header_Text,
       horizontalFlex,
       NU_Paragraph_Text,
       NU_Small_Header_Text
@@ -51,97 +51,93 @@ class UserProfile extends Component {
       sectionalButtonStyle,
       dividerStyle,
       tabOff,
-      tabOn,
-      stickyBottom,
-      customAppointmentButton,
-      customAppointmentButtonText
+      tabOn
     } = styles; // eslint-disable-line
 
     const { tabSelected } = this.state;
 
     const favSelectHistory = tabSelected === 'history' ? tabOn : tabOff;
     const favSelectFavorites = tabSelected === 'favorites' ? tabOn : tabOff;
-    // console.log('favSelectHistory', typeof favSelectHistory, typeof imageContainer);
 
     return (
       <View style={container}>
 
         <View style={scrollableBody}>
-            <Card>
-              <CardSection>
-                <View style={imageContainer}>
-                  <Image
-                    source={{uri: 'https://i.imgur.com/K3KJ3w4h.jpg'}}
-                    style={imageStyle}
-                  />
-                </View>
-              </CardSection>
+          <Card>
+            <CardSection>
+              <View style={imageContainer}>
+                <Image
+                  source={{uri: 'https://i.imgur.com/K3KJ3w4h.jpg'}}
+                  style={imageStyle}
+                />
+              </View>
+            </CardSection>
 
-              <CardSection>
-                <View style={horizontalFlex}>
-                  <View style={flexCenter}>
-                    <Text>
-                      Brandon Robinson
-                    </Text>
-                    <Text>
-                      Charlotte, NC
-                    </Text>
-                  </View>
-                </View>
-              </CardSection>
-
-              <CardSection>
-                <View style={[horizontalFlex, flexCenter]}>
-                  <View>
-                    <Text style={NU_Small_Header_Text}>
-                      About Me:
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={NU_Paragraph_Text}>
-                      stuff
-                    </Text>
-                  </View>
-                </View>
-              </CardSection>
-
-              <CardSection>
-                <View style={[horizontalFlex, flexCenter]}>
-                  <View>
-                    <Text style={NU_Small_Header_Text}>
-                      Contact Info
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={NU_Paragraph_Text}>
-                      stuff
-                    </Text>
-                  </View>
-                </View>
-              </CardSection>
-
-              <CardSection>
-                <View style={[horizontalFlex, dividerStyle]}>
-                  <Text
-                    style={[NU_Small_Header_Text, sectionalButtonStyle, favSelectFavorites]}
-                    onPress={() => this.tabSelect('favorites')}
-                  >
-                    Favorites
+            <CardSection>
+              <View style={horizontalFlex}>
+                <View style={flexCenter}>
+                  <Text>
+                    Brandon Robinson
                   </Text>
-                  <Text
-                    style={[NU_Small_Header_Text, sectionalButtonStyle, favSelectHistory ]}
-                    onPress={() => this.tabSelect('history')}
-                  >
-                    History
+                  <Text>
+                    Charlotte, NC
                   </Text>
                 </View>
-              </CardSection>
+              </View>
+            </CardSection>
 
-              <CardSection>
-                {this.renderFavsAndHistory()}
-              </CardSection>
+            <CardSection>
+              <View style={[horizontalFlex, flexCenter]}>
+                <View>
+                  <Text style={NU_Small_Header_Text}>
+                    About Me:
+                  </Text>
+                </View>
+                <View>
+                  <Text style={NU_Paragraph_Text}>
+                    stuff
+                  </Text>
+                </View>
+              </View>
+            </CardSection>
 
-            </Card>
+            <CardSection>
+              <View style={[horizontalFlex, flexCenter]}>
+                <View>
+                  <Text style={NU_Small_Header_Text}>
+                    Contact Info
+                  </Text>
+                </View>
+                <View>
+                  <Text style={NU_Paragraph_Text}>
+                    stuff
+                  </Text>
+                </View>
+              </View>
+            </CardSection>
+
+            <CardSection>
+              <View style={[horizontalFlex, dividerStyle]}>
+                <Text
+                  style={[NU_Small_Header_Text, sectionalButtonStyle, favSelectFavorites]}
+                  onPress={() => this.tabSelect('favorites')}
+                >
+                  Favorites
+                </Text>
+                <Text
+                  style={[NU_Small_Header_Text, sectionalButtonStyle, favSelectHistory ]}
+                  onPress={() => this.tabSelect('history')}
+                >
+                  History
+                </Text>
+              </View>
+            </CardSection>
+
+            <CardSection>
+              {this.renderFavsAndHistory()}
+            </CardSection>
+
+          </Card>
 
         </View>
 
@@ -155,11 +151,10 @@ export default connect(
     favorites: state.userInfo.user.favorites,
   }),
   {
-    // updateFirstName,
   }
 )(UserProfile);
 
-const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
+const { NU_Blue, NU_White, NU_Grey } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   container: {
@@ -168,7 +163,6 @@ const styles = StyleSheet.create({
   },
   scrollableBody: {
     flex: 9
-    // marginBottom: 5
   },
   imageContainer: { // this is how you would full screen an image **ORDER MATTERS****************************
     flex: 1,
