@@ -75,6 +75,7 @@ class Setting extends Component {
       { name: 'Account Info', sceneLocation: 'EditAccount' },
       { name: 'Change Email', sceneLocation: 'ChangeEmail' },
       { name: 'Reset Password', sceneLocation: 'EditAccount' },
+      { name: 'Change Photo', sceneLocation: 'EditAccount' },
     ];
 
     const privacySettings = [

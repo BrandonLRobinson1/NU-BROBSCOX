@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 // import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input, Spinner } from '../../../../../common';
-import { updateEmail } from '../../../../../store/userInfo/user';
+import { updateFirstName, updateLastName, updateZipCode, setBio } from '../../../../../store/userInfo/user';
 import { emailRegEx, specialCharacterValidation } from '../../../../../helpers/helpersFunctions';
 import { colors } from '../../../../../Colors';
 
@@ -23,37 +23,16 @@ class EditAccouunt extends Component {
   }
 
   componentWillMount() {
-    //set state to whats in redux
+    //set local state to whats in redux
   }
 
   async onButtonPress() {
     const { firstName, lastName, zip, bio } = this.state;
-    // const { email, updateLogInPassword, logUserIn } = this.props; // eslint-disable-line
+    const { updateFirstName, updateLastName, updateZipCode, setBio } = this.props; // eslint-disable-line
 
     console.log('firstName, lastName, zip, bio', firstName, lastName, zip, bio);
+    // validate and pass to thunk to update redux and send to firebase
 
-    // do something in redux and firebase
-    this.setState({ loading: true });
-
-    // await logUserIn()
-    //   .then(() => {
-    //     this.setState({
-    //       password: ''
-    //     });
-    //     updateLogInPassword(null);
-    //     this.setState({ loading: false });
-    //     console.log('logged in');
-    //   })
-    //   .catch(err => {
-    //     console.log('email sign in error', err);
-    //     this.setState({
-    //       errorMessage: err.message,
-    //       clearTextOnFocus: true,
-    //       loading: false
-    //     });
-    //     console.log('not logged in');
-    //   });
-    // return 1
   }
 
   renderButton() {
@@ -62,7 +41,7 @@ class EditAccouunt extends Component {
     }
     return (
       <Button
-        buttonText="Verify"
+        buttonText="Update"
         onPress={() => this.onButtonPress()}
       />
     );
@@ -153,7 +132,10 @@ export default connect(
     bio: state.userInfo.user.bio
   }),
   {
-    updateEmail
+    updateFirstName,
+    updateLastName,
+    updateZipCode,
+    setBio
   },
 )(EditAccouunt);
 

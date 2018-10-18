@@ -102,7 +102,7 @@ class RouterComponent extends Component {
             pressOpacity={1}
             default="mapTab"
           >
-{/*
+
             <Scene key="favorites" title="BrowseOrInfo" icon={tabIcon}>
               <Scene
                 key="FavoritesTab"
@@ -144,7 +144,7 @@ class RouterComponent extends Component {
               />
             </Scene>
 
-*/}
+
             <Scene key="profile" title="Profile" icon={tabIcon}>
               <Scene
                 key="userProfile"
