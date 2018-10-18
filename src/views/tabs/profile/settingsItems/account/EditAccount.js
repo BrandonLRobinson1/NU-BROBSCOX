@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-// import { Actions } from 'react-native-router-flux';
-import { Button, CardSection, Card, Input, Spinner } from '../../../../../common';
-import { updateFirstName, updateLastName, updateZipCode, setBio } from '../../../../../store/userInfo/user';
-import { emailRegEx, specialCharacterValidation } from '../../../../../helpers/helpersFunctions';
-import { colors } from '../../../../../Colors';
+import {
+  Button,
+  CardSection,
+  Card,
+  Input,
+  Spinner
+} from '../../../../../common';
+import {
+  updateFirstName,
+  updateLastName,
+  updateZipCode,
+  setBio
+} from '../../../../../store/userInfo/user';
 
 class EditAccouunt extends Component {
   constructor() {
     super();
     this.state = {
+      // clearTextOnFocus: false,
       errorMessage: '',
-      clearTextOnFocus: false,
       firstName: '',
       lastName: '',
       zip: '',
@@ -23,16 +31,20 @@ class EditAccouunt extends Component {
   }
 
   componentWillMount() {
-    //set local state to whats in redux
+    // set local state to whats in redux
   }
 
+  // eslint-disable-next-line
   async onButtonPress() {
-    const { firstName, lastName, zip, bio } = this.state;
-    const { updateFirstName, updateLastName, updateZipCode, setBio } = this.props; // eslint-disable-line
+    // const {
+    //   firstName,
+    //   lastName,
+    //   zip,
+    //   bio
+    // } = this.state;
 
     console.log('firstName, lastName, zip, bio', firstName, lastName, zip, bio);
     // validate and pass to thunk to update redux and send to firebase
-
   }
 
   renderButton() {
@@ -49,7 +61,13 @@ class EditAccouunt extends Component {
 
   render() {
     const { errorText } = styles; // eslint-disable-line
-    const { clearTextOnFocus, errorMessage, firstName, lastName, zip, bio } = this.state;
+    const {
+      errorMessage,
+      firstName,
+      lastName,
+      zip,
+      bio
+    } = this.state;
 
     return (
       <Card>

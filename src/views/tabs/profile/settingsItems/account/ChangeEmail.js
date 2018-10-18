@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-// import { Actions } from 'react-native-router-flux';
-import { Button, CardSection, Card, Input, Spinner } from '../../../../../common';
+import {
+  Button,
+  CardSection,
+  Card,
+  Input,
+  Spinner
+} from '../../../../../common';
 import { updateEmail } from '../../../../../store/userInfo/user';
-import { emailRegEx, specialCharacterValidation } from '../../../../../helpers/helpersFunctions';
+import { emailRegEx } from '../../../../../helpers/helpersFunctions';
 import { colors } from '../../../../../Colors';
 
 class EditAccouunt extends Component {
@@ -12,7 +17,6 @@ class EditAccouunt extends Component {
     super();
     this.state = {
       errorMessage: '',
-      clearTextOnFocus: false,
       loading: null,
       oldEmail: '',
       newEmail1: '',
@@ -22,40 +26,22 @@ class EditAccouunt extends Component {
     this.renderButton = this.renderButton.bind(this);
   }
 
+  // eslint-disable-next-line
   async onButtonPress() {
     const { oldEmail, newEmail1, newEmail2 } = this.state;
-    // const { email, updateLogInPassword, logUserIn } = this.props; // eslint-disable-line
+    const { email } = this.props; // eslint-disable-line
 
+    if (oldEmail !== email) return this.setState({ errorMessage: 'Old email is incorrect' });
     if (!emailRegEx(newEmail1)) return this.setState({ errorMessage: 'The new email address is badly formatted.' });
     if (newEmail1 !== newEmail2) return this.setState({ // eslint-disable-line
-      errorMessage: `Email Addresses don't match.`, // eslint-disable-line
+      errorMessage: `Email Addresses don't match`, // eslint-disable-line
       newEmail1: '',
       newEmail2: ''
     });
 
     // do something in redux and firebase
     this.setState({ loading: true });
-
-    // await logUserIn()
-    //   .then(() => {
-    //     this.setState({
-    //       password: ''
-    //     });
-    //     updateLogInPassword(null);
-    //     this.setState({ loading: false });
-    //     console.log('logged in');
-    //   })
-    //   .catch(err => {
-    //     console.log('email sign in error', err);
-    //     this.setState({
-    //       errorMessage: err.message,
-    //       clearTextOnFocus: true,
-    //       loading: false
-    //     });
-    //     console.log('not logged in');
-    //   });
-    // return 1
-  }
+  };
 
   renderButton() {
     if (this.state.loading) { // eslint-disable-line
@@ -71,8 +57,12 @@ class EditAccouunt extends Component {
 
   render() {
     const { errorText } = styles; // eslint-disable-line
-    const { clearTextOnFocus, errorMessage, oldEmail, newEmail1, newEmail2 } = this.state;
-    // const { email, updateLogInEmail } = this.props;
+    const {
+      errorMessage,
+      oldEmail,
+      newEmail1,
+      newEmail2
+    } = this.state;
 
     return (
       <Card>
@@ -134,18 +124,18 @@ class EditAccouunt extends Component {
 
 export default connect(
   state => ({
-    email: state.userInfo.user.email,
+    email: state.userInfo.user.email
   }),
   {
     updateEmail
   },
 )(EditAccouunt);
 
-// const { NU_Red , NU_Blue, NU_White, NU_Grey } = colors
+const { NU_Red } = colors; // eslint-disable-line
 
 const styles = StyleSheet.create({
   errorText: {
-    // color: NU_Red,
+    color: NU_Red,
     width: '100%',
     display: 'flex',
     textAlign: 'center'
