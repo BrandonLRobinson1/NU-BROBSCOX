@@ -42,7 +42,12 @@ class RouterComponent extends Component {
 
   componentWillMount() {
     const { getinitialDelta, getActiveNailTechs, userInfoFetch } = this.props;
+
+  // TURN BACK ON TURNED OFF FOR TESTING
     userInfoFetch(); // -> on app load preferably
+  // TURN BACK ON TURNED OFF FOR TESTING
+
+
     // need to iniate here then run checks to see if data is there if not render accirdingly
   }
 
@@ -51,7 +56,7 @@ class RouterComponent extends Component {
     return (
       <Router>
         <Scene key="root">
-        {/*
+{/*
           <Scene
             key="getCredentials"
             component={GetCredentials}
@@ -72,6 +77,7 @@ class RouterComponent extends Component {
             backTitle=" "
             type="reset"
           />
+*/}
           <Scene
             key="Phone Number"
             component={PhoneNumber}
@@ -92,7 +98,7 @@ class RouterComponent extends Component {
             title="Please Login"
             backTitle=" "
           />
-        */}
+
           <Scene
             key="tabbar"
             tabs

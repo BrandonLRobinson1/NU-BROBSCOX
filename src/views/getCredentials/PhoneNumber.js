@@ -23,25 +23,22 @@ class PhoneNumber extends Component {
 
   async onButtonPress() {
     const { phoneNumber1, phoneNumber2, phoneNumber3 } = this.state;
-    const { updatePhoneNumber, clearAll, addFormInfo } = this.props;
+    const { updatePhoneNumber } = this.props;
     const number = `${phoneNumber1}${phoneNumber2}${phoneNumber3}`;
-    // if (!allNumbersRegEx(phoneNumber) || phoneNumber.length < 10) return this.setState({errorMessage: 'Please Enter Valid Phone Number '});
-    if (!allNumbersRegEx(number) || number.length < 10) return this.setState({ errorMessage: 'Please Enter Valid Phone Number' });
-
-    await updatePhoneNumber(`${phoneNumber1}${phoneNumber2}${phoneNumber3}`);
 
     this.setState({ loading: true });
 
-    addFormInfo()
-      .then(() => {
-        clearAll();
-        Actions.Validate();
-        this.setState({ loading: false });
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ loading: false });
-      });
+    // if (!allNumbersRegEx(number) || number.length < 10) return this.setState({ errorMessage: 'Please Enter Valid Phone Number' });
+
+    await updatePhoneNumber(number);
+
+    // new plan is to save everything to redux, then when they verify their email we'll save them to the database.. or at least to save it all at the end
+    // so no addforminfo.. allow back nav
+
+    this.setState({ loading: false });
+
+    return Actions.Validate();
+
   }
 
 
@@ -109,14 +106,14 @@ class PhoneNumber extends Component {
         <CardSection>
           <Button
             buttonText="Verify by Text"
-            onPress={this.onButtonPress}
+            onPress={() => this.onButtonPress()}
           />
         </CardSection>
 
         <CardSection>
           <Button
             buttonText="Verify by Email"
-            onPress={() => this.onButtonPress}
+            onPress={() => this.onButtonPress()}
           />
         </CardSection>
 
@@ -134,14 +131,6 @@ class PhoneNumber extends Component {
 export default connect(
   state => ({
     // phoneNumber: state.userInfo.user.phoneNumber
-
-    // HAVE THESE ALL HERE FOR TESTING PURPOSES
-    firstName: state.userInfo.user.firstName,
-    lastName: state.userInfo.user.lastName,
-    phoneNumber: state.userInfo.user.phoneNumber,
-    password: state.userInfo.user.password,
-    zipCode: state.userInfo.user.zipCode,
-    email: state.userInfo.user.email
   }),
   {
     updatePhoneNumber,
