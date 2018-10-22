@@ -1,5 +1,7 @@
 react-native link react-native-vector-icons --> try in new branch for driod fix
 
+** server functions for - firebase sessions, billing, twillio verifcation
+
 // eslint-disable-line
 
 // eslint-disable-next-line

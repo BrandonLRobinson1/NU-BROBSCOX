@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection, Card, Input, Spinner } from '../../common';
-import { updateLogInEmail, updateLogInPassword, logUserIn } from '../../store/logIn/logIn'; 
+import { updateLogInEmail, updateLogInPassword, logUserIn } from '../../store/logIn/logIn';
 import { emailRegEx, specialCharacterValidation } from '../../helpers/helpersFunctions';
 import { colors } from '../../Colors';
 
@@ -36,6 +36,7 @@ class LogIn extends Component {
         });
         updateLogInPassword(null);
         this.setState({ loading: false });
+        Actions.tabbar();
         console.log('logged in');
       })
       .catch(err => {
@@ -45,7 +46,7 @@ class LogIn extends Component {
           clearTextOnFocus: true,
           loading: false
         });
-        console.log('not logged in');        
+        console.log('not logged in');
       });
     // return 1
   }
