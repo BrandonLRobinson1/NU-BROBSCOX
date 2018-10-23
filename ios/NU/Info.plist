@@ -6,6 +6,13 @@
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>NU</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>We need permission to access your camera to scan the qr code :)</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>we may need to access the photo library to scan qr code.. maybe</string>
+
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
