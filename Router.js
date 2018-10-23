@@ -55,6 +55,7 @@ class RouterComponent extends Component {
     return (
       <Router>
         <Scene key="root">
+{/*
           <Scene
             key="getCredentials"
             component={GetCredentials}
@@ -73,7 +74,7 @@ class RouterComponent extends Component {
             component={SignUp}
             title="Welcome to NU"
             backTitle=" "
-            type="reset"
+            //type="reset"
           />
           <Scene
             key="Phone Number"
@@ -95,7 +96,7 @@ class RouterComponent extends Component {
             title="Please Login"
             backTitle=" "
           />
-
+*/}
           <Scene
             key="tabbar"
             tabs
@@ -214,7 +215,7 @@ class RouterComponent extends Component {
       </Router>
     );
   }
-};
+
 
 
 // export default connect(
